@@ -1,0 +1,442 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>EVAL_SRC.main_apo module &mdash; SPARK 1.2rc1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Post-Processing" href="PPS_SRC.html" />
+    <link rel="prev" title="EVAL_SRC.lib.lib_model_interface module" href="EVAL_SRC.lib.lib_model_interface.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> SPARK
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="PREP_DATA_SRC.html">Data Preparation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MODEL_SRC.html">Main Model</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="EVAL_SRC.html">A posteriori Evaluation</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="EVAL_SRC.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="EVAL_SRC.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">EVAL_SRC.main_apo module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="EVAL_SRC.html#module-EVAL_SRC">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PPS_SRC.html">Post-Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Simple example</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SPARK</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">Modules</a> &raquo;</li>
+        
+          <li><a href="EVAL_SRC.html">A posteriori Evaluation</a> &raquo;</li>
+        
+      <li>EVAL_SRC.main_apo module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/EVAL_SRC.main_apo.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-EVAL_SRC.main_apo">
+<span id="eval-src-main-apo-module"></span><h1>EVAL_SRC.main_apo module<a class="headerlink" href="#module-EVAL_SRC.main_apo" title="Permalink to this headline">¶</a></h1>
+<p>Evaluate model performance in a posteriori</p>
+<p>three steps</p>
+<ol class="arabic simple">
+<li>mapping state IC into feature space IC</li>
+<li>evolving feature space IC linearly using np.linalg.expm</li>
+<li>use either DL nonlinear reconstruction or simply linear Koopman modes for EDMD, KDMD.</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">we do not use any recursive interaction, simply because transforming back and tranforming into the phi and x space will cause some accumulation error</p>
+</div>
+<dl class="class">
+<dt id="EVAL_SRC.main_apo.ClassApoBayesEval">
+<em class="property">class </em><code class="descclassname">EVAL_SRC.main_apo.</code><code class="descname">ClassApoBayesEval</code><span class="sig-paren">(</span><em>model</em>, <em>model_name</em>, <em>case_name</em>, <em>mode</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EVAL_SRC/main_apo.html#ClassApoBayesEval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#EVAL_SRC.main_apo.ClassApoBayesEval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Class for aposteriori Bayesian evaluation on the DL model for Koopman.</p>
+<p>Args:</p>
+<blockquote>
+<div><p>model (<code class="xref py py-obj docutils literal notranslate"><span class="pre">class</span></code>):  the model class from <code class="docutils literal notranslate"><span class="pre">lib.libm_model_interface</span></code> .</p>
+<p>model_name (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): the name for the trained model</p>
+<p>case_name (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): problem for the case.</p>
+<p>mode (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): denote the ADVI mode being used in the model.</p>
+</div></blockquote>
+<p>Attributes:</p>
+<blockquote>
+<div><p>model (<code class="xref py py-obj docutils literal notranslate"><span class="pre">class</span></code>): the class for the model to be used.</p>
+<p>model_name (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): the name for the trained model.</p>
+<p>case_name (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): problem for the case.</p>
+<p>mode (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): denote the ADVI mode being used in the model.</p>
+<p>LRAN_T (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>): the time delay <code class="docutils literal notranslate"><span class="pre">T</span></code> considered, indicating whether the model is <code class="docutils literal notranslate"><span class="pre">recurrent</span></code> or <code class="docutils literal notranslate"><span class="pre">differential</span></code> as <code class="docutils literal notranslate"><span class="pre">1</span></code> or <code class="docutils literal notranslate"><span class="pre">larger</span> <span class="pre">than</span> <span class="pre">1</span></code>.</p>
+<p>save_dir (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): the path for the evaluation results to be saved. We will use the folder name <code class="docutils literal notranslate"><span class="pre">EXAMPLES</span></code></p>
+<p>K (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): a numpy array representing the realization of K matrix.</p>
+<p>lambda_lin (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): a numpy array of the realizations of the linear dynamics noises.</p>
+<p>noise_rec (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): a numpy array of the realizations of the reconstruction dynamics noises.</p>
+</div></blockquote>
+<dl class="method">
+<dt id="EVAL_SRC.main_apo.ClassApoBayesEval.computeTrueTrajectory">
+<code class="descname">computeTrueTrajectory</code><span class="sig-paren">(</span><em>F</em>, <em>ic</em>, <em>tsnap</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EVAL_SRC/main_apo.html#ClassApoBayesEval.computeTrueTrajectory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#EVAL_SRC.main_apo.ClassApoBayesEval.computeTrueTrajectory" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute ground true trajectory for low dimensional problem, given initial condition and governing equation.</p>
+<p>We compute this trajectory by scipy.ode.integration using <cite>dopri5</cite>.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">F (<code class="xref py py-obj docutils literal notranslate"><span class="pre">function</span></code>): gonvering equation.</p>
+<p>ic (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): initial condition.</p>
+<p class="last">tsnap (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): time array/.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> : true trajectory.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="EVAL_SRC.main_apo.ClassApoBayesEval.compute_analytic_exp_matrix_integration">
+<code class="descname">compute_analytic_exp_matrix_integration</code><span class="sig-paren">(</span><em>A</em>, <em>T</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EVAL_SRC/main_apo.html#ClassApoBayesEval.compute_analytic_exp_matrix_integration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#EVAL_SRC.main_apo.ClassApoBayesEval.compute_analytic_exp_matrix_integration" title="Permalink to this definition">¶</a></dt>
+<dd><p>solve the x for <span class="math notranslate nohighlight">\(Ax = e^{AT} - I\)</span>.</p>
+<p>Args:</p>
+<blockquote>
+<div><p>A (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): <code class="docutils literal notranslate"><span class="pre">A</span></code> matrix</p>
+<p>T (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>): time window.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> : returned solution <span class="math notranslate nohighlight">\(x\)</span>.</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="EVAL_SRC.main_apo.ClassApoBayesEval.compute_exp_matrix_integration">
+<code class="descname">compute_exp_matrix_integration</code><span class="sig-paren">(</span><em>A</em>, <em>T</em>, <em>nbins=1000</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EVAL_SRC/main_apo.html#ClassApoBayesEval.compute_exp_matrix_integration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#EVAL_SRC.main_apo.ClassApoBayesEval.compute_exp_matrix_integration" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute exponential matrix integration using <code class="docutils literal notranslate"><span class="pre">np.trapz</span></code> function.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">A (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): <code class="docutils literal notranslate"><span class="pre">A</span></code> matrix</p>
+<p>T (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>): time window.</p>
+<p class="last">nbins (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>): number of bins for integration.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> : integration result.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="EVAL_SRC.main_apo.ClassApoBayesEval.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>tspan</em>, <em>ic</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EVAL_SRC/main_apo.html#ClassApoBayesEval.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#EVAL_SRC.main_apo.ClassApoBayesEval.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given initial condition as <code class="docutils literal notranslate"><span class="pre">ic</span></code>, predicting the trajectory given <code class="docutils literal notranslate"><span class="pre">tspan</span></code> as time.</p>
+<p>We direct evaluate time that is far away, not using recursive for each delta t since it is linear system.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">tspan (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): time array</p>
+<p class="last">ic (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): initial condition <span class="math notranslate nohighlight">\(x_0 = x(t=0)\)</span>.</p>
+</dd>
+</dl>
+<p>Returns:</p>
+<blockquote>
+<div><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> : ensemble of trajectory from Monte Carlo sampling, representing a distribution of posteriori.</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="EVAL_SRC.main_apo.ClassApoBayesEval.save_koopman_eigen">
+<code class="descname">save_koopman_eigen</code><span class="sig-paren">(</span><em>phase_space_range</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EVAL_SRC/main_apo.html#ClassApoBayesEval.save_koopman_eigen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#EVAL_SRC.main_apo.ClassApoBayesEval.save_koopman_eigen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate &amp; Save the Koopman eigenfunctions plot for 2D system.</p>
+<p>Eigenfunctions are saved as <code class="docutils literal notranslate"><span class="pre">koopman_eigenfunctions.npz</span></code>
+The plot is generated by sampling in each dimension 100 points.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>phase_space_range (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): the range of phase space to be plotted.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="EVAL_SRC.main_apo.ClassApoBayesEval.save_trj_comparison">
+<code class="descname">save_trj_comparison</code><span class="sig-paren">(</span><em>true_tsnap</em>, <em>true_trajectory</em>, <em>additional_names=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EVAL_SRC/main_apo.html#ClassApoBayesEval.save_trj_comparison"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#EVAL_SRC.main_apo.ClassApoBayesEval.save_trj_comparison" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the trajectory comparison as <code class="docutils literal notranslate"><span class="pre">save_trj_comparison.npz</span></code></p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">true_tsnap (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): the time array</p>
+<p>true_trajectory (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): the ground true trajectory</p>
+<p class="last">additional_names (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): name if additional name for trajectory comparison is necessary. Sometime there will be <code class="docutils literal notranslate"><span class="pre">training</span></code> and <code class="docutils literal notranslate"><span class="pre">whole</span></code>.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> : no longer use it, it is abandoned.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="EVAL_SRC.main_apo.ClassApoEval">
+<em class="property">class </em><code class="descclassname">EVAL_SRC.main_apo.</code><code class="descname">ClassApoEval</code><span class="sig-paren">(</span><em>model</em>, <em>model_name</em>, <em>case_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EVAL_SRC/main_apo.html#ClassApoEval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#EVAL_SRC.main_apo.ClassApoEval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Class for a posteriori evaluation with just deterministic Koopman Deep Learning.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">model (<code class="xref py py-obj docutils literal notranslate"><span class="pre">class</span></code>): the model class from <code class="docutils literal notranslate"><span class="pre">lib.libm_model_interface</span></code> .</p>
+<blockquote>
+<div><p>Note:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>model must have these methods &amp; property</dt>
+<dd><ul class="first last simple">
+<li>model.computePhi</li>
+<li>model.linearEvolving</li>
+<li>model.reconstruct</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<p>model_name (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): the name of the folder where the model is saved.</p>
+<p class="last">case_name (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): the name of the problem case.</p>
+</dd>
+</dl>
+<p>Attributes:</p>
+<dl class="method">
+<dt id="EVAL_SRC.main_apo.ClassApoEval.computeTrueTrajectory">
+<code class="descname">computeTrueTrajectory</code><span class="sig-paren">(</span><em>F</em>, <em>ic</em>, <em>tsnap</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EVAL_SRC/main_apo.html#ClassApoEval.computeTrueTrajectory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#EVAL_SRC.main_apo.ClassApoEval.computeTrueTrajectory" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute ground true trajectory for low dimensional problem, given initial condition and governing equation.</p>
+<p>We compute this trajectory by scipy.ode.integration using <cite>dopri5</cite>.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">F (<code class="xref py py-obj docutils literal notranslate"><span class="pre">function</span></code>): gonvering equation.</p>
+<p>ic (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): initial condition.</p>
+<p class="last">tsnap (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): time array/.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> : true trajectory.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="EVAL_SRC.main_apo.ClassApoEval.compute_eigen_trj">
+<code class="descname">compute_eigen_trj</code><span class="sig-paren">(</span><em>trj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EVAL_SRC/main_apo.html#ClassApoEval.compute_eigen_trj"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#EVAL_SRC.main_apo.ClassApoEval.compute_eigen_trj" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute the trajectory of eigen-observables</p>
+<p>Simply projecting the trajectory onto the eigen-observables</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>trj (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): true trajectory.</dd>
+<dt>Returns:</dt>
+<dd><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> : eigen-phi of that trajectory.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="EVAL_SRC.main_apo.ClassApoEval.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>tspan</em>, <em>ic</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EVAL_SRC/main_apo.html#ClassApoEval.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#EVAL_SRC.main_apo.ClassApoEval.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>predicting the future state of dynamical system</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">tspan (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): time array for prediction</p>
+<p class="last">ic (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): initial condition of the state</p>
+</dd>
+</dl>
+<p>Returns:</p>
+<blockquote>
+<div><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> : array of state in the future</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="EVAL_SRC.main_apo.ClassApoEval.save_trj_comparison">
+<code class="descname">save_trj_comparison</code><span class="sig-paren">(</span><em>true_tsnap</em>, <em>true_trajectory</em>, <em>additional_names=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EVAL_SRC/main_apo.html#ClassApoEval.save_trj_comparison"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#EVAL_SRC.main_apo.ClassApoEval.save_trj_comparison" title="Permalink to this definition">¶</a></dt>
+<dd><p>compare model result against true trajectory, plot and save</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">true_tsnap (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): the time array</p>
+<p>true_trajectory (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): the ground true trajectory</p>
+<p class="last">additional_names (:obj:)</p>
+</dd>
+<dt>Returns:</dt>
+<dd><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> : MSE between true and predicted trajectory.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="PPS_SRC.html" class="btn btn-neutral float-right" title="Post-Processing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="EVAL_SRC.lib.lib_model_interface.html" class="btn btn-neutral float-left" title="EVAL_SRC.lib.lib_model_interface module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Shaowu Pan
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

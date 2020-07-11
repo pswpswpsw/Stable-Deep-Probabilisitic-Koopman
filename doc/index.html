@@ -1,0 +1,310 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SPARK: Stabilized ProbAbilistic deep leaRning Koopman &mdash; SPARK 1.2rc1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Modules" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> SPARK
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Simple example</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">SPARK</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>SPARK: Stabilized ProbAbilistic deep leaRning Koopman</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="spark-stabilized-probabilistic-deep-learning-koopman">
+<span id="home-page"></span><h1>SPARK: Stabilized ProbAbilistic deep leaRning Koopman<a class="headerlink" href="#spark-stabilized-probabilistic-deep-learning-koopman" title="Permalink to this headline">¶</a></h1>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/logo.png"><img alt="SPARK" src="_images/logo.png" style="width: 50%;" /></a>
+</div>
+<p>This code consists of <strong>four</strong> <a class="reference internal" href="modules.html#modules"><span class="std std-ref">Modules</span></a>:</p>
+<ul class="simple">
+<li><a class="reference internal" href="PREP_DATA_SRC.html#prep-data-src"><span class="std std-ref">Data Preparation</span></a></li>
+<li><a class="reference internal" href="MODEL_SRC.html#model-src"><span class="std std-ref">Main Model</span></a></li>
+<li><a class="reference internal" href="EVAL_SRC.html#eval-src"><span class="std std-ref">A posteriori Evaluation</span></a></li>
+<li><a class="reference internal" href="PPS_SRC.html#pps-src"><span class="std std-ref">Post-Processing</span></a></li>
+</ul>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PREP_DATA_SRC.html">Data Preparation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MODEL_SRC.html">Main Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EVAL_SRC.html">A posteriori Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PPS_SRC.html">Post-Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Simple example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#d-simple-polynomial-system">2D simple polynomial system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#examples-of-a-2d-wake-flow-past-cylinder-at-re-100">Examples of a 2D wake flow past cylinder at <span class="math notranslate nohighlight">\(Re=100\)</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="requirements">
+<span id="id1"></span><h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>It requires a GPU card on the system and Linux 64 bits is preferred.</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/python/cpython/tree/2.7">python 2.7</a></li>
+<li><a class="reference external" href="https://github.com/anderskm/gputil">gputil</a></li>
+<li><a class="reference external" href="https://github.com/scipy/scipy">scipy</a></li>
+<li><a class="reference external" href="https://pythonhosted.org/pyDOE/">pyDOE</a></li>
+<li><a class="reference external" href="https://github.com/blei-lab/edward">edward 1.3.5</a></li>
+<li><a class="reference external" href="https://github.com/tensorflow/tensorflow">tensorflow 1.8</a></li>
+</ul>
+</div>
+<div class="section" id="setup-on-workstation">
+<h2>Setup on Workstation<a class="headerlink" href="#setup-on-workstation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>issues with <a class="reference external" href="https://github.com/blei-lab/edward">edward 1.3.5</a></dt>
+<dd><ul class="first last">
+<li>missing <code class="docutils literal notranslate"><span class="pre">set_shapes_for_outputs</span></code> can be resolved in <a class="reference external" href="https://github.com/blei-lab/edward/issues/893#issuecomment-388792874">here</a></li>
+<li>index out of range error with <a class="reference external" href="https://github.com/tensorflow/tensorflow">tensorflow 1.8</a> can be resolved <a class="reference external" href="https://github.com/blei-lab/edward/issues/895#issuecomment-396561955">in here</a></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="setup-on-conflux">
+<h2>Setup on <a class="reference external" href="https://arc-ts.umich.edu/conflux/">Conflux</a><a class="headerlink" href="#setup-on-conflux" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><strong>_EXTERNAL_PACKAGES/</strong> folder contain the modified source code for <a class="reference external" href="https://github.com/anderskm/gputil">gputil</a>, <a class="reference external" href="https://pythonhosted.org/pyDOE/">pyDOE</a>, <a class="reference external" href="https://github.com/blei-lab/edward">edward 1.3.5</a> and corrsesponding installed version</li>
+<li>simply append the <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> with, and <strong>remember to change to your own path</strong></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1">## Configuration for tensorflow 1.8.0 + Edward</span>
+module load compilers/gcc/5.4.0
+module load atlas/3.10.3/gcc/5.4.0
+
+module load lapack/3.6.1/gcc-5.4.0
+module load cuda/9.2
+module load tensorflow/1.8
+module load python-anaconda2/2018
+
+<span class="c1">## environment for python packages</span>
+<span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">PYTHONPATH</span><span class="si">}</span><span class="s2">:/gpfs/gpfs0/groups/duraisamy/shawnpan/2018_bayes_dl_koopman_ode/edward_conflux/lib/python2.7/site-packages/&quot;</span>
+<span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">PYTHONPATH</span><span class="si">}</span><span class="s2">:/gpfs/gpfs0/groups/duraisamy/shawnpan/2018_bayes_dl_koopman_ode/pyDOE_conflux/lib/python2.7/site-packages/&quot;</span>
+<span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">PYTHONPATH</span><span class="si">}</span><span class="s2">:/gpfs/gpfs0/groups/duraisamy/shawnpan/2018_bayes_dl_koopman_ode/gputil_conflux/lib/python2.7/site-packages/&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="methodology">
+<h2>Methodology<a class="headerlink" href="#methodology" title="Permalink to this headline">¶</a></h2>
+<p>We leverage <strong>Mean-field Variational Inference</strong>  inferring a
+<strong>Bayesian neural network</strong> to learn the <strong>Koopman eigenfunctions</strong>, <strong>eigenvalues</strong>,
+for a continuous nonlinear dynamical systems as <span class="math notranslate nohighlight">\(\dot{x} = F(x)\)</span>.</p>
+<p>For detailed information, please refer to our <a class="reference external" href="https://epubs.siam.org/doi/abs/10.1137/19M1267246">publication</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body">Shaowu Pan</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Verion:</th><td class="field-body">1.3rc1 of July 10, 2020</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="indices-and-tables">
+<h3>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="modules.html" class="btn btn-neutral float-right" title="Modules" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Shaowu Pan
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

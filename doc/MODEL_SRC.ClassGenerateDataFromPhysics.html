@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MODEL_SRC.ClassGenerateDataFromPhysics module &mdash; SPARK 1.2rc1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="MODEL_SRC.classBayesDLKoopman module" href="MODEL_SRC.classBayesDLKoopman.html" />
+    <link rel="prev" title="MODEL_SRC.ClassDLKoopmanLRAN module" href="MODEL_SRC.ClassDLKoopmanLRAN.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> SPARK
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="PREP_DATA_SRC.html">Data Preparation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="MODEL_SRC.html">Main Model</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="MODEL_SRC.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="MODEL_SRC.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="MODEL_SRC.ClassDLKoopmanCont.html">MODEL_SRC.ClassDLKoopmanCont module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MODEL_SRC.ClassDLKoopmanLRAN.html">MODEL_SRC.ClassDLKoopmanLRAN module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">MODEL_SRC.ClassGenerateDataFromPhysics module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MODEL_SRC.classBayesDLKoopman.html">MODEL_SRC.classBayesDLKoopman module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="MODEL_SRC.html#module-MODEL_SRC">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="EVAL_SRC.html">A posteriori Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PPS_SRC.html">Post-Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Simple example</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SPARK</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">Modules</a> &raquo;</li>
+        
+          <li><a href="MODEL_SRC.html">Main Model</a> &raquo;</li>
+        
+      <li>MODEL_SRC.ClassGenerateDataFromPhysics module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/MODEL_SRC.ClassGenerateDataFromPhysics.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-MODEL_SRC.ClassGenerateDataFromPhysics">
+<span id="model-src-classgeneratedatafromphysics-module"></span><h1>MODEL_SRC.ClassGenerateDataFromPhysics module<a class="headerlink" href="#module-MODEL_SRC.ClassGenerateDataFromPhysics" title="Permalink to this headline">¶</a></h1>
+<p>Generating data using LHS according to the physics governing equation</p>
+<dl class="class">
+<dt id="MODEL_SRC.ClassGenerateDataFromPhysics.ClassGenerateXXDotFromPhysics">
+<em class="property">class </em><code class="descclassname">MODEL_SRC.ClassGenerateDataFromPhysics.</code><code class="descname">ClassGenerateXXDotFromPhysics</code><span class="sig-paren">(</span><em>directory='../../EXAMPLES/'</em>, <em>case_name=None</em>, <em>noise_level=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassGenerateDataFromPhysics.html#ClassGenerateXXDotFromPhysics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassGenerateDataFromPhysics.ClassGenerateXXDotFromPhysics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Generate time derivative data according to the physics <span class="math notranslate nohighlight">\(\dot{x}=F(x)\)</span>.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">directory (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): Path to put my all cases. Default value is <code class="docutils literal notranslate"><span class="pre">../../EXAMPLES/</span></code></p>
+<p>case_name (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): Name of my problem case.</p>
+<p class="last">noise_level (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>): Percentage of signal-to-noise ratio.</p>
+</dd>
+<dt>Attributes:</dt>
+<dd><p class="first">dir (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): Path to put cases.</p>
+<dl class="docutils">
+<dt>sub_dir (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): Path to put each data within each cases. The size and noisy</dt>
+<dd>level of the data can be varied.</dd>
+</dl>
+<p>noise_level (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>): Signal-to-noise percentage in terms of percentage.</p>
+<dl class="docutils">
+<dt>XdotTrain (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): Data contains time derivatives to be saved.</dt>
+<dd><code class="docutils literal notranslate"><span class="pre">shape</span></code> = (<code class="docutils literal notranslate"><span class="pre">n_samples</span></code>, <code class="docutils literal notranslate"><span class="pre">n_dim</span></code>)</dd>
+<dt>Xtrain (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): Data contains states to be saved.</dt>
+<dd><code class="docutils literal notranslate"><span class="pre">shape</span></code> = (<code class="docutils literal notranslate"><span class="pre">n_samples</span></code>, <code class="docutils literal notranslate"><span class="pre">n_dim</span></code>)</dd>
+<dt>JFTrain (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): Data contains the Jacobian to be saved.</dt>
+<dd><code class="docutils literal notranslate"><span class="pre">shape</span></code> = (<code class="docutils literal notranslate"><span class="pre">n_samples</span></code>, <code class="docutils literal notranslate"><span class="pre">n_dim</span></code>)</dd>
+</dl>
+<p>case_name (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): Name for the problem case.</p>
+<p>num_samples (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>): Total number of data samples.</p>
+<p class="last">num_samples_each_dim (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>): Number of samples on each dimension.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="MODEL_SRC.ClassGenerateDataFromPhysics.ClassGenerateXXDotFromPhysics.make_case_dir">
+<code class="descname">make_case_dir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassGenerateDataFromPhysics.html#ClassGenerateXXDotFromPhysics.make_case_dir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassGenerateDataFromPhysics.ClassGenerateXXDotFromPhysics.make_case_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create directory for cases</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassGenerateDataFromPhysics.ClassGenerateXXDotFromPhysics.samplingX_Xdot">
+<code class="descname">samplingX_Xdot</code><span class="sig-paren">(</span><em>F</em>, <em>range_of_X</em>, <em>num_samples_each_dim=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassGenerateDataFromPhysics.html#ClassGenerateXXDotFromPhysics.samplingX_Xdot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassGenerateDataFromPhysics.ClassGenerateXXDotFromPhysics.samplingX_Xdot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sampling X and Xdot given ground true governing equation using LatinHyperCubic from <a class="reference external" href="https://pythonhosted.org/pyDOE/">pyDOE</a></p>
+<p>In default, we use <a class="reference external" href="https://pythonhosted.org/pyDOE/randomized.html#latin-hypercube">LatinHyperCubic</a>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">pyDOE.lhs()</span></code> to generate the sampling
+for the design of experiments (DOE) in the hyper-cubic on <span class="math notranslate nohighlight">\([0, 1]\)</span>. Then we scale it back
+according to <code class="xref py py-attr docutils literal notranslate"><span class="pre">range_of_X</span></code>. In default, we use <cite>center</cite> criterion and only one iteration.
+Then we call function <code class="xref py py-attr docutils literal notranslate"><span class="pre">F</span></code> to get the time derivative <span class="math notranslate nohighlight">\(\dot{x}\)</span> and Jacobian. However,
+in the most recent code, we don’t need Jacobian. So one can simply return 0 array.</p>
+<p>Args:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>F (<code class="xref py py-obj docutils literal notranslate"><span class="pre">function</span></code>): a Python function that calls the state <span class="math notranslate nohighlight">\(x\)</span> and return the</dt>
+<dd>time derivative <span class="math notranslate nohighlight">\(\dot{x}\)</span> and Jacobian. However Jacobian is not used any more so one
+can just leave it as zero array.</dd>
+</dl>
+<p>range_of_X (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): The range for each component to get sampled from.</p>
+<p>num_samples_each_dim (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>): Number of samples for each component. Default value is 10.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassGenerateDataFromPhysics.ClassGenerateXXDotFromPhysics.save_X_Xdot">
+<code class="descname">save_X_Xdot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassGenerateDataFromPhysics.html#ClassGenerateXXDotFromPhysics.save_X_Xdot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassGenerateDataFromPhysics.ClassGenerateXXDotFromPhysics.save_X_Xdot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save data with <code class="xref py py-attr docutils literal notranslate"><span class="pre">XdotTrain</span></code>, <code class="xref py py-attr docutils literal notranslate"><span class="pre">Xtrain</span></code>, <code class="xref py py-attr docutils literal notranslate"><span class="pre">JFTrain</span></code> as keys in the <code class="xref py py-attr docutils literal notranslate"><span class="pre">sub_dir</span></code>
+with <code class="docutils literal notranslate"><span class="pre">num_samples_trainData.npz</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="MODEL_SRC.classBayesDLKoopman.html" class="btn btn-neutral float-right" title="MODEL_SRC.classBayesDLKoopman module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="MODEL_SRC.ClassDLKoopmanLRAN.html" class="btn btn-neutral float-left" title="MODEL_SRC.ClassDLKoopmanLRAN module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Shaowu Pan
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

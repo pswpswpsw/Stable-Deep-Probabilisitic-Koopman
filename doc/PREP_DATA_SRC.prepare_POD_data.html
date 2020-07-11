@@ -1,0 +1,326 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PREP_DATA_SRC.PreparePODdata module &mdash; SPARK 1.2rc1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Main Model" href="MODEL_SRC.html" />
+    <link rel="prev" title="PREP_DATA_SRC.make_recurrent_form_noisy_state module" href="PREP_DATA_SRC.make_recurrent_form_noisy_state.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> SPARK
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="PREP_DATA_SRC.html">Data Preparation</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="PREP_DATA_SRC.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="PREP_DATA_SRC.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="PREP_DATA_SRC.make_recurrent_form_noisy_state.html">PREP_DATA_SRC.make_recurrent_form_noisy_state module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">PREP_DATA_SRC.PreparePODdata module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PREP_DATA_SRC.html#module-PREP_DATA_SRC">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MODEL_SRC.html">Main Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EVAL_SRC.html">A posteriori Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PPS_SRC.html">Post-Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Simple example</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SPARK</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">Modules</a> &raquo;</li>
+        
+          <li><a href="PREP_DATA_SRC.html">Data Preparation</a> &raquo;</li>
+        
+      <li>PREP_DATA_SRC.PreparePODdata module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/PREP_DATA_SRC.prepare_POD_data.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-PREP_DATA_SRC.PreparePODdata">
+<span id="prep-data-src-preparepoddata-module"></span><h1>PREP_DATA_SRC.PreparePODdata module<a class="headerlink" href="#module-PREP_DATA_SRC.PreparePODdata" title="Permalink to this headline">¶</a></h1>
+<p>Prepare POD coefficients from velocity field of VTK files.</p>
+<dl class="class">
+<dt id="PREP_DATA_SRC.PreparePODdata.PreparePODdata">
+<em class="property">class </em><code class="descclassname">PREP_DATA_SRC.PreparePODdata.</code><code class="descname">PreparePODdata</code><span class="sig-paren">(</span><em>vtk_folder</em>, <em>case_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PREP_DATA_SRC/PreparePODdata.html#PreparePODdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PREP_DATA_SRC.PreparePODdata.PreparePODdata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Performing dimension reduction via POD on multi-dimensional time series data.</p>
+<p>We read the VTK files using <a class="reference external" href="https://github.com/pyvista">pyvista</a> as <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>, then compute singular value
+decomposition (<a class="reference external" href="https://en.wikipedia.org/wiki/Singular_value_decomposition">SVD</a>) <span class="math notranslate nohighlight">\(X=U\Sigma V'\)</span>. Then given that <code class="docutils literal notranslate"><span class="pre">X.shape</span> <span class="pre">=</span> <span class="pre">(n_time,</span> <span class="pre">n_dof)</span></code>,
+we reduce the <code class="docutils literal notranslate"><span class="pre">n_dof</span></code> simply by considering the POD coefficients:
+<span class="math notranslate nohighlight">\(XV_r = U\Sigma V'V_r = U_r\Sigma_r\)</span>.</p>
+<p>Then we do the following three steps:</p>
+<ol class="arabic simple">
+<li>We compute full SVD and save it.</li>
+<li>We load the full SVD and truncate a few then save it.</li>
+<li><dl class="first docutils">
+<dt>We split the data into training, testing and neglect a few unphysical part in the beginning</dt>
+<dd>then save it.</dd>
+</dl>
+</li>
+</ol>
+<p>Finally, temporal evolution of components will be drawn and saved as <code class="docutils literal notranslate"><span class="pre">png</span></code>.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>vtk_folder (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): folder containing the <code class="docutils literal notranslate"><span class="pre">vtk</span></code> files.
+case_name (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): folder corresponding to the simulation case.</dd>
+<dt>Attributes:</dt>
+<dd><p class="first">vtk_folder (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): folder containing the <code class="docutils literal notranslate"><span class="pre">vtk</span></code> files.
+case_name (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): folder corresponding to the simulation case.
+UV_concate_cell_array (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): data containing vectorization of the velocity</p>
+<blockquote>
+<div>field.</div></blockquote>
+<p class="last">whole_pod_file_name (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): file name for the whole POD coefficient <code class="docutils literal notranslate"><span class="pre">npz</span></code> file.
+u (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): <span class="math notranslate nohighlight">\(U\)</span> in SVD.
+vh (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): <span class="math notranslate nohighlight">\(V'\)</span> in SVD.
+s (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): 1D <span class="math notranslate nohighlight">\(S\)</span> in SVD.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="PREP_DATA_SRC.PreparePODdata.PreparePODdata.generate_training_testing_data">
+<code class="descname">generate_training_testing_data</code><span class="sig-paren">(</span><em>rank</em>, <em>dt</em>, <em>init_perc_train</em>, <em>end_perc_train</em>, <em>end_perc_whole</em>, <em>subsample_factor=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PREP_DATA_SRC/PreparePODdata.html#PreparePODdata.generate_training_testing_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PREP_DATA_SRC.PreparePODdata.PreparePODdata.generate_training_testing_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate train/test data and plot the temporal evolution then save it into <code class="docutils literal notranslate"><span class="pre">npz</span></code> file.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">rank (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>): number of POD modes to keep.
+dt (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>): time interval between snapshots.
+init_perc_train (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>): the percentage of the begining of training data.
+end_perc_train (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>): the percentage of the ending of training data.
+end_perc_whole (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>): the percentage of the ending of whole data.
+subsample_factor (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>): ratio of subsampling. 2 means sampling every other</p>
+<blockquote class="last">
+<div>snapshot. Default value is 1.</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PREP_DATA_SRC.PreparePODdata.PreparePODdata.load_pod">
+<code class="descname">load_pod</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PREP_DATA_SRC/PreparePODdata.html#PreparePODdata.load_pod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PREP_DATA_SRC.PreparePODdata.PreparePODdata.load_pod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the full POD coefficient data from <code class="xref py py-attr docutils literal notranslate"><span class="pre">whole_pod_file_name</span></code> file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PREP_DATA_SRC.PreparePODdata.PreparePODdata.read_cell_data">
+<code class="descname">read_cell_data</code><span class="sig-paren">(</span><em>fn_start</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PREP_DATA_SRC/PreparePODdata.html#PreparePODdata.read_cell_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PREP_DATA_SRC.PreparePODdata.PreparePODdata.read_cell_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read cell data from <code class="docutils literal notranslate"><span class="pre">vtk</span></code></p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>fn_start (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>): the index of starting letter in</dt>
+<dd><code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-lrth</span></code> corresponding to vtk filename</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PREP_DATA_SRC.PreparePODdata.PreparePODdata.run_plot_and_save_pod">
+<code class="descname">run_plot_and_save_pod</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PREP_DATA_SRC/PreparePODdata.html#PreparePODdata.run_plot_and_save_pod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PREP_DATA_SRC.PreparePODdata.PreparePODdata.run_plot_and_save_pod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform SVD on snapshots data, i.e., <code class="xref py py-attr docutils literal notranslate"><span class="pre">UV_concate_cell_array</span></code>, then
+save it and further plot the singular value decay.</p>
+<p>Compute svd using <code class="xref py py-meth docutils literal notranslate"><span class="pre">scipy.linalg.svd()</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PREP_DATA_SRC.PreparePODdata.PreparePODdata.save_and_plot_truncated_pod_data">
+<code class="descname">save_and_plot_truncated_pod_data</code><span class="sig-paren">(</span><em>rank</em>, <em>dt</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PREP_DATA_SRC/PreparePODdata.html#PreparePODdata.save_and_plot_truncated_pod_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PREP_DATA_SRC.PreparePODdata.PreparePODdata.save_and_plot_truncated_pod_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the truncated POD data.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>rank (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>): number of ranks to keep.
+dt (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>): time interval between snapshots.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="MODEL_SRC.html" class="btn btn-neutral float-right" title="Main Model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="PREP_DATA_SRC.make_recurrent_form_noisy_state.html" class="btn btn-neutral float-left" title="PREP_DATA_SRC.make_recurrent_form_noisy_state module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Shaowu Pan
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

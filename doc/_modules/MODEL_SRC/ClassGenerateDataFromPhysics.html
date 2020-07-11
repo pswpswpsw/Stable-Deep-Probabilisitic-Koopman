@@ -1,0 +1,352 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MODEL_SRC.ClassGenerateDataFromPhysics &mdash; SPARK 1.2rc1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> SPARK
+          
+
+          
+            
+            <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Simple example</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SPARK</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>MODEL_SRC.ClassGenerateDataFromPhysics</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for MODEL_SRC.ClassGenerateDataFromPhysics</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;Generating data using LHS according to the physics governing equation&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;../&quot;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">pyDOE</span> <span class="k">import</span> <span class="n">lhs</span>
+<span class="kn">from</span> <span class="nn">PREP_DATA_SRC.source_code.lib.utilities</span> <span class="k">import</span> <span class="n">mkdir</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">dont_write_bytecode</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="ClassGenerateXXDotFromPhysics"><a class="viewcode-back" href="../../MODEL_SRC.ClassGenerateDataFromPhysics.html#MODEL_SRC.ClassGenerateDataFromPhysics.ClassGenerateXXDotFromPhysics">[docs]</a><span class="k">class</span> <span class="nc">ClassGenerateXXDotFromPhysics</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generate time derivative data according to the physics :math:`\dot{x}=F(x)`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        directory (:obj:`str`): Path to put my all cases. Default value is ``../../EXAMPLES/``</span>
+
+<span class="sd">        case_name (:obj:`str`): Name of my problem case.</span>
+
+<span class="sd">        noise_level (:obj:`int`): Percentage of signal-to-noise ratio.</span>
+
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        dir (:obj:`str`): Path to put cases.</span>
+
+<span class="sd">        sub_dir (:obj:`str`): Path to put each data within each cases. The size and noisy</span>
+<span class="sd">            level of the data can be varied.</span>
+
+<span class="sd">        noise_level (:obj:`int`): Signal-to-noise percentage in terms of percentage.</span>
+
+<span class="sd">        XdotTrain (:obj:`numpy.ndarray`): Data contains time derivatives to be saved.</span>
+<span class="sd">            ``shape`` = (``n_samples``, ``n_dim``)</span>
+
+<span class="sd">        Xtrain (:obj:`numpy.ndarray`): Data contains states to be saved.</span>
+<span class="sd">            ``shape`` = (``n_samples``, ``n_dim``)</span>
+
+<span class="sd">        JFTrain (:obj:`numpy.ndarray`): Data contains the Jacobian to be saved.</span>
+<span class="sd">            ``shape`` = (``n_samples``, ``n_dim``)</span>
+
+<span class="sd">        case_name (:obj:`str`): Name for the problem case.</span>
+
+<span class="sd">        num_samples (:obj:`int`): Total number of data samples.</span>
+
+<span class="sd">        num_samples_each_dim (:obj:`int`): Number of samples on each dimension.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="s1">&#39;../../EXAMPLES/&#39;</span><span class="p">,</span> <span class="n">case_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">noise_level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dir</span> <span class="o">=</span> <span class="n">directory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dir</span> <span class="o">+</span> <span class="n">case_name</span> <span class="o">+</span> <span class="s1">&#39;_noise_level_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">noise_level</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">noise_level</span> <span class="o">=</span> <span class="n">noise_level</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">XdotTrain</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Xtrain</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">JFTrain</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">case_name</span> <span class="o">=</span> <span class="n">case_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_samples</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_samples_each_dim</span><span class="o">=</span><span class="kc">None</span>
+
+<div class="viewcode-block" id="ClassGenerateXXDotFromPhysics.make_case_dir"><a class="viewcode-back" href="../../MODEL_SRC.ClassGenerateDataFromPhysics.html#MODEL_SRC.ClassGenerateDataFromPhysics.ClassGenerateXXDotFromPhysics.make_case_dir">[docs]</a>    <span class="k">def</span> <span class="nf">make_case_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create directory for cases&quot;&quot;&quot;</span>
+
+        <span class="n">mkdir</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir</span><span class="p">)</span>
+        <span class="n">mkdir</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sub_dir</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ClassGenerateXXDotFromPhysics.samplingX_Xdot"><a class="viewcode-back" href="../../MODEL_SRC.ClassGenerateDataFromPhysics.html#MODEL_SRC.ClassGenerateDataFromPhysics.ClassGenerateXXDotFromPhysics.samplingX_Xdot">[docs]</a>    <span class="k">def</span> <span class="nf">samplingX_Xdot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">range_of_X</span><span class="p">,</span> <span class="n">num_samples_each_dim</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sampling X and Xdot given ground true governing equation using LatinHyperCubic from pyDOE_</span>
+
+<span class="sd">        .. _pyDOE: https://pythonhosted.org/pyDOE/</span>
+
+<span class="sd">        .. _LatinHyperCubic: https://pythonhosted.org/pyDOE/randomized.html#latin-hypercube</span>
+
+<span class="sd">        In default, we use LatinHyperCubic_, :meth:`pyDOE.lhs` to generate the sampling</span>
+<span class="sd">        for the design of experiments (DOE) in the hyper-cubic on :math:`[0, 1]`. Then we scale it back</span>
+<span class="sd">        according to :attr:`range_of_X`. In default, we use `center` criterion and only one iteration.</span>
+<span class="sd">        Then we call function :attr:`F` to get the time derivative :math:`\dot{x}` and Jacobian. However,</span>
+<span class="sd">        in the most recent code, we don&#39;t need Jacobian. So one can simply return 0 array.</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            F (:obj:`function`): a Python function that calls the state :math:`x` and return the</span>
+<span class="sd">                time derivative :math:`\dot{x}` and Jacobian. However Jacobian is not used any more so one</span>
+<span class="sd">                can just leave it as zero array.</span>
+
+<span class="sd">            range_of_X (:obj:`numpy.ndarray`): The range for each component to get sampled from.</span>
+
+<span class="sd">            num_samples_each_dim (:obj:`int`): Number of samples for each component. Default value is 10.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># We first get the number of components.</span>
+
+        <span class="n">num_dim_X</span> <span class="o">=</span> <span class="n">range_of_X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># We set the number of samples per dimension.</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_samples_each_dim</span> <span class="o">=</span> <span class="n">num_samples_each_dim</span>
+
+        <span class="c1"># We compute the mean and factor for later scaling back from [0, 1] to our desired range.</span>
+
+        <span class="n">mean_of_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">range_of_X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">factor_of_range</span> <span class="o">=</span> <span class="p">(</span><span class="n">range_of_X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">range_of_X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span>
+
+        <span class="c1"># Generate latin-hypercubic in [0, 1]</span>
+
+        <span class="n">zero_to_one_LHS_location</span> <span class="o">=</span> <span class="n">lhs</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">num_dim_X</span><span class="p">,</span>
+                                       <span class="n">samples</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_samples_each_dim</span> <span class="o">**</span> <span class="n">num_dim_X</span><span class="p">,</span>
+                                       <span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                                       <span class="n">iterations</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># We get the number of samples</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_samples</span> <span class="o">=</span> <span class="n">zero_to_one_LHS_location</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># For each dimension, we scale the sample points into desired location in real physical space</span>
+
+        <span class="k">for</span> <span class="n">index_var</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">num_dim_X</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">index_sample</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_samples</span><span class="p">):</span>
+                <span class="n">zero_to_one_LHS_location</span><span class="p">[</span><span class="n">index_sample</span><span class="p">,</span> <span class="n">index_var</span><span class="p">]</span> <span class="o">=</span> \
+                    <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">zero_to_one_LHS_location</span><span class="p">[</span><span class="n">index_sample</span><span class="p">,</span> <span class="n">index_var</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">factor_of_range</span><span class="p">[</span><span class="n">index_var</span><span class="p">]</span> \
+                    <span class="o">+</span> <span class="n">mean_of_range</span><span class="p">[</span><span class="n">index_var</span><span class="p">]</span>
+
+        <span class="c1"># The states locations are overwritten with the location.</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Xtrain</span> <span class="o">=</span> <span class="n">zero_to_one_LHS_location</span>
+
+        <span class="c1"># We now call F to generate time derivative and Jacobian.</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">XdotTrain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">zero_to_one_LHS_location</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">JFTrain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">XdotTrain</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">XdotTrain</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">XdotTrain</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="k">for</span> <span class="n">index_sample</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_samples</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">XdotTrain</span><span class="p">[</span><span class="n">index_sample</span><span class="p">,</span> <span class="p">:],</span> <span class="bp">self</span><span class="o">.</span><span class="n">JFTrain</span><span class="p">[</span><span class="n">index_sample</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">F</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Xtrain</span><span class="p">[</span><span class="n">index_sample</span><span class="p">,</span> <span class="p">:])</span>
+
+        <span class="c1"># Deappreciated: Adding noises into the data</span>
+
+        <span class="n">scale_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Xtrain</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">scale_xdot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">XdotTrain</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">scale_jf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">JFTrain</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">index_sample</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_samples</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Xtrain</span><span class="p">[</span><span class="n">index_sample</span><span class="p">,</span> <span class="p">:]</span>    <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">noise_level</span> <span class="o">/</span> <span class="mf">100.0</span> <span class="o">*</span> <span class="n">scale_x</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">XdotTrain</span><span class="p">[</span><span class="n">index_sample</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">noise_level</span> <span class="o">/</span> <span class="mf">100.0</span> <span class="o">*</span> <span class="n">scale_xdot</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">JFTrain</span><span class="p">[</span><span class="n">index_sample</span><span class="p">,</span> <span class="p">:]</span>   <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">noise_level</span> <span class="o">/</span> <span class="mf">100.0</span> <span class="o">*</span> <span class="n">scale_jf</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ClassGenerateXXDotFromPhysics.save_X_Xdot"><a class="viewcode-back" href="../../MODEL_SRC.ClassGenerateDataFromPhysics.html#MODEL_SRC.ClassGenerateDataFromPhysics.ClassGenerateXXDotFromPhysics.save_X_Xdot">[docs]</a>    <span class="k">def</span> <span class="nf">save_X_Xdot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Save data with :attr:`XdotTrain`, :attr:`Xtrain`, :attr:`JFTrain` as keys in the :attr:`sub_dir`</span>
+<span class="sd">        with ``num_samples_trainData.npz``.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">savez</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sub_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_samples</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_trainData.npz&#39;</span><span class="p">,</span>
+                 <span class="n">XdotTrain</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">XdotTrain</span><span class="p">,</span> <span class="n">Xtrain</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Xtrain</span><span class="p">,</span> <span class="n">JFTrain</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">JFTrain</span><span class="p">)</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span><span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Shaowu Pan
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
