@@ -14,18 +14,11 @@
 #
 import os
 import sys
+# sys.path.insert(0, os.path.abspath('.'))
 
-import sphinx_bootstrap_theme
+import sphinx_rtd_theme
 
-# adding the folders where sources code are
-# sys.path.insert(0, os.path.abspath('../MODEL_SRC'))
-# sys.path.insert(0, os.path.abspath('../EVAL_SRC'))
-# sys.path.insert(0, os.path.abspath('../PPS_SRC'))
-# sys.path.insert(0, os.path.abspath('../PREP_DATA_SRC'))
-# sys.path.insert(0, os.path.abspath('../'))
-#sys.path.append('/media/shaowu/shaowu_main_hard/shaowu/2016-starting_phd/2018_koopman_Project/2018_bayes_dl_koopman_ode/')
-sys.path.append(os.path.join(os.path.dirname(__name__), '../'))
-# sys.path.append(os.path.join(os.path.dirname(__name__), '../_EXTERNAL_PACKAGES/edward_conflux/lib/python2.7/site-packages'))
+sys.path.append(os.path.join(os.path.dirname(__name__), '../..'))
 
 
 # -- Project information -----------------------------------------------------
@@ -40,6 +33,7 @@ version = u'1.2'
 release = u'1.2rc1'
 
 
+
 # -- General configuration ---------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -50,12 +44,18 @@ release = u'1.2rc1'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc', #     'sphinx.ext.viewcode', # not enable code
-    'sphinx.ext.napoleon',
-    'sphinx.ext.mathjax',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.doctest',
+    'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
-    'rst2pdf.pdfbuilder'
+    'sphinx.ext.coverage',
+    'sphinx.ext.mathjax',
+    'sphinx.ext.ifconfig',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.githubpages',
+    "sphinx_rtd_theme",
 ]
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -78,11 +78,11 @@ language = None
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-# This pattern also affects html_static_path and html_extra_path .
-exclude_patterns = [u'_build', 'Thumbs.db', '.DS_Store']
+# This pattern also affects html_static_path and html_extra_path.
+exclude_patterns = []
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = None
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -90,11 +90,9 @@ pygments_style = 'sphinx'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'bootstrap' # 'alabaster' # `guzzle`
-# html_theme = 'sphinx_rtd_theme'
-html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
-# html_theme_path = ["_themes", ]
-html_show_sourcelink = False
+# html_theme = 'alabaster'
+html_theme = "sphinx_rtd_theme"
+
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -123,7 +121,8 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'DLK_doc'
+htmlhelp_basename = 'BayesianDeepKoopmandoc'
+
 
 # -- Options for LaTeX output ------------------------------------------------
 
@@ -144,6 +143,7 @@ latex_elements = {
     #
     # 'figure_align': 'htbp',
 }
+
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
@@ -175,6 +175,33 @@ texinfo_documents = [
 ]
 
 
+
+# -- Options for Epub output -------------------------------------------------
+
+# Bibliographic Dublin Core info.
+epub_title = project
+
+# The unique identifier of the text. This can be a ISBN number
+# or the project homepage.
+#
+# epub_identifier = ''
+
+# A unique identification for the text.
+#
+# epub_uid = ''
+
+# A list of files that should not be packed into the epub file.
+epub_exclude_files = ['search.html']
+
+
 # -- Extension configuration -------------------------------------------------
 
-# default_role = 'any'
+# -- Options for intersphinx extension ---------------------------------------
+
+# Example configuration for intersphinx: refer to the Python standard library.
+intersphinx_mapping = {'https://docs.python.org/': None}
+
+# -- Options for todo extension ----------------------------------------------
+
+# If true, `todo` and `todoList` produce output, else they produce nothing.
+todo_include_todos = True

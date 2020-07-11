@@ -105,9 +105,9 @@ We leverage **Mean-field Variational Inference**  inferring a
 **Bayesian neural network** to learn the **Koopman eigenfunctions**, **eigenvalues**,
 for a continuous nonlinear dynamical systems as :math:`\dot{x} = F(x)`.
 
-.. _preprint: https://arxiv.org/abs/1906.03663
+.. _publication: https://epubs.siam.org/doi/abs/10.1137/19M1267246
 
-For detailed information, please refer to our preprint_.
+For detailed information, please refer to our publication_.
 
 
 
@@ -115,7 +115,7 @@ For detailed information, please refer to our preprint_.
 :Authors:
     Shaowu Pan
 
-:Verion: 1.2rc1 of June 21, 2019
+:Verion: 1.3rc1 of July 10, 2020
 
 
 

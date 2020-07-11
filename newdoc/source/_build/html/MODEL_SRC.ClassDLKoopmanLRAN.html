@@ -1,0 +1,321 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MODEL_SRC.ClassDLKoopmanLRAN module &mdash; SPARK 1.2rc1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="MODEL_SRC.ClassGenerateDataFromPhysics module" href="MODEL_SRC.ClassGenerateDataFromPhysics.html" />
+    <link rel="prev" title="MODEL_SRC.ClassDLKoopmanCont module" href="MODEL_SRC.ClassDLKoopmanCont.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> SPARK
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="PREP_DATA_SRC.html">Data Preparation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="MODEL_SRC.html">Main Model</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="MODEL_SRC.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="MODEL_SRC.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="MODEL_SRC.ClassDLKoopmanCont.html">MODEL_SRC.ClassDLKoopmanCont module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">MODEL_SRC.ClassDLKoopmanLRAN module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MODEL_SRC.ClassGenerateDataFromPhysics.html">MODEL_SRC.ClassGenerateDataFromPhysics module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MODEL_SRC.classBayesDLKoopman.html">MODEL_SRC.classBayesDLKoopman module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="MODEL_SRC.html#module-MODEL_SRC">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="EVAL_SRC.html">A posteriori Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PPS_SRC.html">Post-Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Simple example</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SPARK</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">Modules</a> &raquo;</li>
+        
+          <li><a href="MODEL_SRC.html">Main Model</a> &raquo;</li>
+        
+      <li>MODEL_SRC.ClassDLKoopmanLRAN module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/MODEL_SRC.ClassDLKoopmanLRAN.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-MODEL_SRC.ClassDLKoopmanLRAN">
+<span id="model-src-classdlkoopmanlran-module"></span><h1>MODEL_SRC.ClassDLKoopmanLRAN module<a class="headerlink" href="#module-MODEL_SRC.ClassDLKoopmanLRAN" title="Permalink to this headline">¶</a></h1>
+<p>Class of Continuous time Deep Learning Models for Koopman Operator with LRAN</p>
+<dl class="class">
+<dt id="MODEL_SRC.ClassDLKoopmanLRAN.ClassDLKoopmanLRAN">
+<em class="property">class </em><code class="descclassname">MODEL_SRC.ClassDLKoopmanLRAN.</code><code class="descname">ClassDLKoopmanLRAN</code><span class="sig-paren">(</span><em>configDict</em>, <em>edward_configDict=None</em>, <em>gpu_percentage=0.25</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanLRAN.html#ClassDLKoopmanLRAN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanLRAN.ClassDLKoopmanLRAN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="MODEL_SRC.ClassDLKoopmanCont.html#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont" title="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont"><code class="xref py py-class docutils literal notranslate"><span class="pre">MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont</span></code></a></p>
+<p>Class of LRAN</p>
+<p>Simply using multiple steps in to the future, i.e., <code class="xref py py-attr docutils literal notranslate"><span class="pre">T</span></code>, for prediction and minimize error. Moreover,
+data is split into training and testing by their sequential order.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">configDict (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>): dictionary of the configuration on deterministic side for LRAN</p>
+<p>edward_configDict (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>): dictionary of configuration on Bayesian DL model.</p>
+<p class="last">gpu_percentage (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>): percentage for GPU memory usage.</p>
+</dd>
+<dt>Attributes:</dt>
+<dd><p class="first">T (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>): number of steps of future to look forward to see.</p>
+<dl class="docutils">
+<dt>dt (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>): time interval between snapshots since I am doing LRAN, I need <cite>dt</cite> since the reconstruction</dt>
+<dd>requires time.</dd>
+</dl>
+<p>Xraw (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): raw trajectory with no hankerization and normalization.</p>
+<p>hankel_data (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): hankerized data with <code class="xref py py-attr docutils literal notranslate"><span class="pre">T</span></code>.</p>
+<p>future_X_list (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>): a list contains all future state output from the neural network.</p>
+<p>future_eta_list (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>): a list contains all future state in normalized form from neural network.</p>
+<p>future_koopman_phi_list (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>): a list contains all future koopman phi <span class="math notranslate nohighlight">\(\phi\)</span>.</p>
+<dl class="docutils">
+<dt>future_koopman_phi_evolved_list (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>): a list contains all</dt>
+<dd>future koopman evolved from the neural network.</dd>
+</dl>
+<p>future_Xrec_list (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>): a list contains reconstructed states from the neural network.</p>
+<p>future_etaRec_list (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>): a list contains reconstructed normalized states from the neural network.</p>
+<p class="last">XfutureTrain (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): array contains the future training states.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanLRAN.ClassDLKoopmanLRAN.construct_model">
+<code class="descname">construct_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanLRAN.html#ClassDLKoopmanLRAN.construct_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanLRAN.ClassDLKoopmanLRAN.construct_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the LRAN model</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> : (residual_vector_rec_loss, residual_vector_lin_loss)</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanLRAN.ClassDLKoopmanLRAN.convert_discrete_time_trajectory_into_hankel">
+<code class="descname">convert_discrete_time_trajectory_into_hankel</code><span class="sig-paren">(</span><em>data_trajectory</em>, <em>T</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanLRAN.html#ClassDLKoopmanLRAN.convert_discrete_time_trajectory_into_hankel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanLRAN.ClassDLKoopmanLRAN.convert_discrete_time_trajectory_into_hankel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert discrete time trajectory into hankel matrix.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>data_trajectory (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): a single data trajectory
+with first axis as number of snapshots.</dd>
+<dt>Returns:</dt>
+<dd><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> : snapshots hankerized.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanLRAN.ClassDLKoopmanLRAN.get_hankel_data">
+<code class="descname">get_hankel_data</code><span class="sig-paren">(</span><em>X</em>, <em>valid_size=0.01</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanLRAN.html#ClassDLKoopmanLRAN.get_hankel_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanLRAN.ClassDLKoopmanLRAN.get_hankel_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get hankel data and normalized it, then get training and testing and PODs.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">X (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): a single trajectory.</p>
+<p class="last">valid_size (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>): validation ratio in all the data.</p>
+</dd>
+<dt>Note:</dt>
+<dd><ul class="first last simple">
+<li>for trajectory data, there is no training and testing, we use all of the trajectory</li>
+<li>we normalize the trajectory later in the process…</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanLRAN.ClassDLKoopmanLRAN.save_model">
+<code class="descname">save_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanLRAN.html#ClassDLKoopmanLRAN.save_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanLRAN.ClassDLKoopmanLRAN.save_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saving <code class="docutils literal notranslate"><span class="pre">LRAN</span></code> models with model structures, weights, biases,</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanLRAN.ClassDLKoopmanLRAN.train">
+<code class="descname">train</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanLRAN.html#ClassDLKoopmanLRAN.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanLRAN.ClassDLKoopmanLRAN.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>mini-batch training the network</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="MODEL_SRC.ClassGenerateDataFromPhysics.html" class="btn btn-neutral float-right" title="MODEL_SRC.ClassGenerateDataFromPhysics module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="MODEL_SRC.ClassDLKoopmanCont.html" class="btn btn-neutral float-left" title="MODEL_SRC.ClassDLKoopmanCont module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Shaowu Pan
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

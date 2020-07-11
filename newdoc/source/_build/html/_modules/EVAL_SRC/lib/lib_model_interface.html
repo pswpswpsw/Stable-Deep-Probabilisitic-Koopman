@@ -1,0 +1,1566 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>EVAL_SRC.lib.lib_model_interface &mdash; SPARK 1.2rc1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> SPARK
+          
+
+          
+            
+            <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Simple example</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SPARK</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>EVAL_SRC.lib.lib_model_interface</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for EVAL_SRC.lib.lib_model_interface</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Class of model interface for evaluation module in ``main_apo.py``</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">dont_write_bytecode</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TF_C_API_GRAPH_CONSTRUCTION&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;0&#39;</span>
+
+<span class="kn">import</span> <span class="nn">edward</span> <span class="k">as</span> <span class="nn">ed</span>
+<span class="kn">from</span> <span class="nn">edward.models</span> <span class="k">import</span> <span class="n">Normal</span><span class="p">,</span> <span class="n">MultivariateNormalDiag</span>
+<span class="kn">from</span> <span class="nn">tensorflow.contrib.distributions</span> <span class="k">import</span> <span class="n">bijectors</span>
+<span class="kn">from</span> <span class="nn">MODEL_SRC.lib.model</span> <span class="k">import</span> <span class="n">F_duffing_2d_system</span><span class="p">,</span> <span class="n">F_simple_2d_system</span>
+<span class="kn">from</span> <span class="nn">MODEL_SRC.lib.utilities</span> <span class="k">import</span> <span class="n">myswish_beta</span><span class="p">,</span> <span class="n">penalized_tanh</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">linalg</span> <span class="k">as</span> <span class="n">LA</span>
+<span class="kn">from</span> <span class="nn">MODEL_SRC.lib.utilities</span> <span class="k">import</span> <span class="n">TF_FLOAT</span>
+
+
+<div class="viewcode-block" id="ClassFNN_edward"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassFNN_edward">[docs]</a><span class="k">class</span> <span class="nc">ClassFNN_edward</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class of Feedforward neural network given topology, structure, activation function, and recurrent or not,</span>
+<span class="sd">    SVD_DMD or not, to replicate the model we saved.</span>
+
+<span class="sd">    Note:</span>
+
+<span class="sd">        We did this simply because there is no good save_model functionality in edward.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sess (:obj:`class`): the session we used in tensorflow.</span>
+
+<span class="sd">        layer_structure_list (:obj:`list`): the layer structure we used in constructing the Feedforward neural network.</span>
+
+<span class="sd">        act_fun_str (:obj:`str`): the name of the activation function to use.</span>
+
+<span class="sd">        prefix (:obj:`str`): the prefix used in the weights and biases parameters, either ``dec`` or ``enc``.</span>
+
+<span class="sd">        mode (:obj:`str`): the type of ADVI to use, either ``MAPSimple`` or ``ADVInoARD``, ``ADVIARD``.</span>
+
+<span class="sd">        LRAN_T (:obj:`int`): the look forward time window length.</span>
+
+<span class="sd">        SVD_DMD (:obj:`bool`): flag on whether or not `SVD DMD` is enabled.</span>
+
+<span class="sd">    Attributes:</span>
+
+<span class="sd">        LRAN_T (:obj:`int`): the look forward time window length.</span>
+
+<span class="sd">        act_fun (:obj:`function`): the activation function chosen.</span>
+
+<span class="sd">        sess (:obj:`class`): the session we used in tensorflow.</span>
+
+<span class="sd">        prefix (:obj:`str`): the prefix used in the weights and biases parameters, either ``dec`` or ``enc``.</span>
+
+<span class="sd">        mode (:obj:`str`): the type of ADVI to use, either ``MAPSimple`` or ``ADVInoARD``, ``ADVIARD``.</span>
+
+<span class="sd">        layer_structure_list (:obj:`list`): the layer structure we used in constructing the Feedforward neural network.</span>
+
+<span class="sd">        number_layer (:obj:`int`): the number of layers in the network.</span>
+
+<span class="sd">        graph (:obj:`class`): the graph assoicated with the session.</span>
+
+<span class="sd">        SVD_DMD (:obj:`bool`): flag on whether or not `SVD DMD` is enabled.</span>
+
+<span class="sd">        x (:obj:`tf.Tensor`): the placeholder for the input of FNN.</span>
+
+<span class="sd">        w_ph_list (:obj:`list`): a list containing the placeholders for weights. Since we treat all NN parameters</span>
+<span class="sd">            as placeholder, we naturally have a model to use and a NN constructed.</span>
+
+<span class="sd">        b_ph_list (:obj:`list`): a list containing the placeohlder for biases.</span>
+
+<span class="sd">        output (:obj:`tf.Tensor`): the tensor of the output of the FNN.</span>
+
+<span class="sd">        rv_w_list (:obj:`list`): a list of all probability distributions of weights in each layer.</span>
+
+<span class="sd">        rv_b_list (:obj:`list`): a list of all probability distributions of biases in each layer.</span>
+
+<span class="sd">        noise_lin (:obj:`tf.Tensor`): distribution of linear dynamics noises</span>
+
+<span class="sd">        noise_rec (:obj:`tf.Tensor`): distribution of reconstruction dynamics noises</span>
+
+<span class="sd">        K_K_X (:obj:`tf.Tensor`): the distribution of K_K_X (it is a normal with softplus scale)</span>
+
+<span class="sd">        K_SD (:obj:`tf.Tensor`): the distribution of K_SD (it is log normal)</span>
+
+<span class="sd">        num_samples (:obj:`int`): the total number of samples for Monte carlo sampling.</span>
+
+<span class="sd">        sample_rv_w_list (:obj:`list`): list of samples of weights in each layer</span>
+
+<span class="sd">        sample_rv_b_list (:obj:`list`): list of samples of biases in each layer</span>
+
+<span class="sd">        sample_K (:obj:`numpy.ndarray`): array of realization of K matrix.</span>
+
+<span class="sd">        sample_lambda_lin (:obj:`numpy.ndarray`): array of realization of scale of linear dynamics noises.</span>
+
+<span class="sd">        sample_lambda_rec (:obj:`numpy.ndarray`): array of realization of scale of reconstruction noises.</span>
+
+<span class="sd">        sample_noise_lin (:obj:`numpy.ndarray`): array of realization of linear dynamics noises.</span>
+
+<span class="sd">        sample_noise_rec (:obj:`numpy.ndarray`): array of realization of reconstruction noises.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sess</span><span class="p">,</span> <span class="n">layer_structure_list</span><span class="p">,</span> <span class="n">act_fun_str</span><span class="p">,</span>
+                 <span class="n">prefix</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">LRAN_T</span><span class="p">,</span> <span class="n">SVD_DMD</span><span class="p">,</span> <span class="n">POD_W</span><span class="p">,</span> <span class="n">nsd</span><span class="p">,</span> <span class="n">W_b_K_dict</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">LRAN_T</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">LRAN_T</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">LRAN_T</span> <span class="o">=</span> <span class="n">LRAN_T</span>
+
+        <span class="c1"># -- choose the activation function</span>
+        <span class="k">if</span> <span class="n">act_fun_str</span> <span class="o">==</span> <span class="s1">&#39;tanh&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">act_fun</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">tanh</span>
+
+        <span class="k">elif</span> <span class="n">act_fun_str</span> <span class="o">==</span> <span class="s1">&#39;ptanh&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">act_fun</span> <span class="o">=</span> <span class="n">penalized_tanh</span>
+
+        <span class="k">elif</span> <span class="n">act_fun_str</span> <span class="o">==</span> <span class="s1">&#39;elu&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">act_fun</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">elu</span>
+
+        <span class="k">elif</span> <span class="n">act_fun_str</span> <span class="o">==</span> <span class="s1">&#39;swish&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">act_fun</span> <span class="o">=</span> <span class="n">myswish_beta</span>
+
+        <span class="k">elif</span> <span class="n">act_fun_str</span> <span class="o">==</span> <span class="s1">&#39;relu&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">act_fun</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span>
+
+        <span class="k">elif</span> <span class="n">act_fun_str</span> <span class="o">==</span> <span class="s1">&#39;selu&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">act_fun</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">selu</span>
+
+        <span class="k">elif</span> <span class="n">act_fun_str</span> <span class="o">==</span> <span class="s1">&#39;sin&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">act_fun</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">sin</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;activation function not implemented!&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sess</span> <span class="o">=</span> <span class="n">sess</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">=</span> <span class="n">prefix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layer_structure_list</span> <span class="o">=</span> <span class="n">layer_structure_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">number_layer</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_structure_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">graph</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">SVD_DMD</span> <span class="o">=</span> <span class="n">SVD_DMD</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">POD_W</span> <span class="o">=</span> <span class="n">POD_W</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nsd</span> <span class="o">=</span> <span class="n">nsd</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_b_K_dict</span> <span class="o">=</span> <span class="n">W_b_K_dict</span>
+
+        <span class="c1">## create a tensorflow FNN graph: such that weight, bias, K + together with x as input</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">as_default</span><span class="p">():</span>
+
+            <span class="c1"># construct placeholder for x</span>
+            <span class="c1"># Note: such x would be eta for encoder,</span>
+            <span class="c1"># but it would be phi for decoder. I just use `x` for notation</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">TF_FLOAT</span><span class="p">,</span>
+                                    <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_structure_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                                    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;input_of_FNN&#39;</span><span class="p">)</span>
+
+            <span class="c1"># construct a list of placeholder for input of parameters, such that one can evaluate</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">w_ph_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">b_ph_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">number_layer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+
+                <span class="n">weight_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">layer_structure_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">layer_structure_list</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="n">bias_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">layer_structure_list</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">w_ph_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">TF_FLOAT</span><span class="p">,</span>
+                                                     <span class="n">shape</span><span class="o">=</span><span class="n">weight_shape</span><span class="p">,</span>
+                                                     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;W_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+
+                <span class="c1"># construct the network with that special structure</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">SVD_DMD</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="s1">&#39;enc&#39;</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_layer</span> <span class="o">-</span> <span class="mi">2</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">b_ph_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">TF_FLOAT</span><span class="p">,</span>
+                                                                 <span class="n">shape</span><span class="o">=</span><span class="n">bias_shape</span><span class="p">,</span>
+                                                                 <span class="n">name</span><span class="o">=</span><span class="s1">&#39;b_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="s1">&#39;dec&#39;</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">b_ph_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">TF_FLOAT</span><span class="p">,</span>
+                                                                 <span class="n">shape</span><span class="o">=</span><span class="n">bias_shape</span><span class="p">,</span>
+                                                                 <span class="n">name</span><span class="o">=</span><span class="s1">&#39;b_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+                <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># if SVD DMD is not enabled, we don&#39;t do that</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">b_ph_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">TF_FLOAT</span><span class="p">,</span>
+                                                         <span class="n">shape</span><span class="o">=</span><span class="n">bias_shape</span><span class="p">,</span>
+                                                         <span class="n">name</span><span class="o">=</span><span class="s1">&#39;b_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="c1"># since our likelihood is a diagonal Gaussian, the following</span>
+            <span class="c1"># is needed in order to propagate the noise from the likelihood</span>
+
+            <span class="c1"># so we build a unit Gaussian for multiple variables</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">LRAN_T</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">unit_GS_rec</span> <span class="o">=</span> <span class="n">MultivariateNormalDiag</span><span class="p">(</span>
+                    <span class="n">loc</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_structure_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">TF_FLOAT</span><span class="p">),</span>
+                    <span class="n">scale_diag</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_structure_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">TF_FLOAT</span><span class="p">))</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">unit_GS_lin</span> <span class="o">=</span> <span class="n">MultivariateNormalDiag</span><span class="p">(</span>
+                    <span class="n">loc</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_structure_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">TF_FLOAT</span><span class="p">),</span>
+                    <span class="n">scale_diag</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_structure_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">TF_FLOAT</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">unit_GS_rec</span> <span class="o">=</span> <span class="n">MultivariateNormalDiag</span><span class="p">(</span>
+                    <span class="n">loc</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_structure_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">LRAN_T</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">TF_FLOAT</span><span class="p">),</span>
+                    <span class="n">scale_diag</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_structure_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">LRAN_T</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">TF_FLOAT</span><span class="p">))</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">unit_GS_lin</span> <span class="o">=</span> <span class="n">MultivariateNormalDiag</span><span class="p">(</span>
+                    <span class="n">loc</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_structure_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">LRAN_T</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">TF_FLOAT</span><span class="p">),</span>
+                    <span class="n">scale_diag</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_structure_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">LRAN_T</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">TF_FLOAT</span><span class="p">))</span>
+
+    <span class="c1"># def construct_linear_FNN(self):</span>
+    <span class="c1">#     &quot;&quot;&quot;Construct the feedforward neural network by constructing the graph. Using :attr:`x` as input,</span>
+    <span class="c1">#     output is :attr:`output` in a linear way. Note that in the createMLPOutLinear of ClassDLKoopmanCont.py.</span>
+    <span class="c1">#     There is no special linear decoder that only uses a single linear weight. We simply perform symmetrical weights</span>
+    <span class="c1">#     but turn the nonlinear activation OFF. Since it makes the coding much easier.</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1">#     # simply linear FNN....</span>
+    <span class="c1">#     MLP = [self.x]</span>
+    <span class="c1">#     with self.graph.as_default():</span>
+    <span class="c1">#         for i in xrange(1, len(self.w_ph_list) + 1):</span>
+    <span class="c1">#             before_act = tf.add(tf.matmul(MLP[i - 1], self.w_ph_list[i - 1]), self.b_ph_list[i - 1])</span>
+    <span class="c1">#             MLP.append(before_act)</span>
+    <span class="c1">#</span>
+    <span class="c1">#         self.output = MLP[-1]</span>
+    <span class="c1">#</span>
+    <span class="c1">#     pass</span>
+
+    <span class="c1"># def construct_FNN_decoder_linear(self):</span>
+    <span class="c1">#     &quot;&quot;&quot;Construct the feedforward neural network by constructing the graph. Using :attr:`x` as input,</span>
+    <span class="c1">#     output is :attr:`output` in a linear way. Note that in the createMLPOutLinear of ClassDLKoopmanCont.py.</span>
+    <span class="c1">#     There is no special linear decoder that only uses a single linear weight. We simply perform symmetrical weights</span>
+    <span class="c1">#     but turn the nonlinear activation OFF. Since it makes the coding much easier.</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1">#     # simply linear FNN....</span>
+    <span class="c1">#</span>
+    <span class="c1">#     MLP = [self.x]</span>
+    <span class="c1">#</span>
+    <span class="c1">#     with self.graph.as_default():</span>
+    <span class="c1">#         for i in xrange(1, len(self.w_ph_list) + 1):</span>
+    <span class="c1">#</span>
+    <span class="c1">#             if i == len(self.w_ph_list):</span>
+    <span class="c1">#                 # if it was last layer</span>
+    <span class="c1">#                 before_act = tf.add(tf.matmul(MLP[i - 1], self.w_ph_list[i - 1]), self.b_ph_list[i - 1])</span>
+    <span class="c1">#                 MLP.append(before_act)</span>
+    <span class="c1">#                 # print &#39;final layer!&#39;</span>
+    <span class="c1">#             else:</span>
+    <span class="c1">#</span>
+    <span class="c1">#                 # other layers</span>
+    <span class="c1">#                 if self.SVD_DMD and i == 1:</span>
+    <span class="c1">#                     before_act = tf.matmul(MLP[i - 1], self.w_ph_list[i - 1])</span>
+    <span class="c1">#                 else:</span>
+    <span class="c1">#                     before_act = tf.add(tf.matmul(MLP[i - 1], self.w_ph_list[i - 1]), self.b_ph_list[i - 1])</span>
+    <span class="c1">#</span>
+    <span class="c1">#                 MLP.append(before_act)</span>
+    <span class="c1">#</span>
+    <span class="c1">#         self.output = MLP[-1]</span>
+
+    <span class="c1"># def construct_FNN_decoder(self):</span>
+    <span class="c1">#     &quot;&quot;&quot;Construct the feedforward neural network by constructing the graph. Using :attr:`x` as input,</span>
+    <span class="c1">#     output is :attr:`output`.</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1">#     MLP = [self.x]</span>
+    <span class="c1">#</span>
+    <span class="c1">#     with self.graph.as_default():</span>
+    <span class="c1">#         for i in xrange(1, len(self.w_ph_list) + 1):</span>
+    <span class="c1">#</span>
+    <span class="c1">#             if i == len(self.w_ph_list):</span>
+    <span class="c1">#                 # if it was last layer</span>
+    <span class="c1">#                 before_act = tf.add(tf.matmul(MLP[i - 1], self.w_ph_list[i - 1]), self.b_ph_list[i - 1])</span>
+    <span class="c1">#                 MLP.append(before_act)</span>
+    <span class="c1">#                 # print &#39;final layer!&#39;</span>
+    <span class="c1">#             else:</span>
+    <span class="c1">#</span>
+    <span class="c1">#                 # other layers</span>
+    <span class="c1">#                 if self.SVD_DMD and i == 1:</span>
+    <span class="c1">#                     before_act = tf.matmul(MLP[i - 1], self.w_ph_list[i - 1])</span>
+    <span class="c1">#                 else:</span>
+    <span class="c1">#                     before_act = tf.add(tf.matmul(MLP[i - 1], self.w_ph_list[i - 1]), self.b_ph_list[i - 1])</span>
+    <span class="c1">#</span>
+    <span class="c1">#                 act_fun = self.act_fun</span>
+    <span class="c1">#                 MLP.append(act_fun(before_act))</span>
+    <span class="c1">#</span>
+    <span class="c1">#         self.output = MLP[-1]</span>
+
+
+<div class="viewcode-block" id="ClassFNN_edward.createMLPOutLinearOLD"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassFNN_edward.createMLPOutLinearOLD">[docs]</a>    <span class="k">def</span> <span class="nf">createMLPOutLinearOLD</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_layer</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span>
+                           <span class="n">bias</span><span class="p">,</span> <span class="n">prefix</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">as_default</span><span class="p">():</span>
+            <span class="n">MLP</span> <span class="o">=</span> <span class="p">[</span><span class="n">start_layer</span><span class="p">]</span>
+            <span class="n">numWeightedLayers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+
+            <span class="n">start_index</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">end_index</span> <span class="o">=</span> <span class="n">numWeightedLayers</span> <span class="o">+</span> <span class="mi">1</span>
+
+            <span class="c1"># by doing this, we cna have the desired FNN we want, with desired weights and biases</span>
+            <span class="k">for</span> <span class="n">indexLayer</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">start_index</span><span class="p">,</span> <span class="n">end_index</span><span class="p">):</span>
+                <span class="n">before_act</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">MLP</span><span class="p">[</span><span class="n">indexLayer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span>
+                                              <span class="n">weights</span><span class="p">[</span><span class="n">indexLayer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]),</span>
+                                    <span class="n">bias</span><span class="p">[</span><span class="n">indexLayer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+
+                <span class="k">if</span> <span class="n">indexLayer</span> <span class="o">&lt;</span> <span class="n">numWeightedLayers</span><span class="p">:</span>
+                    <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">act_fun</span><span class="p">(</span><span class="n">before_act</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">output</span> <span class="o">=</span> <span class="n">before_act</span>
+
+                <span class="n">MLP</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">MLP</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="ClassFNN_edward.createMLPOutLinear"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassFNN_edward.createMLPOutLinear">[docs]</a>    <span class="k">def</span> <span class="nf">createMLPOutLinear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_layer</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span>
+                           <span class="n">bias</span><span class="p">,</span> <span class="n">prefix</span><span class="p">):</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">as_default</span><span class="p">():</span>
+            <span class="n">MLP</span> <span class="o">=</span> <span class="p">[</span><span class="n">start_layer</span><span class="p">]</span>
+            <span class="n">numWeightedLayers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">prefix</span> <span class="o">==</span> <span class="s1">&#39;enc&#39;</span><span class="p">:</span>
+                <span class="n">start_index</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">end_index</span> <span class="o">=</span> <span class="n">numWeightedLayers</span>
+
+                <span class="c1"># by doing this, we cna have the desired FNN we want, with desired weights and biases</span>
+                <span class="k">for</span> <span class="n">indexLayer</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">start_index</span><span class="p">,</span> <span class="n">end_index</span><span class="p">):</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;reconstruct encoder NN part...&#39;</span><span class="p">,</span> <span class="n">indexLayer</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;weight =&#39;</span><span class="p">,</span> <span class="n">weights</span><span class="p">[</span><span class="n">indexLayer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;bias =&#39;</span><span class="p">,</span> <span class="n">bias</span><span class="p">[</span><span class="n">indexLayer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+
+                    <span class="n">before_act</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">MLP</span><span class="p">[</span><span class="n">indexLayer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span>
+                                                  <span class="n">weights</span><span class="p">[</span><span class="n">indexLayer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]),</span>
+                                        <span class="n">bias</span><span class="p">[</span><span class="n">indexLayer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+
+                    <span class="k">if</span> <span class="n">indexLayer</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">end_index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">act_fun</span><span class="p">(</span><span class="n">before_act</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">output</span> <span class="o">=</span> <span class="n">before_act</span>
+
+                    <span class="n">MLP</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">prefix</span> <span class="o">==</span> <span class="s1">&#39;dec&#39;</span><span class="p">:</span>
+                <span class="n">start_index</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">end_index</span> <span class="o">=</span> <span class="n">numWeightedLayers</span> <span class="o">+</span> <span class="mi">1</span>
+
+                <span class="c1"># by doing this, we cna have the desired FNN we want, with desired weights and biases</span>
+                <span class="k">for</span> <span class="n">indexLayer</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">start_index</span><span class="p">,</span> <span class="n">end_index</span><span class="p">):</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;reconstruct decoder NN part...&#39;</span><span class="p">,</span> <span class="n">indexLayer</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;weight =&#39;</span><span class="p">,</span> <span class="n">weights</span><span class="p">[</span><span class="n">indexLayer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;bias =&#39;</span><span class="p">,</span> <span class="n">bias</span><span class="p">[</span><span class="n">indexLayer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+                    <span class="n">before_act</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">MLP</span><span class="p">[</span><span class="n">indexLayer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span>
+                                                  <span class="n">weights</span><span class="p">[</span><span class="n">indexLayer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]),</span>
+                                        <span class="n">bias</span><span class="p">[</span><span class="n">indexLayer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+
+                    <span class="k">if</span> <span class="n">indexLayer</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">end_index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">act_fun</span><span class="p">(</span><span class="n">before_act</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">output</span> <span class="o">=</span> <span class="n">before_act</span>
+
+                    <span class="n">MLP</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;not implemented! check prefix!&#39;</span><span class="p">)</span>
+
+
+
+
+
+        <span class="k">return</span> <span class="n">MLP</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="ClassFNN_edward.construct_FNN"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassFNN_edward.construct_FNN">[docs]</a>    <span class="k">def</span> <span class="nf">construct_FNN</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Construct the special feedforward neural network by constructing the graph. Using :attr:`x` as input,</span>
+<span class="sd">        output is :attr:`output`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">as_default</span><span class="p">():</span>
+
+            <span class="k">if</span> <span class="n">prefix</span> <span class="o">==</span> <span class="s1">&#39;enc&#39;</span><span class="p">:</span>
+
+                <span class="nb">input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
+                <span class="c1"># numWeightedLayers = len(self.w_ph_list)</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">SVD_DMD</span><span class="p">:</span>
+
+                    <span class="n">output_NN</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">createMLPOutLinear</span><span class="p">(</span><span class="n">start_layer</span><span class="o">=</span><span class="nb">input</span><span class="p">,</span>
+                                                        <span class="n">weights</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">w_ph_list</span><span class="p">,</span>
+                                                        <span class="n">bias</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">b_ph_list</span><span class="p">,</span>
+                                                        <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;enc&#39;</span><span class="p">)</span>
+                    <span class="n">output_svd</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">POD_W</span><span class="p">)</span>
+                    <span class="n">phi_before_wm</span> <span class="o">=</span> <span class="n">output_NN</span> <span class="o">+</span> <span class="n">output_svd</span>
+                    <span class="c1"># get last output with weight muplication only, no activation</span>
+                    <span class="n">phi</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">phi_before_wm</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w_ph_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+                <span class="k">else</span><span class="p">:</span>
+
+                    <span class="n">output_NN</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">createMLPOutLinearOLD</span><span class="p">(</span><span class="n">start_layer</span><span class="o">=</span><span class="nb">input</span><span class="p">,</span>
+                                                        <span class="n">weights</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">w_ph_list</span><span class="p">,</span>
+                                                        <span class="n">bias</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">b_ph_list</span><span class="p">,</span>
+                                                        <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;enc&#39;</span><span class="p">)</span>
+                    <span class="n">phi_before_wm</span> <span class="o">=</span> <span class="n">output_NN</span>
+                    <span class="n">phi</span> <span class="o">=</span> <span class="n">phi_before_wm</span>
+
+                <span class="n">output</span> <span class="o">=</span> <span class="n">phi</span>
+
+            <span class="k">elif</span> <span class="n">prefix</span> <span class="o">==</span> <span class="s1">&#39;dec&#39;</span><span class="p">:</span>
+
+                <span class="n">phi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
+
+
+                <span class="c1"># third, depending on if SVD shortcut is enabled or not</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">SVD_DMD</span><span class="p">:</span>
+                    <span class="c1"># first, take phi with a pure weight multiplication</span>
+                    <span class="n">phi_after_wm</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w_ph_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+                    <span class="c1"># second, take that into a standard Feedforward NN</span>
+                    <span class="n">psi_phi_NN</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">createMLPOutLinear</span><span class="p">(</span><span class="n">start_layer</span><span class="o">=</span><span class="n">phi_after_wm</span><span class="p">,</span>
+                                                         <span class="n">weights</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">w_ph_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span>
+                                                         <span class="n">bias</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">b_ph_list</span><span class="p">,</span>
+                                                         <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;dec&#39;</span><span class="p">)</span>
+
+                    <span class="n">psi_svd</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">phi_after_wm</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">POD_W</span><span class="p">)</span>
+                    <span class="n">eta_rec</span> <span class="o">=</span> <span class="n">psi_phi_NN</span> <span class="o">+</span> <span class="n">psi_svd</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">phi_after_wm</span> <span class="o">=</span> <span class="n">phi</span>
+                    <span class="n">psi_phi_NN</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">createMLPOutLinearOLD</span><span class="p">(</span><span class="n">start_layer</span><span class="o">=</span><span class="n">phi_after_wm</span><span class="p">,</span>
+                                                         <span class="n">weights</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">w_ph_list</span><span class="p">,</span>
+                                                         <span class="n">bias</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">b_ph_list</span><span class="p">,</span>
+                                                         <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;dec&#39;</span><span class="p">)</span>
+                    <span class="n">eta_rec</span> <span class="o">=</span> <span class="n">psi_phi_NN</span>
+
+                <span class="n">output</span> <span class="o">=</span> <span class="n">eta_rec</span>
+
+            <span class="k">else</span><span class="p">:</span>
+
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;not implemented that prefix = &#39;</span><span class="p">,</span> <span class="n">prefix</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">output</span>
+
+        <span class="k">return</span></div>
+
+
+        <span class="c1"># MLP = [self.x]</span>
+        <span class="c1">#</span>
+        <span class="c1"># with self.graph.as_default():</span>
+        <span class="c1">#     for i in xrange(1, len(self.w_ph_list) + 1):</span>
+        <span class="c1">#</span>
+        <span class="c1">#         if i == len(self.w_ph_list):</span>
+        <span class="c1">#             # if it was last layer</span>
+        <span class="c1">#             if self.SVD_DMD:</span>
+        <span class="c1">#                 before_act = tf.matmul(MLP[i - 1], self.w_ph_list[i - 1])</span>
+        <span class="c1">#             else:</span>
+        <span class="c1">#                 before_act = tf.add(tf.matmul(MLP[i - 1], self.w_ph_list[i - 1]), self.b_ph_list[i - 1])</span>
+        <span class="c1">#             MLP.append(before_act)</span>
+        <span class="c1">#             # print &#39;final layer!&#39;</span>
+        <span class="c1">#         else:</span>
+        <span class="c1">#</span>
+        <span class="c1">#             # print &#39;i = &#39;, i</span>
+        <span class="c1">#             before_act = tf.add(tf.matmul(MLP[i - 1], self.w_ph_list[i - 1]), self.b_ph_list[i - 1])</span>
+        <span class="c1">#             act_fun = self.act_fun</span>
+        <span class="c1">#             MLP.append(act_fun(before_act))</span>
+        <span class="c1">#</span>
+        <span class="c1">#     self.output = MLP[-1]</span>
+
+    <span class="c1"># def construct_FNN(self):</span>
+    <span class="c1">#     &quot;&quot;&quot;Construct the feedforward neural network by constructing the graph. Using :attr:`x` as input,</span>
+    <span class="c1">#     output is :attr:`output`.</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1">#</span>
+    <span class="c1">#     MLP = [self.x]</span>
+    <span class="c1">#</span>
+    <span class="c1">#     with self.graph.as_default():</span>
+    <span class="c1">#         for i in xrange(1, len(self.w_ph_list) + 1):</span>
+    <span class="c1">#</span>
+    <span class="c1">#             if i == len(self.w_ph_list):</span>
+    <span class="c1">#                 # if it was last layer</span>
+    <span class="c1">#                 if self.SVD_DMD:</span>
+    <span class="c1">#                     before_act = tf.matmul(tf.add(MLP[i - 1], phi_dmd), self.w_ph_list[i - 1])</span>
+    <span class="c1">#                 else:</span>
+    <span class="c1">#                     before_act = tf.add(tf.matmul(MLP[i - 1], self.w_ph_list[i - 1]), self.b_ph_list[i - 1])</span>
+    <span class="c1">#                 MLP.append(before_act)</span>
+    <span class="c1">#                 # print &#39;final layer!&#39;</span>
+    <span class="c1">#             else:</span>
+    <span class="c1">#</span>
+    <span class="c1">#                 # print &#39;i = &#39;, i</span>
+    <span class="c1">#                 before_act = tf.add(tf.matmul(MLP[i - 1], self.w_ph_list[i - 1]), self.b_ph_list[i - 1])</span>
+    <span class="c1">#                 act_fun = self.act_fun</span>
+    <span class="c1">#                 MLP.append(act_fun(before_act))</span>
+    <span class="c1">#</span>
+    <span class="c1">#         self.output = MLP[-1]</span>
+
+
+<div class="viewcode-block" id="ClassFNN_edward.predict"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassFNN_edward.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_data</span><span class="p">,</span> <span class="n">w_list</span><span class="p">,</span> <span class="n">b_list</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Given input data ``x_data``, we output the predictions and given the weights and biases from the</span>
+<span class="sd">        ``w_list`` and ``b_list``.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x_data (:obj:`numpy.ndarray`): input data</span>
+
+<span class="sd">            w_list (:obj:`list`): list of weights for each layer</span>
+
+<span class="sd">            b_list (:obj:`list`): list of biases for each layer</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            :obj:`numpy.ndarray` : the resulting output.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">as_default</span><span class="p">():</span>
+            <span class="n">feed_dict</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">:</span> <span class="n">x_data</span><span class="p">}</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">number_layer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">feed_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">w_ph_list</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">w_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">SVD_DMD</span><span class="p">:</span>
+                <span class="c1"># note that the number of bias is always smaller than the number of weight</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">number_layer</span> <span class="o">-</span> <span class="mi">2</span><span class="p">):</span>
+                    <span class="n">feed_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">b_ph_list</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">b_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">number_layer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="n">feed_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">b_ph_list</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">b_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">feed_dict</span><span class="o">=</span><span class="n">feed_dict</span><span class="p">)</span>
+
+        <span class="c1"># the output is either phi or eta_rec</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="ClassFNN_edward.construct_RV"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassFNN_edward.construct_RV">[docs]</a>    <span class="k">def</span> <span class="nf">construct_RV</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Construct the distribution of weights and biases and K, and noises.&quot;&quot;&quot;</span>
+
+        <span class="c1"># obtaining the method that can easily call any tensor by its name</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">as_default</span><span class="p">():</span>
+
+            <span class="n">get_tensor_by_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">get_tensor_by_name</span>
+
+            <span class="c1"># getting the VI parameters from graph</span>
+            <span class="c1"># # -- w and b</span>
+            <span class="c1"># self.rv_w_list = []</span>
+            <span class="c1"># self.rv_b_list = []</span>
+
+
+
+
+            <span class="c1"># sampling noises from Normal distributions</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;MAP&#39;</span><span class="p">:</span>
+                <span class="c1"># -- noise</span>
+                <span class="n">ones_lin_noise</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_structure_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span><span class="n">dtype</span><span class="o">=</span><span class="n">TF_FLOAT</span><span class="p">)</span>
+                <span class="n">ones_rec_noise</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_structure_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="n">dtype</span><span class="o">=</span><span class="n">TF_FLOAT</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">noise_lin</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">ones_lin_noise</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">ones_lin_noise</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">noise_rec</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">ones_rec_noise</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">ones_rec_noise</span><span class="p">)</span>
+
+                <span class="c1"># -- K</span>
+                <span class="c1"># self.K = Normal(loc=get_tensor_by_name(&#39;qK/loc:0&#39;), scale=tf.zeros(tf.shape(get_tensor_by_name(&#39;qK/loc:0&#39;))))</span>
+
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;ADVIARD&#39;</span><span class="p">:</span>
+
+                <span class="c1"># the following assumes that the noise VP is log-normal.</span>
+                <span class="c1"># so we need ``ed.models.TransformedDistribution``</span>
+
+                <span class="c1"># -- noise, the variance of the noise</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">noise_lin</span> <span class="o">=</span> <span class="n">ed</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">TransformedDistribution</span><span class="p">(</span>
+                    <span class="n">distribution</span><span class="o">=</span><span class="n">ed</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">NormalWithSoftplusScale</span><span class="p">(</span>
+                        <span class="n">loc</span><span class="o">=</span><span class="n">get_tensor_by_name</span><span class="p">(</span><span class="s1">&#39;scale_noise_lin/loc:0&#39;</span><span class="p">),</span>
+                        <span class="n">scale</span><span class="o">=</span><span class="n">get_tensor_by_name</span><span class="p">(</span><span class="s1">&#39;scale_noise_lin/scale:0&#39;</span><span class="p">)),</span>
+                    <span class="n">bijector</span><span class="o">=</span><span class="n">bijectors</span><span class="o">.</span><span class="n">Exp</span><span class="p">(),</span>
+                    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;noise_lin&#39;</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">noise_rec</span> <span class="o">=</span> <span class="n">ed</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">TransformedDistribution</span><span class="p">(</span>
+                    <span class="n">distribution</span><span class="o">=</span><span class="n">ed</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">NormalWithSoftplusScale</span><span class="p">(</span>
+                        <span class="n">loc</span><span class="o">=</span><span class="n">get_tensor_by_name</span><span class="p">(</span><span class="s1">&#39;scale_noise_rec/loc:0&#39;</span><span class="p">),</span>
+                        <span class="n">scale</span><span class="o">=</span><span class="n">get_tensor_by_name</span><span class="p">(</span><span class="s1">&#39;scale_noise_rec/scale:0&#39;</span><span class="p">)),</span>
+                    <span class="n">bijector</span><span class="o">=</span><span class="n">bijectors</span><span class="o">.</span><span class="n">Exp</span><span class="p">(),</span>
+                    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;noise_rec&#39;</span><span class="p">)</span>
+
+                <span class="c1"># -- K</span>
+                <span class="c1"># self.K = Normal(loc=get_tensor_by_name(&#39;qK/loc:0&#39;), scale=tf.nn.softplus(get_tensor_by_name(&#39;qK/scale:0&#39;)))</span>
+
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;ADVInoARD&#39;</span><span class="p">:</span>
+
+                <span class="n">ADVInoARD_noise_scale</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">TF_FLOAT</span><span class="p">)</span>
+
+                <span class="c1"># -- noise</span>
+                <span class="n">ones_lin_noise</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_structure_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="n">TF_FLOAT</span><span class="p">)</span>
+                <span class="n">ones_rec_noise</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_structure_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="n">TF_FLOAT</span><span class="p">)</span>
+
+                <span class="c1"># this would just be the constant, since in ADVInoARD, the noise in likelihood is fixed.....</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">noise_lin</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">ones_lin_noise</span> <span class="o">*</span> <span class="n">ADVInoARD_noise_scale</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ones_lin_noise</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">TF_FLOAT</span><span class="p">)</span> <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">noise_rec</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">ones_rec_noise</span> <span class="o">*</span> <span class="n">ADVInoARD_noise_scale</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ones_rec_noise</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">TF_FLOAT</span><span class="p">)</span> <span class="p">)</span>
+
+                <span class="c1"># -- K</span>
+                <span class="c1"># self.K = Normal(loc=get_tensor_by_name(&#39;qK/loc:0&#39;), scale=tf.nn.softplus(get_tensor_by_name(&#39;qK/scale:0&#39;)))</span>
+
+            <span class="k">else</span><span class="p">:</span>
+
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Error noise cannot be sampled!!&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="ClassFNN_edward.sampling_RV"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassFNN_edward.sampling_RV">[docs]</a>    <span class="k">def</span> <span class="nf">sampling_RV</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; sampling Random Variables from their distributions to get ``num_samples`` realizations.</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            num_samples (:obj:`int`): number of Monte Carlo samples.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">as_default</span><span class="p">():</span>
+
+            <span class="c1"># set number of samples</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">num_samples</span> <span class="o">=</span> <span class="n">num_samples</span>
+
+            <span class="c1"># sampling noise</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="s1">&#39;enc&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sample_noise_lin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unit_GS_lin</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">num_samples</span><span class="p">)</span>
+                                                      <span class="o">*</span> <span class="n">tf</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">noise_lin</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">num_samples</span><span class="p">)))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sample_noise_rec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unit_GS_rec</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">num_samples</span><span class="p">)</span>
+                                                      <span class="o">*</span> <span class="n">tf</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">noise_rec</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">num_samples</span><span class="p">)))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sample_lambda_lin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">noise_lin</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">num_samples</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sample_lambda_rec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">noise_rec</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">num_samples</span><span class="p">))</span>
+
+
+            <span class="c1"># sampling w and b</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sample_rv_w_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sample_rv_b_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="c1"># read weights and biases and K from ``weight_bias_save.npy``</span>
+            <span class="nb">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_b_K_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="s1">&#39;enc&#39;</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_structure_list</span><span class="p">)):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">sample_rv_w_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_b_K_dict</span><span class="p">[</span><span class="s1">&#39;enc_w_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">SVD_DMD</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_structure_list</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">sample_rv_b_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_b_K_dict</span><span class="p">[</span><span class="s1">&#39;enc_b_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">sample_rv_b_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_b_K_dict</span><span class="p">[</span><span class="s1">&#39;enc_b_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span>
+
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="s1">&#39;dec&#39;</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_structure_list</span><span class="p">)):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">sample_rv_w_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_b_K_dict</span><span class="p">[</span><span class="s1">&#39;dec_w_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">SVD_DMD</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">sample_rv_b_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_b_K_dict</span><span class="p">[</span><span class="s1">&#39;dec_b_&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">sample_rv_b_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_b_K_dict</span><span class="p">[</span><span class="s1">&#39;dec_b_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span>
+            <span class="k">else</span><span class="p">:</span>
+
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;not implemented!&#39;</span><span class="p">)</span>
+
+            <span class="c1"># read K from ``weight_bias_save.npy``</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sample_K</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_b_K_dict</span><span class="p">[</span><span class="s1">&#39;K&#39;</span><span class="p">]</span></div>
+
+        <span class="c1">#</span>
+        <span class="c1"># for index in xrange(len(self.rv_w_list)):</span>
+        <span class="c1">#     self.sample_rv_w_list.append(self.sess.run(self.rv_w_list[index].sample(num_samples)))</span>
+        <span class="c1">#     self.sample_rv_b_list.append(self.sess.run(self.rv_b_list[index].sample(num_samples)))</span>
+
+
+
+        <span class="c1"># sampling K from nsd==1 version</span>
+        <span class="c1"># samples_X_upper = self.sess.run(tf.matrix_band_part(self.K_K_X.sample(num_samples), 0, 1))</span>
+        <span class="c1">#</span>
+        <span class="c1"># samples_K_SD = self.sess.run(self.K_SD.sample(num_samples))</span>
+        <span class="c1">#</span>
+        <span class="c1"># samples_K_SD_list = []</span>
+        <span class="c1"># for index in xrange(samples_K_SD.shape[0]):</span>
+        <span class="c1">#     samples_K_SD_list.append(np.diag(samples_K_SD[index]))</span>
+        <span class="c1"># samples_K_SD = np.array(samples_K_SD_list)</span>
+        <span class="c1">#</span>
+        <span class="c1"># samples_X_upper_T = np.einsum(&#39;ijk-&gt;ikj&#39;, samples_X_upper)</span>
+        <span class="c1">#</span>
+        <span class="c1"># samples_K_XX = samples_X_upper - samples_X_upper_T</span>
+        <span class="c1">#</span>
+        <span class="c1"># samples_K = samples_K_XX - samples_K_SD</span>
+        <span class="c1">#</span>
+        <span class="c1"># self.sample_K = samples_K</span>
+
+    <span class="c1">#######################################</span>
+
+<div class="viewcode-block" id="ClassFNN_edward.get_K"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassFNN_edward.get_K">[docs]</a>    <span class="k">def</span> <span class="nf">get_K</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_K</span></div>
+
+<div class="viewcode-block" id="ClassFNN_edward.get_lambda_lin"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassFNN_edward.get_lambda_lin">[docs]</a>    <span class="k">def</span> <span class="nf">get_lambda_lin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_lambda_lin</span></div>
+
+<div class="viewcode-block" id="ClassFNN_edward.get_lambda_rec"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassFNN_edward.get_lambda_rec">[docs]</a>    <span class="k">def</span> <span class="nf">get_lambda_rec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_lambda_rec</span></div>
+
+<div class="viewcode-block" id="ClassFNN_edward.get_noise_lin"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassFNN_edward.get_noise_lin">[docs]</a>    <span class="k">def</span> <span class="nf">get_noise_lin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_noise_lin</span></div>
+
+<div class="viewcode-block" id="ClassFNN_edward.get_noise_rec"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassFNN_edward.get_noise_rec">[docs]</a>    <span class="k">def</span> <span class="nf">get_noise_rec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_noise_rec</span></div>
+
+<div class="viewcode-block" id="ClassFNN_edward.ensemble_predict"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassFNN_edward.ensemble_predict">[docs]</a>    <span class="k">def</span> <span class="nf">ensemble_predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;output the ensemble of the predictions, of all Monte Carlo samplings</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x_data (:obj:`numpy.ndarray`): the initial condition, i.e., input data.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            :obj:`list` : a list of all predictions for all Monte Carlo samples.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># noise_list = self.sess.run(self.sample_noise_lin)</span>
+
+        <span class="n">pred_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_samples</span><span class="p">):</span>
+            <span class="n">w_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">b_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_rv_w_list</span><span class="p">)</span> <span class="p">):</span>
+                <span class="n">w_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_rv_w_list</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">,:,:])</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">SVD_DMD</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_rv_w_list</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="n">b_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_rv_b_list</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">,:,:])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_rv_w_list</span><span class="p">)):</span>
+                    <span class="n">b_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_rv_b_list</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">,:,:])</span>
+
+            <span class="n">pred_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_data</span><span class="o">=</span><span class="n">x_data</span><span class="p">,</span>
+                                          <span class="n">w_list</span><span class="o">=</span><span class="n">w_list</span><span class="p">,</span>
+                                          <span class="n">b_list</span><span class="o">=</span><span class="n">b_list</span><span class="p">)</span> <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">pred_list</span></div>
+
+<div class="viewcode-block" id="ClassFNN_edward.predict_with_i_realization"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassFNN_edward.predict_with_i_realization">[docs]</a>    <span class="k">def</span> <span class="nf">predict_with_i_realization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_data</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;predicting with certain realizations</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x_data (:obj:`numpy.ndarray`): the initial condition, i.e., input data.</span>
+
+<span class="sd">            i (:obj:`int`): the index of a certain Monte carlo samples.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            :obj:`numpy.ndarray` : the array of output for that given realization.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">w_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">b_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_rv_w_list</span><span class="p">)):</span>
+            <span class="n">w_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_rv_w_list</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">,:,:])</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">SVD_DMD</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_rv_w_list</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">b_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_rv_b_list</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">,:,:])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_rv_w_list</span><span class="p">)):</span>
+                <span class="n">b_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_rv_b_list</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">,:,:])</span>
+
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_data</span><span class="o">=</span><span class="n">x_data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">w_list</span><span class="o">=</span><span class="n">w_list</span><span class="p">,</span> <span class="n">b_list</span><span class="o">=</span><span class="n">b_list</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ClassFNN_edward.get_dependencies"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassFNN_edward.get_dependencies">[docs]</a>    <span class="k">def</span> <span class="nf">get_dependencies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">):</span>
+        <span class="n">dependencies</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">dependencies</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">sub_op</span> <span class="ow">in</span> <span class="n">tensor</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">inputs</span><span class="p">:</span>
+            <span class="n">dependencies</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_dependencies</span><span class="p">(</span><span class="n">sub_op</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">dependencies</span></div>
+
+<div class="viewcode-block" id="ClassFNN_edward.get_placeholder_of_tensor"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassFNN_edward.get_placeholder_of_tensor">[docs]</a>    <span class="k">def</span> <span class="nf">get_placeholder_of_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">tensor</span> <span class="k">for</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dependencies</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span> <span class="k">if</span> <span class="n">tensor</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;Placeholder&#39;</span><span class="p">]</span></div></div>
+
+
+<div class="viewcode-block" id="ClassModelBayesDLKoopman"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelBayesDLKoopman">[docs]</a><span class="k">class</span> <span class="nc">ClassModelBayesDLKoopman</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Class of Bayesian Model Interface with Deep Learning Koopman</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        model_path (:obj:`str`): path to the Bayesian model.</span>
+
+<span class="sd">        n_mc_samples (:obj:`int`): the number of Monte carlo samplings.</span>
+
+<span class="sd">        mode (:obj:`str`): the string for the mode.</span>
+
+<span class="sd">        n_mc_diff_samples (:obj:`int`): the number of MC samples for differential form, i.e., for that MVOU process part.</span>
+
+<span class="sd">        gpu_percentage (:obj:`float`): GPU memory ratio.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        sess (:obj:`class`): current session we are in using Tensorflow with GPU configured.</span>
+
+<span class="sd">        graph (:obj:`class`): the graph.</span>
+
+<span class="sd">        encoder_layer_structure (:obj:`list`): a list containing the encoder structures.</span>
+
+<span class="sd">        act_fun (:obj:`str`): the string for activation functions</span>
+
+<span class="sd">        encoder_POD (:obj:`numpy.ndarray`): POD weights coefficients.</span>
+
+<span class="sd">        decoder_POD (:obj:`numpy.ndarray`): POD weights coefficients.</span>
+
+<span class="sd">        SVD_DMD (:obj:`bool`): enable SVD_DMD or not.</span>
+
+<span class="sd">        nonlinear_rec (:obj:`numpy.ndarray`): enable nonlinear reconstruction or not. Default is True.</span>
+
+<span class="sd">        n_mc_samples (:obj:`int`): the number of Monte carlo samplings.</span>
+
+<span class="sd">        n_mc_diff_samples (:obj:`int`): the number of MC samples for differential form, i.e., for that MVOU process part.</span>
+
+<span class="sd">        LRAN_T (:obj:`int`): future prediction window length. ``1`` means differential form.</span>
+
+<span class="sd">        encoder_fnn_edward (:obj:`class`): encoder FNN input-output model.</span>
+
+<span class="sd">        decoder_fnn_edward (:obj:`class`): encoder FNN input-output model.</span>
+
+<span class="sd">        DMD_K (:obj:`numpy.ndarray`): previous I used this to trully embedded DMD into it. But I didn&#39;t continue because DMD can be unstable.</span>
+
+<span class="sd">        mu_X (:obj:`numpy.ndarray`): normalization parameters :math:`\overline{X}`</span>
+
+<span class="sd">        Lambda_X (:obj:`numpy.ndarray`): normalization parameters :math:`\Lambda`</span>
+
+<span class="sd">        Lambda_X_inv (:obj:`numpy.ndarray`): normalization parameters :math:`\Lambda^{-1}`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_path</span><span class="p">,</span> <span class="n">n_mc_samples</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">n_mc_diff_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">gpu_percent</span><span class="o">=</span><span class="mf">0.2</span><span class="p">):</span>
+
+        <span class="c1"># we setup the GPUs sessions, graphs.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">gpu_options</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">GPUOptions</span><span class="p">(</span><span class="n">per_process_gpu_memory_fraction</span><span class="o">=</span><span class="n">gpu_percent</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">graph</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">Graph</span><span class="p">(),</span> <span class="n">config</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">ConfigProto</span><span class="p">(</span><span class="n">gpu_options</span><span class="o">=</span><span class="n">gpu_options</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">graph</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">Graph</span><span class="p">())</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">saved_model</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="p">,</span> <span class="p">[</span><span class="n">tf</span><span class="o">.</span><span class="n">saved_model</span><span class="o">.</span><span class="n">tag_constants</span><span class="o">.</span><span class="n">SERVING</span><span class="p">],</span> <span class="n">model_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">graph</span>
+
+        <span class="c1"># 1. we read meta data from `model_arch.npz`</span>
+        <span class="n">data_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_path</span> <span class="o">+</span> <span class="s1">&#39;/model_arch.npz&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder_layer_structure</span> <span class="o">=</span> <span class="n">data_dict</span><span class="p">[</span><span class="s1">&#39;encoder_layer_structure&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">act_fun</span> <span class="o">=</span> <span class="n">data_dict</span><span class="p">[</span><span class="s1">&#39;act_fun&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder_POD</span> <span class="o">=</span> <span class="n">data_dict</span><span class="p">[</span><span class="s1">&#39;encoder_POD_weights&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">decoder_POD</span> <span class="o">=</span> <span class="n">data_dict</span><span class="p">[</span><span class="s1">&#39;decoder_POD_weights&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">SVD_DMD</span> <span class="o">=</span> <span class="n">data_dict</span><span class="p">[</span><span class="s1">&#39;SVD_DMD&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nonlinear_rec</span> <span class="o">=</span> <span class="n">data_dict</span><span class="p">[</span><span class="s1">&#39;nonlinear_rec&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nsd</span> <span class="o">=</span> <span class="n">data_dict</span><span class="p">[</span><span class="s1">&#39;nsd&#39;</span><span class="p">]</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span> <span class="s1">&#39;enable nonlinear reconstruction? &#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nonlinear_rec</span>
+        <span class="nb">print</span> <span class="s1">&#39;enable SVD_DMD? &#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">SVD_DMD</span>
+        <span class="nb">print</span> <span class="s1">&#39;encoder POD weights = </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder_POD</span>
+        <span class="nb">print</span> <span class="s1">&#39;decoder POD weights = </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoder_POD</span>
+
+        <span class="c1"># number of monte carlo samples</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_mc_samples</span> <span class="o">=</span> <span class="n">n_mc_samples</span>
+
+        <span class="c1"># number of monte carlo samples for diff Mu process</span>
+        <span class="c1"># note: this is only used when you run in ``differential form``</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_mc_diff_samples</span> <span class="o">=</span> <span class="n">n_mc_diff_samples</span>
+
+        <span class="c1"># 2. read encoder and decoder neural network W and b samplings</span>
+        <span class="n">W_b_K_dict</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_path</span> <span class="o">+</span> <span class="s1">&#39;/../weight_bias_save.npy&#39;</span><span class="p">)</span>
+        <span class="n">W_b_K_dict</span> <span class="o">=</span> <span class="n">W_b_K_dict</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+
+
+        <span class="c1"># detect if the</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">LRAN_T</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">get_tensor_by_name</span><span class="p">(</span><span class="s1">&#39;scale_noise_rec/loc:0&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder_layer_structure</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;getting Recurrent model with T = &#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">LRAN_T</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">LRAN_T</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;getting Differential model&#39;</span><span class="p">)</span>
+
+
+        <span class="c1"># build encoder, as a edward fnn model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder_fnn_edward</span> <span class="o">=</span> <span class="n">ClassFNN_edward</span><span class="p">(</span><span class="n">sess</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="p">,</span>
+                                                  <span class="n">layer_structure_list</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">encoder_layer_structure</span><span class="p">,</span>
+                                                  <span class="n">act_fun_str</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">act_fun</span><span class="p">,</span>
+                                                  <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;enc&#39;</span><span class="p">,</span>
+                                                  <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span>
+                                                  <span class="n">LRAN_T</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">LRAN_T</span><span class="p">,</span>
+                                                  <span class="n">SVD_DMD</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">SVD_DMD</span><span class="p">,</span>
+                                                  <span class="n">POD_W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder_POD</span><span class="p">,</span>
+                                                  <span class="n">nsd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nsd</span><span class="p">,</span>
+                                                  <span class="n">W_b_K_dict</span><span class="o">=</span><span class="n">W_b_K_dict</span><span class="p">)</span>
+
+        <span class="c1"># construct the encoder.</span>
+        <span class="c1"># note that SVD DMD is inside this function already</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder_fnn_edward</span><span class="o">.</span><span class="n">construct_FNN</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;enc&#39;</span><span class="p">)</span>
+
+        <span class="c1"># construct the random variables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder_fnn_edward</span><span class="o">.</span><span class="n">construct_RV</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder_fnn_edward</span><span class="o">.</span><span class="n">sampling_RV</span><span class="p">(</span><span class="n">num_samples</span><span class="o">=</span><span class="n">n_mc_samples</span><span class="p">)</span>
+
+        <span class="c1"># build decoder, as a edward fnn model</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nonlinear_rec</span><span class="p">:</span>
+
+            <span class="n">decoder_layer_structure</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder_layer_structure</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">SVD_DMD</span><span class="p">:</span>
+                <span class="n">decoder_layer_structure</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">encoder_layer_structure</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                                           <span class="bp">self</span><span class="o">.</span><span class="n">encoder_layer_structure</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span>
+                                           <span class="bp">self</span><span class="o">.</span><span class="n">encoder_layer_structure</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">decoder_layer_structure</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">encoder_layer_structure</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                                           <span class="bp">self</span><span class="o">.</span><span class="n">encoder_layer_structure</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">decoder_fnn_edward</span> <span class="o">=</span> <span class="n">ClassFNN_edward</span><span class="p">(</span><span class="n">sess</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="p">,</span>
+                                                  <span class="n">layer_structure_list</span><span class="o">=</span><span class="n">decoder_layer_structure</span><span class="p">,</span>
+                                                  <span class="n">act_fun_str</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">act_fun</span><span class="p">,</span>
+                                                  <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;dec&#39;</span><span class="p">,</span>
+                                                  <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span>
+                                                  <span class="n">LRAN_T</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">LRAN_T</span><span class="p">,</span>
+                                                  <span class="n">SVD_DMD</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">SVD_DMD</span><span class="p">,</span>
+                                                  <span class="n">POD_W</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">decoder_POD</span><span class="p">,</span>
+                                                  <span class="n">nsd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nsd</span><span class="p">,</span>
+                                                  <span class="n">W_b_K_dict</span><span class="o">=</span><span class="n">W_b_K_dict</span><span class="p">)</span>
+
+        <span class="c1"># construct the decoder</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">decoder_fnn_edward</span><span class="o">.</span><span class="n">construct_FNN</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;dec&#39;</span><span class="p">)</span>
+        <span class="c1"># if self.nonlinear_rec:</span>
+        <span class="c1">#     self.decoder_fnn_edward.construct_FNN_decoder()</span>
+        <span class="c1"># else:</span>
+        <span class="c1">#     self.decoder_fnn_edward.construct_FNN_decoder_linear()</span>
+
+        <span class="c1"># construct the random variables</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">decoder_fnn_edward</span><span class="o">.</span><span class="n">construct_RV</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">decoder_fnn_edward</span><span class="o">.</span><span class="n">sampling_RV</span><span class="p">(</span><span class="n">num_samples</span><span class="o">=</span><span class="n">n_mc_samples</span><span class="p">)</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">DMD_K</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># obtain Normalization stuff..</span>
+        <span class="c1"># note that in the above, we don&#39;t have any normalization applied at all..</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">mu_X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">get_tensor_by_name</span><span class="p">(</span><span class="s1">&#39;mu_X:0&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Lambda_X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">get_tensor_by_name</span><span class="p">(</span><span class="s1">&#39;Lambda_X:0&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Lambda_X_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Lambda_X</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ClassModelBayesDLKoopman.get_K"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelBayesDLKoopman.get_K">[docs]</a>    <span class="k">def</span> <span class="nf">get_K</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;get realization of K</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">            :obj:`numpy.ndarray` : realization of K</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">MC_K</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder_fnn_edward</span><span class="o">.</span><span class="n">get_K</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">MC_K</span></div>
+
+<div class="viewcode-block" id="ClassModelBayesDLKoopman.transform_x_to_eta"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelBayesDLKoopman.transform_x_to_eta">[docs]</a>    <span class="k">def</span> <span class="nf">transform_x_to_eta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;transformation from :math:`x` to :math:`\eta`</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            x (:obj:`numpy.ndarray`): physical states :math:`x`</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">            :obj:`numpy.ndarray` : normalized states :math:`\eta`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu_X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Lambda_X_inv</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ClassModelBayesDLKoopman.transform_eta_to_x"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelBayesDLKoopman.transform_eta_to_x">[docs]</a>    <span class="k">def</span> <span class="nf">transform_eta_to_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eta</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;transformation from :math:`\eta` to :math:`x`</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            eta (:obj:`numpy.ndarray`) : normalized states :math:`\eta`</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">            :obj:`numpy.ndarray` : physical states :math:`x`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu_X</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">eta</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Lambda_X</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ClassModelBayesDLKoopman.get_lambda_lin"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelBayesDLKoopman.get_lambda_lin">[docs]</a>    <span class="k">def</span> <span class="nf">get_lambda_lin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder_fnn_edward</span><span class="o">.</span><span class="n">get_lambda_lin</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ClassModelBayesDLKoopman.get_lambda_rec"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelBayesDLKoopman.get_lambda_rec">[docs]</a>    <span class="k">def</span> <span class="nf">get_lambda_rec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder_fnn_edward</span><span class="o">.</span><span class="n">get_lambda_rec</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ClassModelBayesDLKoopman.get_noise_lin"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelBayesDLKoopman.get_noise_lin">[docs]</a>    <span class="k">def</span> <span class="nf">get_noise_lin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder_fnn_edward</span><span class="o">.</span><span class="n">get_noise_lin</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ClassModelBayesDLKoopman.get_noise_rec"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelBayesDLKoopman.get_noise_rec">[docs]</a>    <span class="k">def</span> <span class="nf">get_noise_rec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder_fnn_edward</span><span class="o">.</span><span class="n">get_noise_rec</span><span class="p">()</span></div>
+
+    <span class="c1"># def compute_phi_nn(self, x):</span>
+    <span class="c1">#     &quot;&quot;&quot;compute the :math:`\phi` of the contribution from neural network.</span>
+    <span class="c1">#</span>
+    <span class="c1">#     First we transform :math:`x` into :math:`\phi`, then we feed into neural network.</span>
+    <span class="c1">#</span>
+    <span class="c1">#     Args:</span>
+    <span class="c1">#</span>
+    <span class="c1">#         x (:obj:`numpy.ndarray`): input data.</span>
+    <span class="c1">#</span>
+    <span class="c1">#     Returns:</span>
+    <span class="c1">#</span>
+    <span class="c1">#         :obj:`numpy.ndarray` : observables :math:`\phi` of NN contribution.</span>
+    <span class="c1">#</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1">#     # outputs is a list with Q length, each of them is a (1,K) array</span>
+    <span class="c1">#     eta = self.transform_x_to_eta(x)</span>
+    <span class="c1">#     phi_nn_mc_array = np.array(self.encoder_fnn_edward.ensemble_predict(x_data=eta))</span>
+    <span class="c1">#</span>
+    <span class="c1">#     return phi_nn_mc_array</span>
+
+    <span class="c1"># def compute_phi_dmd(self, x):</span>
+    <span class="c1">#     &quot;&quot;&quot;compute the :math:`\phi` of the contribution from DMD.</span>
+    <span class="c1">#</span>
+    <span class="c1">#     Args:</span>
+    <span class="c1">#</span>
+    <span class="c1">#         x (:obj:`numpy.ndarray`): input data.</span>
+    <span class="c1">#</span>
+    <span class="c1">#     Returns:</span>
+    <span class="c1">#</span>
+    <span class="c1">#         :obj:`numpy.ndarray` : observables :math:`\phi` of DMD contribution.</span>
+    <span class="c1">#</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1">#     # outputs is a list with Q length, each of them is a (1,K) array</span>
+    <span class="c1">#</span>
+    <span class="c1">#     eta = self.transform_x_to_eta(x)</span>
+    <span class="c1">#     ## I don&#39;t get this why I mulitply lambda_x twice</span>
+    <span class="c1">#     # phi_dmd_mc_array = np.tile(np.matmul(np.matmul(eta, self.Lambda_X), self.encoder_POD), (self.n_mc_samples, 1, 1))</span>
+    <span class="c1">#     phi_dmd_mc_array = np.tile(np.matmul(eta, self.encoder_POD), (self.n_mc_samples, 1, 1))</span>
+    <span class="c1">#</span>
+    <span class="c1">#     # then, get the distribution of the LAST weight of encoder</span>
+    <span class="c1">#     W_enc_last_rv = self.encoder_fnn_edward.sample_rv_w_list[-1]</span>
+    <span class="c1">#</span>
+    <span class="c1">#     # adding the linear constribution</span>
+    <span class="c1">#     for i_sample, W_enc_last_rv_sample in enumerate(W_enc_last_rv):</span>
+    <span class="c1">#         phi_dmd_mc_array[i_sample] = np.matmul(phi_dmd_mc_array[i_sample], W_enc_last_rv_sample)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     return phi_dmd_mc_array</span>
+
+<div class="viewcode-block" id="ClassModelBayesDLKoopman.computePhi"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelBayesDLKoopman.computePhi">[docs]</a>    <span class="k">def</span> <span class="nf">computePhi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute the :math:`\phi` given :math:`x`</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            x (:obj:`numpy.ndarray`): given state :math:`x`.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">            :obj:`numpy.ndarray` : observables :math:`\phi`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># input an array with size (1,M) of x, which is the initial state as M is the degree of freedom for the system</span>
+        <span class="c1"># then we output a size of matrix of (Q,K), where K is the size of Koopman dimension</span>
+        <span class="c1"># Q is number of realizations</span>
+
+        <span class="n">eta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform_x_to_eta</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">Phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">encoder_fnn_edward</span><span class="o">.</span><span class="n">ensemble_predict</span><span class="p">(</span><span class="n">x_data</span><span class="o">=</span><span class="n">eta</span><span class="p">))</span>
+
+
+        <span class="c1"># if self.SVD_DMD:</span>
+        <span class="c1">#     # TRUE PHI = each row of QK_array + np.matmul(eta, self.encoder_POD)</span>
+        <span class="c1">#     true_Phi = self.compute_phi_dmd(x) + self.compute_phi_nn(x)</span>
+        <span class="c1"># else:</span>
+        <span class="c1">#     true_Phi = self.compute_phi_nn(x)</span>
+
+        <span class="k">return</span> <span class="n">Phi</span></div>
+
+<div class="viewcode-block" id="ClassModelBayesDLKoopman.computeEigenPhi"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelBayesDLKoopman.computeEigenPhi">[docs]</a>    <span class="k">def</span> <span class="nf">computeEigenPhi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+    <span class="c1"># def reconstruct_with_i_realization_nn(self, phi_nn, i):</span>
+    <span class="c1">#     i_realization_M_array = self.decoder_fnn_edward.predict_with_i_realization(x_data=phi_nn, i=i)</span>
+    <span class="c1">#     return i_realization_M_array</span>
+    <span class="c1">#</span>
+    <span class="c1"># def reconstruct_with_i_realization_dmd(self, phi_dmd):</span>
+    <span class="c1">#     return np.matmul(phi_dmd, np.matmul(self.decoder_POD, self.Lambda_X_inv))</span>
+    <span class="c1">#</span>
+    <span class="c1"># def reconstruct_with_i_realization_svd_dmd(self, phi_nn, phi_dmd, i):</span>
+    <span class="c1">#     eta_rec = self.reconstruct_with_i_realization_dmd(phi_dmd=phi_dmd) + self.reconstruct_with_i_realization_nn(phi_nn=phi_nn,i=i)</span>
+    <span class="c1">#     return eta_rec</span>
+
+<div class="viewcode-block" id="ClassModelBayesDLKoopman.reconstruct_with_i_realization"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelBayesDLKoopman.reconstruct_with_i_realization">[docs]</a>    <span class="k">def</span> <span class="nf">reconstruct_with_i_realization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute reconstructed state :math:`x` from :math:`\phi` for certain realization.</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            phi (:obj:`numpy.ndarray`): the Koopman observables.</span>
+
+<span class="sd">            i (:obj:`int`): index for realization.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">            :obj:`numpy.ndarray` : states reconstructed.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># input Phi is a i-th (1,K) Phi(t)</span>
+
+        <span class="c1"># output is the i-th realization of Phi^{-1}, on this input Phi, which i-th eta_rec</span>
+        <span class="n">i_realization_M_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoder_fnn_edward</span><span class="o">.</span><span class="n">predict_with_i_realization</span><span class="p">(</span><span class="n">x_data</span><span class="o">=</span><span class="n">phi</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+
+        <span class="c1"># if self.SVD_DMD:</span>
+        <span class="c1">#     # TRUE States = QM_array + np.matmul(Phi, self.decoder_POD)</span>
+        <span class="c1">#</span>
+        <span class="c1">#     # multiply with the i-th realization of the first weight of decoder</span>
+        <span class="c1">#     phi_after_first_decoder = np.matmul(phi, self.decoder_fnn_edward.sample_rv_w_list[0][i])</span>
+        <span class="c1">#</span>
+        <span class="c1">#     ## again, I don&#39;t get this why I mulitply lambda_x twice</span>
+        <span class="c1">#     # linear_reconstruction = np.matmul(phi_after_first_decoder, np.matmul(self.decoder_POD, self.Lambda_X_inv))</span>
+        <span class="c1">#     linear_reconstruction = np.matmul(phi_after_first_decoder, self.decoder_POD)</span>
+        <span class="c1">#</span>
+        <span class="c1">#     true_states = i_realization_M_array + linear_reconstruction</span>
+        <span class="c1"># else:</span>
+        <span class="c1">#     true_states = i_realization_M_array</span>
+
+        <span class="n">eta_rec</span> <span class="o">=</span> <span class="n">i_realization_M_array</span>
+
+        <span class="k">return</span> <span class="n">eta_rec</span></div>
+
+<div class="viewcode-block" id="ClassModelBayesDLKoopman.close"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelBayesDLKoopman.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="ClassModelDLKoopmanLRAN"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelDLKoopmanLRAN">[docs]</a><span class="k">class</span> <span class="nc">ClassModelDLKoopmanLRAN</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Class for Model interface with deterministic LRAN</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        model_path (:obj:`str`): the path of the model</span>
+
+<span class="sd">    Attributes:</span>
+
+<span class="sd">        sess (:obj:`class`): the session we used in tensorflow.</span>
+
+<span class="sd">        graph (:obj:`class`): the graph assoicated with the session.</span>
+
+<span class="sd">        x (:obj:`tf.Tensor`): input placeholder states</span>
+
+<span class="sd">        future (:obj:`tf.Tensor`): output tensor for future step prediction</span>
+
+<span class="sd">        linearEvolving (:obj:`tf.Tensor`): the tensor of the K matrix.</span>
+
+<span class="sd">        phi (:obj:`tf.Tensor`): the tensor of the Koopman observables</span>
+
+<span class="sd">        xrec (:obj:`tf.Tensor`): the tensor of the recontructed state</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_path</span><span class="p">):</span>
+
+        <span class="c1"># initialize the session</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">gpu_options</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">GPUOptions</span><span class="p">(</span><span class="n">per_process_gpu_memory_fraction</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">graph</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">Graph</span><span class="p">(),</span> <span class="n">config</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">ConfigProto</span><span class="p">(</span><span class="n">gpu_options</span><span class="o">=</span><span class="n">gpu_options</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">graph</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">Graph</span><span class="p">())</span>
+        <span class="n">tf</span><span class="o">.</span><span class="n">saved_model</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="p">,</span> <span class="p">[</span><span class="n">tf</span><span class="o">.</span><span class="n">saved_model</span><span class="o">.</span><span class="n">tag_constants</span><span class="o">.</span><span class="n">SERVING</span><span class="p">],</span> <span class="n">model_path</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">graph</span>
+
+        <span class="c1"># get necessary tensor from the existing graph</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">get_tensor_by_name</span><span class="p">(</span><span class="s2">&quot;X0:0&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">get_tensor_by_name</span><span class="p">(</span><span class="s2">&quot;Xfuture:0&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">linearEvolving</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;K:0&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">phi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">get_tensor_by_name</span><span class="p">(</span><span class="s2">&quot;phi:0&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xrec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">get_tensor_by_name</span><span class="p">(</span><span class="s1">&#39;Xrec:0&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ClassModelDLKoopmanLRAN.computePhi"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelDLKoopmanLRAN.computePhi">[docs]</a>    <span class="k">def</span> <span class="nf">computePhi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; compute :math:`\phi` given :math:`x`.</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            x (:obj:`numpy.ndarray`): the input states</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">            :obj:`numpy.ndarray` : observables.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">feed_dict</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">phi</span><span class="p">],</span> <span class="n">feed_dict</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="ClassModelDLKoopmanLRAN.get_linearEvolving"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelDLKoopmanLRAN.get_linearEvolving">[docs]</a>    <span class="k">def</span> <span class="nf">get_linearEvolving</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get K matrix.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">            :obj:`numpy.ndarray` : Koopman matrix ``K``.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">linearEvolving</span></div>
+
+<div class="viewcode-block" id="ClassModelDLKoopmanLRAN.reconstruct"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelDLKoopmanLRAN.reconstruct">[docs]</a>    <span class="k">def</span> <span class="nf">reconstruct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Phi</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get reconstruction from :math:`\phi`</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">            :obj:`numpy.ndarray` : reconstruction.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">feed_dict</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">phi</span><span class="p">:</span> <span class="n">Phi</span><span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">xrec</span><span class="p">],</span> <span class="n">feed_dict</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="ClassModelDLKoopmanLRAN.close"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelDLKoopmanLRAN.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="ClassModelDLKoopman"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelDLKoopman">[docs]</a><span class="k">class</span> <span class="nc">ClassModelDLKoopman</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Class of Deep learning Koopman model</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        model_path (:obj:`str`): path for the model that is saved in a simple save from Tensorflow</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        sess (:obj:`class`): the session we used in tensorflow.</span>
+
+<span class="sd">        graph (:obj:`class`): the graph assoicated with the session.</span>
+
+<span class="sd">        x (:obj:`tf.Tensor`): input placeholder states :math:`x`</span>
+
+<span class="sd">        xdot (:obj:`tf.Tensor`): input placeholder states derivative :math:`\dot{x}`</span>
+
+<span class="sd">        linearEvolving (:obj:`numpy.ndarray`): matrix of K</span>
+
+<span class="sd">        D (:obj:`numpy.ndarray`): Koopman eigenvalues</span>
+
+<span class="sd">        R (:obj:`numpy.ndarray`): Koopman eigenvectors</span>
+
+<span class="sd">        xrec (:obj:`tf.Tensor`): the tensor of the reconstructed states</span>
+
+<span class="sd">        linearEvolvingEigen (:obj:`numpy.ndarray`): Koopman eigenvalues diagonal matrix.</span>
+
+<span class="sd">        phi (:obj:`tf.Tensor`): tensor of the Koopman observables.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_path</span><span class="p">):</span>
+
+        <span class="c1"># initialize the session</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">gpu_options</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">GPUOptions</span><span class="p">(</span><span class="n">per_process_gpu_memory_fraction</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">graph</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">Graph</span><span class="p">(),</span><span class="n">config</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">ConfigProto</span><span class="p">(</span><span class="n">gpu_options</span><span class="o">=</span><span class="n">gpu_options</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">graph</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">Graph</span><span class="p">())</span>
+        <span class="n">tf</span><span class="o">.</span><span class="n">saved_model</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="p">,</span> <span class="p">[</span><span class="n">tf</span><span class="o">.</span><span class="n">saved_model</span><span class="o">.</span><span class="n">tag_constants</span><span class="o">.</span><span class="n">SERVING</span><span class="p">],</span> <span class="n">model_path</span><span class="p">)</span>
+
+        <span class="c1"># weird problem of tensorflow simple load</span>
+        <span class="c1"># https://stackoverflow.com/questions/43701902/how-to-keep-tensorflow-session-open-between-predictions-loading-from-savedmodel?utm_medium=organic&amp;utm_source=google_rich_qa&amp;utm_campaign=google_rich_qa</span>
+        <span class="c1"># tf.saved_model.loader.load has some weird interactions between the default graph and the graph that is part of the session</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">graph</span>  <span class="c1"># tf.get_default_graph()</span>
+
+        <span class="c1"># retrieve feed dict tensor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">get_tensor_by_name</span><span class="p">(</span><span class="s2">&quot;X:0&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xdot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">get_tensor_by_name</span><span class="p">(</span><span class="s2">&quot;Xdot:0&quot;</span><span class="p">)</span>
+        <span class="c1"># self.phase = self.graph.get_tensor_by_name(&quot;phase:0&quot;)</span>
+
+        <span class="c1"># retrieve K</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linearEvolving</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;K:0&#39;</span><span class="p">)</span>  <span class="c1"># np.ndarray</span>
+
+        <span class="c1"># retrieve eigen values</span>
+        <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="p">]</span> <span class="o">=</span> <span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">linearEvolving</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linearEvolvingEigen</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
+
+        <span class="c1"># retrieve desired ops</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">phi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">get_tensor_by_name</span><span class="p">(</span><span class="s2">&quot;phi:0&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xrec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">get_tensor_by_name</span><span class="p">(</span><span class="s2">&quot;Xrec:0&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ClassModelDLKoopman.get_linearEvolvingEigen"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelDLKoopman.get_linearEvolvingEigen">[docs]</a>    <span class="k">def</span> <span class="nf">get_linearEvolvingEigen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">linearEvolvingEigen</span></div>
+
+<div class="viewcode-block" id="ClassModelDLKoopman.get_linearEvolving"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelDLKoopman.get_linearEvolving">[docs]</a>    <span class="k">def</span> <span class="nf">get_linearEvolving</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">linearEvolving</span></div>
+
+<div class="viewcode-block" id="ClassModelDLKoopman.computePhi"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelDLKoopman.computePhi">[docs]</a>    <span class="k">def</span> <span class="nf">computePhi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;compute nonlinear observables, given state x</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            x (:obj:`numpy.ndarray`): state, :math:`x`</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">            :obj:`numpy.ndarray` : phi, :math:`\phi`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">feed_dict</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">xdot</span><span class="p">:</span> <span class="n">x</span><span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">phi</span><span class="p">],</span> <span class="n">feed_dict</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="ClassModelDLKoopman.computeEigenPhi"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelDLKoopman.computeEigenPhi">[docs]</a>    <span class="k">def</span> <span class="nf">computeEigenPhi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;compute Koopman eigenfunctions given x</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            x (:obj:`numpy.ndarray`): input state</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">            :obj:`numpy.ndarray` : output Koopman eigenfunction values at :math:`x`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># compute the nonlinear observables</span>
+        <span class="n">phi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">computePhi</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="c1"># compute the eigenfunctions value</span>
+        <span class="n">phi_eigen</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">phi_eigen</span></div>
+
+<div class="viewcode-block" id="ClassModelDLKoopman.reconstruct"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelDLKoopman.reconstruct">[docs]</a>    <span class="k">def</span> <span class="nf">reconstruct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Phi</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;reconstruct state from nonlinear observable Phi</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            Phi (:obj:`numpy.ndarray`): Koopman observable</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">            :obj:`numpy.ndarray` : reconstructed states</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">feed_dict</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">phi</span><span class="p">:</span> <span class="n">Phi</span><span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">xrec</span><span class="p">],</span> <span class="n">feed_dict</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="ClassModelDLKoopman.close"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.ClassModelDLKoopman.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;close the session to free the resources</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="F_2d_duffing_system_interface"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.F_2d_duffing_system_interface">[docs]</a><span class="k">def</span> <span class="nf">F_2d_duffing_system_interface</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Governing equation for 2D duffing system using Otto 2017 paper: for Python RK4 purpose</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        t (:obj:`float`): time</span>
+<span class="sd">        y (:obj:`numpy.ndarray`): the state of the system :math:`x`.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        :obj:`numpy.ndarray` : the time derivative :math:`\dot{x}`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nb">input</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">F_duffing_2d_system</span><span class="p">(</span><span class="nb">input</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="F_simple_2d_system_interface"><a class="viewcode-back" href="../../../EVAL_SRC.lib.lib_model_interface.html#EVAL_SRC.lib.lib_model_interface.F_simple_2d_system_interface">[docs]</a><span class="k">def</span> <span class="nf">F_simple_2d_system_interface</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Governing equation for 2D simple system of Lusch 2017 paper: for Python RK4 purpose</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        t (:obj:`float`): time</span>
+<span class="sd">        y (:obj:`numpy.ndarray`): the state of the system :math:`x`.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        :obj:`numpy.ndarray` : the time derivative :math:`\dot{x}`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nb">input</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">F_simple_2d_system</span><span class="p">(</span><span class="nb">input</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Shaowu Pan
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,723 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MODEL_SRC.ClassDLKoopmanLRAN &mdash; SPARK 1.2rc1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> SPARK
+          
+
+          
+            
+            <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Simple example</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SPARK</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>MODEL_SRC.ClassDLKoopmanLRAN</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for MODEL_SRC.ClassDLKoopmanLRAN</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;Class of Continuous time Deep Learning Models for Koopman Operator with LRAN&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">dont_write_bytecode</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+
+<span class="kn">from</span> <span class="nn">ClassDLKoopmanCont</span> <span class="k">import</span> <span class="o">*</span>
+
+
+<div class="viewcode-block" id="ClassDLKoopmanLRAN"><a class="viewcode-back" href="../../MODEL_SRC.ClassDLKoopmanLRAN.html#MODEL_SRC.ClassDLKoopmanLRAN.ClassDLKoopmanLRAN">[docs]</a><span class="k">class</span> <span class="nc">ClassDLKoopmanLRAN</span><span class="p">(</span><span class="n">ClassDLKoopmanCont</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Class of LRAN</span>
+
+<span class="sd">    Simply using multiple steps in to the future, i.e., :attr:`T`, for prediction and minimize error. Moreover,</span>
+<span class="sd">    data is split into training and testing by their sequential order.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        configDict (:obj:`dict`): dictionary of the configuration on deterministic side for LRAN</span>
+
+<span class="sd">        edward_configDict (:obj:`dict`): dictionary of configuration on Bayesian DL model.</span>
+
+<span class="sd">        gpu_percentage (:obj:`float`): percentage for GPU memory usage.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        T (:obj:`int`): number of steps of future to look forward to see.</span>
+
+<span class="sd">        dt (:obj:`float`): time interval between snapshots since I am doing LRAN, I need `dt` since the reconstruction</span>
+<span class="sd">            requires time.</span>
+
+<span class="sd">        Xraw (:obj:`numpy.ndarray`): raw trajectory with no hankerization and normalization.</span>
+
+<span class="sd">        hankel_data (:obj:`numpy.ndarray`): hankerized data with :attr:`T`.</span>
+
+<span class="sd">        future_X_list (:obj:`list`): a list contains all future state output from the neural network.</span>
+
+<span class="sd">        future_eta_list (:obj:`list`): a list contains all future state in normalized form from neural network.</span>
+
+<span class="sd">        future_koopman_phi_list (:obj:`list`): a list contains all future koopman phi :math:`\phi`.</span>
+
+<span class="sd">        future_koopman_phi_evolved_list (:obj:`list`): a list contains all</span>
+<span class="sd">            future koopman evolved from the neural network.</span>
+
+<span class="sd">        future_Xrec_list (:obj:`list`): a list contains reconstructed states from the neural network.</span>
+
+<span class="sd">        future_etaRec_list (:obj:`list`): a list contains reconstructed normalized states from the neural network.</span>
+
+<span class="sd">        XfutureTrain (:obj:`numpy.ndarray`): array contains the future training states.</span>
+
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configDict</span><span class="p">,</span> <span class="n">edward_configDict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gpu_percentage</span><span class="o">=</span><span class="mf">0.25</span><span class="p">):</span>
+
+        <span class="c1"># call DLKoopmanCont case to initialize</span>
+
+        <span class="n">ClassDLKoopmanCont</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configDict</span><span class="p">,</span> <span class="n">edward_configDict</span><span class="p">,</span> <span class="n">gpu_percentage</span><span class="p">)</span>
+
+        <span class="c1"># get the number of future state forcasting in LRAN</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">configDict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
+
+        <span class="c1"># get the dt in LRAN</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="n">configDict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dt&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ClassDLKoopmanLRAN.convert_discrete_time_trajectory_into_hankel"><a class="viewcode-back" href="../../MODEL_SRC.ClassDLKoopmanLRAN.html#MODEL_SRC.ClassDLKoopmanLRAN.ClassDLKoopmanLRAN.convert_discrete_time_trajectory_into_hankel">[docs]</a>    <span class="k">def</span> <span class="nf">convert_discrete_time_trajectory_into_hankel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_trajectory</span><span class="p">,</span> <span class="n">T</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Convert discrete time trajectory into hankel matrix.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data_trajectory (:obj:`numpy.ndarray`): a single data trajectory</span>
+<span class="sd">            with first axis as number of snapshots.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            :obj:`numpy.ndarray` : snapshots hankerized.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">n_sample</span> <span class="o">=</span> <span class="n">data_trajectory</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">n_dim</span> <span class="o">=</span> <span class="n">data_trajectory</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">hankel_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_sample</span> <span class="o">-</span> <span class="n">T</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">n_dim</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">n_sample</span> <span class="o">-</span> <span class="n">T</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">hankel_data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">data_trajectory</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="n">T</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># the returned data is (n_sample - T + 1, T, n_dim)</span>
+        <span class="k">return</span> <span class="n">hankel_data</span></div>
+
+<div class="viewcode-block" id="ClassDLKoopmanLRAN.get_hankel_data"><a class="viewcode-back" href="../../MODEL_SRC.ClassDLKoopmanLRAN.html#MODEL_SRC.ClassDLKoopmanLRAN.ClassDLKoopmanLRAN.get_hankel_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_hankel_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">valid_size</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Get hankel data and normalized it, then get training and testing and PODs.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            X (:obj:`numpy.ndarray`): a single trajectory.</span>
+
+<span class="sd">            valid_size (:obj:`float`): validation ratio in all the data.</span>
+
+
+<span class="sd">        Note:</span>
+<span class="sd">            - for trajectory data, there is no training and testing, we use all of the trajectory</span>
+<span class="sd">            - we normalize the trajectory later in the process...</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># get raw data for transforming</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;single trajectory training&#39;</span><span class="p">)</span>
+            <span class="n">Xraw</span> <span class="o">=</span> <span class="n">X</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># stacking all trajectory data</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;multiple trajectory training&#39;</span><span class="p">)</span>
+            <span class="n">Xraw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>  <span class="c1"># shape = (N_TRJ, N_SAMPLE, N_DIM)</span>
+
+        <span class="c1"># get data normalized, find mean and std, std can be found by different ways..</span>
+        <span class="c1"># -- keep component variance the same</span>
+        <span class="c1"># -- or not keep the variance among components differently</span>
+
+        <span class="n">scaler_X</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+
+        <span class="c1"># modification to match Seth &amp; Kutz 2019 paper.</span>
+        <span class="c1"># -- we choose to normalize by subtract the mean partially from training data. </span>
+        <span class="c1"># -- I know it is sub-optimal to subtract from equilibirum</span>
+
+        <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">data_for_scaling</span> <span class="o">=</span> <span class="n">Xraw</span><span class="p">[:</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">data_for_scaling</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">Xraw</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="p">:])</span>
+
+        <span class="n">scaler_X</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data_for_scaling</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">mu_X</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">convert_to_tensor</span><span class="p">(</span><span class="n">scaler_X</span><span class="o">.</span><span class="n">mean_</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">TF_FLOAT</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;mu_X&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_params</span><span class="p">[</span><span class="s1">&#39;normalization_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;only_max&#39;</span><span class="p">:</span>
+            <span class="n">variance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">scaler_X</span><span class="o">.</span><span class="n">var_</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">scaler_X</span><span class="o">.</span><span class="n">var_</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">variance</span> <span class="o">=</span> <span class="n">scaler_X</span><span class="o">.</span><span class="n">var_</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Lambda_X</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">convert_to_tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">variance</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">TF_FLOAT</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Lambda_X&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Lambda_X_inv</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Lambda_X</span><span class="p">)</span>  <span class="c1"># tf.convert_to_tensor(np.linalg.inv(self.Lambda_X), dtype=tf.float32)</span>
+
+        <span class="c1"># arrange trajectory data into training and validation segements</span>
+        <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+
+            <span class="c1"># get hankel data from the unnormalized data, later in the graph, we normalize for every input data, so we don&#39;t normalize anything here</span>
+            <span class="n">hankel_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_discrete_time_trajectory_into_hankel</span><span class="p">(</span><span class="n">data_trajectory</span><span class="o">=</span><span class="n">Xraw</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+            <span class="n">total_data_number</span> <span class="o">=</span> <span class="n">hankel_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="n">Xtrain</span> <span class="o">=</span> <span class="n">hankel_data</span><span class="p">[:</span><span class="nb">int</span><span class="p">(</span><span class="n">total_data_number</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">valid_size</span><span class="p">)),</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># initial state</span>
+            <span class="n">XfutureTrain</span> <span class="o">=</span> <span class="n">hankel_data</span><span class="p">[:</span><span class="nb">int</span><span class="p">(</span><span class="n">total_data_number</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">valid_size</span><span class="p">)),</span> <span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span>  <span class="c1"># the</span>
+
+            <span class="n">Xvalid</span> <span class="o">=</span> <span class="n">hankel_data</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">total_data_number</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">valid_size</span><span class="p">)):,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="n">XfutureValid</span> <span class="o">=</span> <span class="n">hankel_data</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">total_data_number</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">valid_size</span><span class="p">)):,</span> <span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span>
+
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="n">Xtrain_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">XfutureTrain_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">Xvalid_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">XfutureValid_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">J</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="c1"># for each J trajectory get hankel data</span>
+
+                <span class="n">hankel_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_discrete_time_trajectory_into_hankel</span><span class="p">(</span><span class="n">data_trajectory</span><span class="o">=</span><span class="n">Xraw</span><span class="p">[</span><span class="n">J</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="n">T</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+                <span class="n">total_data_number</span> <span class="o">=</span> <span class="n">hankel_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">Xtrain_J</span> <span class="o">=</span> <span class="n">hankel_data</span><span class="p">[:</span><span class="nb">int</span><span class="p">(</span><span class="n">total_data_number</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">valid_size</span><span class="p">)),</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="n">XfutureTrain_J</span> <span class="o">=</span> <span class="n">hankel_data</span><span class="p">[:</span><span class="nb">int</span><span class="p">(</span><span class="n">total_data_number</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">valid_size</span><span class="p">)),</span> <span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span>
+                <span class="n">Xvalid_J</span> <span class="o">=</span> <span class="n">hankel_data</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">total_data_number</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">valid_size</span><span class="p">)):,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="n">XfutureValid_J</span> <span class="o">=</span> <span class="n">hankel_data</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">total_data_number</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">valid_size</span><span class="p">)):,</span> <span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span>
+
+                <span class="n">Xtrain_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Xtrain_J</span><span class="p">)</span>
+                <span class="n">XfutureTrain_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">XfutureTrain_J</span><span class="p">)</span>
+                <span class="n">Xvalid_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Xvalid_J</span><span class="p">)</span>
+                <span class="n">XfutureValid_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">XfutureValid_J</span><span class="p">)</span>
+
+            <span class="n">Xtrain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">Xtrain_list</span><span class="p">)</span>
+            <span class="n">XfutureTrain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">XfutureTrain_list</span><span class="p">)</span>
+            <span class="n">Xvalid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">Xvalid_list</span><span class="p">)</span>
+            <span class="n">XfutureValid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">XfutureValid_list</span><span class="p">)</span>
+
+        <span class="c1"># we split data into training and validation by sequential order.., no random shuffling!</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Xtrain</span> <span class="o">=</span> <span class="n">Xtrain</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">XfutureTrain</span> <span class="o">=</span> <span class="n">XfutureTrain</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Xvalid</span> <span class="o">=</span> <span class="n">Xvalid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">XfutureValid</span> <span class="o">=</span> <span class="n">XfutureValid</span>
+
+        <span class="c1"># compute POD transformation, only for one state, no embedding</span>
+        <span class="n">X_train_normalized</span> <span class="o">=</span> <span class="n">scaler_X</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Xtrain</span><span class="p">)</span>
+        <span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">vh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X_train_normalized</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">POD_V</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">convert_to_tensor</span><span class="p">(</span><span class="n">vh</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">TF_FLOAT</span><span class="p">)</span>
+
+        <span class="k">return</span></div>
+
+<div class="viewcode-block" id="ClassDLKoopmanLRAN.construct_model"><a class="viewcode-back" href="../../MODEL_SRC.ClassDLKoopmanLRAN.html#MODEL_SRC.ClassDLKoopmanLRAN.ClassDLKoopmanLRAN.construct_model">[docs]</a>    <span class="k">def</span> <span class="nf">construct_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Construct the LRAN model</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            :obj:`tuple` : (residual_vector_rec_loss, residual_vector_lin_loss)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Setup dimension and activations</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_dimension_and_activations</span><span class="p">()</span>
+
+        <span class="c1"># input the current state</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">TF_FLOAT</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dimX</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;X0&#39;</span><span class="p">)</span>
+
+        <span class="c1"># input a list of future X state as placeholders</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">future_X_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">tau</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">future_X_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">TF_FLOAT</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dimX</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;X&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tau</span><span class="p">)))</span>
+
+        <span class="c1"># so there will be placeholder as self.X = X0</span>
+        <span class="c1"># and self.future_X_list = [X_1,...,X_{T-1}]</span>
+
+        <span class="c1"># transform into eta: normalized...</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">eta</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu_X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Lambda_X_inv</span><span class="p">)</span>
+
+        <span class="c1"># transform each future state into normalized</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">future_eta_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">tau</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">future_eta_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">future_X_list</span><span class="p">[</span><span class="n">tau</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu_X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Lambda_X_inv</span><span class="p">))</span>
+
+        <span class="c1"># auxiliary variable, we will feed it in the graph..</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">z_rec_loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">TF_FLOAT</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">dimX</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Z_rec_loss&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">z_lin_loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">TF_FLOAT</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">numKoopmanModes</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Z_lin_loss&#39;</span><span class="p">)</span>
+
+        <span class="c1"># setup hyperprior and prior dictionary</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_K</span><span class="p">()</span>
+
+        <span class="c1"># Setup encoder &amp; decoder weights</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_encoder_decoder_and_pod_weights</span><span class="p">()</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;printing the defined priors&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prior_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;printing the defined posterioris&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vp_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+        <span class="c1"># after all weights, bias, K are defined (along with their priors and posterioris)</span>
+        <span class="c1"># -- &gt; let&#39;s build the network topology</span>
+        <span class="c1"># 1. encoding</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">koopmanPhi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoding_neural_net_with_pod</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eta</span><span class="p">,</span>
+                                                            <span class="n">SVD_DMD_FLAG</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model_params</span><span class="p">[</span><span class="s1">&#39;SVD_DMD&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">koopmanPhi</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">koopmanPhi</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;phi&#39;</span><span class="p">)</span>
+
+        <span class="c1"># 2. decoding</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">etaRec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoding_neural_net_with_pod</span><span class="p">(</span><span class="n">phi</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">koopmanPhi</span><span class="p">,</span>
+                                                        <span class="n">SVD_DMD_FLAG</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model_params</span><span class="p">[</span><span class="s1">&#39;SVD_DMD&#39;</span><span class="p">])</span>
+
+        <span class="c1"># 3. scaling etc_rec back to X</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Xrec</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mu_X</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">etaRec</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Lambda_X</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Xrec&#39;</span><span class="p">)</span>
+
+        <span class="c1"># now for each future state, find the future koopman phi</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">future_koopman_phi_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">tau</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
+            <span class="n">phi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoding_neural_net_with_pod</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">future_eta_list</span><span class="p">[</span><span class="n">tau</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span>
+                                                    <span class="n">SVD_DMD_FLAG</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model_params</span><span class="p">[</span><span class="s1">&#39;SVD_DMD&#39;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">future_koopman_phi_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+
+        <span class="c1"># now time evolve the initial koopman_phi &quot;tau&quot; times</span>
+        <span class="c1"># so that we could IMPOSE a LINEAR SEQUENCE STRUCTURE IN THE LATENT SPACE</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">future_koopman_phi_evolved_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">tau</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">future_koopman_phi_evolved_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">koopmanPhi</span><span class="p">,</span> <span class="n">matrix_exponential</span><span class="p">(</span><span class="n">tau</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">koopmanOp_learn</span><span class="p">)))</span>
+
+        <span class="c1"># CONCLUSION: now we have koopman phi in evolved and directly mapped from future_eta space, so we have</span>
+        <span class="c1"># linear error ready</span>
+        <span class="c1"># then convert each EVOLVED koopman_phi to physical space: both eta and then X</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">future_Xrec_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">future_etaRec_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">tau</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">future_etaRec_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">decoding_neural_net_with_pod</span><span class="p">(</span><span class="n">phi</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">future_koopman_phi_evolved_list</span><span class="p">[</span><span class="n">tau</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span>
+                                                                             <span class="n">SVD_DMD_FLAG</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model_params</span><span class="p">[</span><span class="s1">&#39;SVD_DMD&#39;</span><span class="p">]))</span>
+            <span class="c1"># finally note that the decoded stuff is still eta... we need to scale back to physical space</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">future_Xrec_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mu_X</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">future_etaRec_list</span><span class="p">[</span><span class="n">tau</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">Lambda_X</span><span class="p">)))</span>
+
+        <span class="c1"># CONCLUSION: now we have rec for X and eta ready... so we have reconstruction error ready...</span>
+
+        <span class="c1"># note: this is only one step into future, it would be useless if in eval mode, I use single into Koopman, single time out Koopman</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">future_Xrec_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">future_Xrec_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Xfuture&#39;</span><span class="p">)</span>
+
+        <span class="c1"># build loss</span>
+
+        <span class="c1"># WEIGHT ON LOSS</span>
+        <span class="n">normConst</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">TF_FLOAT</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">TF_FLOAT</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_params</span><span class="p">[</span><span class="s1">&#39;c_los_lin&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_params</span><span class="p">[</span><span class="s1">&#39;c_los_reg&#39;</span><span class="p">])</span>
+
+        <span class="c1"># 1. RECONSTRUCTION LOSS</span>
+        <span class="c1"># -- from an autoencoder perspective, we need Xrec and X as close as possible</span>
+        <span class="c1"># -- from a koopman perspective, we need Xrec_future and X_future to be as close as possible</span>
+
+        <span class="c1"># &quot;rec_loss&quot;: reconstruction error in physical space</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rec_loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">squared_difference</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Xrec</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">tau</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rec_loss</span> <span class="o">+=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">squared_difference</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">future_X_list</span><span class="p">[</span><span class="n">tau</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">future_Xrec_list</span><span class="p">[</span><span class="n">tau</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]))</span>
+
+        <span class="c1"># &quot;norm_rec_loss&quot;: reconstruction error in normalized space (I guess I didn&#39;t use it actually...)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">norm_rec_loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">squared_difference</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eta</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">etaRec</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">tau</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">norm_rec_loss</span> <span class="o">+=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">squared_difference</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">future_etaRec_list</span><span class="p">[</span><span class="n">tau</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">future_eta_list</span><span class="p">[</span><span class="n">tau</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]))</span>
+
+        <span class="c1"># 2. LINEAR LOSS</span>
+        <span class="c1"># -- from a Koopman perspective, we need the transformed latent state being as close as a linear sequence as possible</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lin_loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">TF_FLOAT</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">tau</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lin_loss</span> <span class="o">+=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">squared_difference</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">future_koopman_phi_list</span><span class="p">[</span><span class="n">tau</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">future_koopman_phi_evolved_list</span><span class="p">[</span><span class="n">tau</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]))</span>
+
+        <span class="c1"># REGULARIZATION LOSS</span>
+
+        <span class="c1"># Weight-decay on encoder &amp; encoder weights</span>
+        <span class="n">encoderW_l2_sum_loss</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">l2_loss</span><span class="p">(</span><span class="n">weight</span><span class="p">)</span> <span class="k">for</span> <span class="n">weight</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoderLayerWeights</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+        <span class="n">decoderW_l2_sum_loss</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">l2_loss</span><span class="p">(</span><span class="n">weight</span><span class="p">)</span> <span class="k">for</span> <span class="n">weight</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoderLayerWeights</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">reg_parameter_loss</span> <span class="o">=</span> <span class="n">encoderW_l2_sum_loss</span> <span class="o">+</span> <span class="n">decoderW_l2_sum_loss</span>
+
+        <span class="c1">## add weight decay also to the biases</span>
+        <span class="n">encoderB_l2_sum_loss</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">l2_loss</span><span class="p">(</span><span class="n">bias</span><span class="p">)</span> <span class="k">for</span> <span class="n">bias</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoderLayerBias</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+        <span class="n">decoderB_l2_sum_loss</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">l2_loss</span><span class="p">(</span><span class="n">bias</span><span class="p">)</span> <span class="k">for</span> <span class="n">bias</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoderLayerBias</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+
+        <span class="c1">## regularization loss is a sum of weights and biases contributions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reg_parameter_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg_parameter_loss</span> <span class="o">+</span> <span class="n">encoderB_l2_sum_loss</span> <span class="o">+</span> <span class="n">decoderB_l2_sum_loss</span>
+
+        <span class="c1">## also regularize K</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reg_parameter_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg_parameter_loss</span> <span class="o">+</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">l2_loss</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">koopmanOp_learn</span><span class="p">)</span>
+
+        <span class="c1">## SUMMING UP LOSS</span>
+        <span class="c1"># First, the following `loss_up` will only be used, if you are doing the standard (deterministic) LRAN.</span>
+        <span class="c1"># Important note</span>
+        <span class="c1"># - it is controversial that whether to use normalized_rec_loss or rec_loss</span>
+        <span class="c1">#   simply because the later might be more reasonable if the raw data is POD coefficients.</span>
+        <span class="c1">#   however, un-normalized data might lead to imbalance between rec and linear lsos, reg_loss,</span>
+        <span class="c1">#   there is might be additional need to tweak the `c_los_lin` and `c_los_reg` to balance</span>
+        <span class="c1">#   it. One might want to plot linear loss and rec_loss separately.</span>
+        <span class="c1">## todo: check if linear loss and rec_loss has been plotted separately in standard LRAN</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">loss_op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm_rec_loss</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_params</span><span class="p">[</span><span class="s1">&#39;c_los_lin&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">lin_loss</span> \
+                       <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_params</span><span class="p">[</span><span class="s1">&#39;c_los_reg&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg_parameter_loss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loss_op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rec_loss</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_params</span><span class="p">[</span><span class="s1">&#39;c_los_lin&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">lin_loss</span> \
+                       <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_params</span><span class="p">[</span><span class="s1">&#39;c_los_reg&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg_parameter_loss</span>
+
+        <span class="c1"># final cost function...</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loss_op</span> <span class="o">=</span> <span class="n">normConst</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss_op</span>
+
+        <span class="c1">## QUICK SUMMARY</span>
+        <span class="c1"># up until now, we have:</span>
+        <span class="c1"># - return the mean-eta-rec loss and mean-linear-eta loss</span>
+        <span class="c1"># - return prior for the hpp of W,b,K</span>
+        <span class="c1"># - return the prior for W,b,K</span>
+
+        <span class="c1">## PREPARE RESIDUAL FOR BAYESIAN INFERENCE</span>
+        <span class="c1"># VECTORIZE FOR THE LOSSES FOR EDWARD TO READ!</span>
+
+        <span class="n">residual_vector_lin_loss</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">future_koopman_phi_list</span><span class="p">[</span><span class="n">tau</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">future_koopman_phi_evolved_list</span><span class="p">[</span><span class="n">tau</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+                                    <span class="k">for</span> <span class="n">tau</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">)]</span>
+
+        <span class="n">residual_vector_rec_loss</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">future_etaRec_list</span><span class="p">[</span><span class="n">tau</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">future_eta_list</span><span class="p">[</span><span class="n">tau</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+                                    <span class="k">for</span> <span class="n">tau</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">)]</span>
+        <span class="n">residual_vector_rec_loss</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">etaRec</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta</span><span class="p">)</span>
+
+        <span class="n">residual_vector_lin_loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">residual_vector_lin_loss</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">residual_vector_rec_loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">residual_vector_rec_loss</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">residual_vector_lin_loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">residual_vector_lin_loss</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;residual_lin_loss&#39;</span><span class="p">)</span>
+        <span class="n">residual_vector_rec_loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">residual_vector_rec_loss</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;residual_rec_loss&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">residual_vector_rec_loss</span><span class="p">,</span> <span class="n">residual_vector_lin_loss</span></div>
+
+<div class="viewcode-block" id="ClassDLKoopmanLRAN.train"><a class="viewcode-back" href="../../MODEL_SRC.ClassDLKoopmanLRAN.html#MODEL_SRC.ClassDLKoopmanLRAN.ClassDLKoopmanLRAN.train">[docs]</a>    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;mini-batch training the network</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+        <span class="c1"># randomize data before training</span>
+
+        <span class="n">random_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shuffle_data_index</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Xtrain</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Xtrain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Xtrain</span><span class="p">[</span><span class="n">random_index</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">XfutureTrain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">XfutureTrain</span><span class="p">[</span><span class="n">random_index</span><span class="p">]</span>
+
+        <span class="n">N_EPOCHS</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_params</span><span class="p">[</span><span class="s1">&#39;numberEpoch&#39;</span><span class="p">]</span>
+        <span class="n">BATCH_SIZE</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_params</span><span class="p">[</span><span class="s1">&#39;miniBatch&#39;</span><span class="p">]</span>
+
+        <span class="n">train_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Xtrain</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># recording loss</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">loss_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loss_dict</span><span class="p">[</span><span class="s1">&#39;total_MSE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;train&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;valid&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loss_dict</span><span class="p">[</span><span class="s1">&#39;linear_MSE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;train&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;valid&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loss_dict</span><span class="p">[</span><span class="s1">&#39;recon_MSE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;train&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;valid&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loss_dict</span><span class="p">[</span><span class="s1">&#39;reg_MSE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;train&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;valid&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N_EPOCHS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+
+            <span class="c1"># mini-batch training</span>
+
+            <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">train_count</span><span class="p">,</span> <span class="n">BATCH_SIZE</span><span class="p">),</span>
+                                  <span class="n">xrange</span><span class="p">(</span><span class="n">BATCH_SIZE</span><span class="p">,</span> <span class="n">train_count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">BATCH_SIZE</span><span class="p">)):</span>
+
+                <span class="c1"># training on a subsets of training set</span>
+                <span class="c1"># construct feed dictionary for LRAN: batch training</span>
+
+                <span class="n">feed_dict</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">Xtrain</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">,</span> <span class="p">:]}</span>
+                <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">future_X_list</span><span class="p">)):</span>
+                    <span class="n">feed_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">future_X_list</span><span class="p">[</span><span class="n">ii</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">XfutureTrain</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">,</span> <span class="n">ii</span><span class="p">,</span> <span class="p">:]</span>
+
+                <span class="c1"># run training process</span>
+
+                <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">train_op</span><span class="p">],</span> <span class="n">feed_dict</span><span class="o">=</span><span class="n">feed_dict</span><span class="p">)</span>
+
+            <span class="c1"># construct feed dictionary for LRAN: whole training</span>
+
+            <span class="n">feed_dict_whole_train</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">Xtrain</span><span class="p">[:,</span> <span class="p">:]}</span>
+            <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">future_X_list</span><span class="p">)):</span>
+                <span class="n">feed_dict_whole_train</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">future_X_list</span><span class="p">[</span><span class="n">ii</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">XfutureTrain</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">,</span> <span class="p">:]</span>
+
+            <span class="n">total_loss_train</span><span class="p">,</span> <span class="n">linear_loss_train</span><span class="p">,</span> <span class="n">recon_loss_train</span><span class="p">,</span> <span class="n">reg_loss_train</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">loss_op</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lin_loss</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rec_loss</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg_parameter_loss</span><span class="p">],</span>
+                <span class="n">feed_dict</span><span class="o">=</span><span class="n">feed_dict_whole_train</span>
+            <span class="p">)</span>
+
+            <span class="c1"># construct feed dictionary for LRAN: whole validation</span>
+
+            <span class="n">feed_dict_whole_valid</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">Xvalid</span><span class="p">[:,</span> <span class="p">:]}</span>
+            <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">future_X_list</span><span class="p">)):</span>
+                <span class="n">feed_dict_whole_valid</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">future_X_list</span><span class="p">[</span><span class="n">ii</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">XfutureValid</span><span class="p">[:,</span> <span class="n">ii</span><span class="p">,</span> <span class="p">:]</span>
+
+            <span class="n">total_loss_valid</span><span class="p">,</span> <span class="n">linear_loss_valid</span><span class="p">,</span> <span class="n">recon_loss_valid</span><span class="p">,</span> <span class="n">reg_loss_valid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">loss_op</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lin_loss</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rec_loss</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg_parameter_loss</span><span class="p">],</span>
+                <span class="n">feed_dict</span><span class="o">=</span><span class="n">feed_dict_whole_valid</span>
+            <span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">loss_dict</span><span class="p">[</span><span class="s1">&#39;total_MSE&#39;</span><span class="p">][</span><span class="s1">&#39;train&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_loss_train</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loss_dict</span><span class="p">[</span><span class="s1">&#39;total_MSE&#39;</span><span class="p">][</span><span class="s1">&#39;valid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_loss_valid</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loss_dict</span><span class="p">[</span><span class="s1">&#39;linear_MSE&#39;</span><span class="p">][</span><span class="s1">&#39;train&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">linear_loss_train</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loss_dict</span><span class="p">[</span><span class="s1">&#39;linear_MSE&#39;</span><span class="p">][</span><span class="s1">&#39;valid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">linear_loss_valid</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loss_dict</span><span class="p">[</span><span class="s1">&#39;recon_MSE&#39;</span><span class="p">][</span><span class="s1">&#39;train&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">recon_loss_train</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loss_dict</span><span class="p">[</span><span class="s1">&#39;recon_MSE&#39;</span><span class="p">][</span><span class="s1">&#39;valid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">recon_loss_valid</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loss_dict</span><span class="p">[</span><span class="s1">&#39;reg_MSE&#39;</span><span class="p">][</span><span class="s1">&#39;train&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">reg_loss_train</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loss_dict</span><span class="p">[</span><span class="s1">&#39;reg_MSE&#39;</span><span class="p">][</span><span class="s1">&#39;valid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">reg_loss_valid</span><span class="p">)</span>
+
+            <span class="c1">## print the training error... and eigenvalues....</span>
+
+            <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">train_loss</span><span class="p">,</span> <span class="n">K</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+                    <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">loss_op</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">koopmanOp_learn</span><span class="p">],</span>
+                    <span class="n">feed_dict</span><span class="o">=</span><span class="n">feed_dict_whole_train</span>
+                <span class="p">)</span>
+
+                <span class="n">valid_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+                    <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">loss_op</span><span class="p">],</span>
+                    <span class="n">feed_dict</span><span class="o">=</span><span class="n">feed_dict_whole_valid</span>
+                <span class="p">)</span>
+
+                <span class="nb">print</span> <span class="s1">&#39;==============&#39;</span>
+                <span class="nb">print</span> <span class="s1">&#39; epoch = &#39;</span><span class="p">,</span> <span class="n">i</span>
+                <span class="nb">print</span> <span class="s1">&#39;train_loss = &#39;</span><span class="p">,</span> <span class="n">train_loss</span>
+                <span class="nb">print</span> <span class="s1">&#39;valid_loss = &#39;</span><span class="p">,</span> <span class="n">valid_loss</span>
+                <span class="nb">print</span> <span class="s1">&#39;koopman operator = </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">K</span>
+                <span class="nb">print</span> <span class="s1">&#39;koopman eigenvalue = </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">K</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="nb">print</span> <span class="s1">&#39;&#39;</span></div>
+
+<div class="viewcode-block" id="ClassDLKoopmanLRAN.save_model"><a class="viewcode-back" href="../../MODEL_SRC.ClassDLKoopmanLRAN.html#MODEL_SRC.ClassDLKoopmanLRAN.ClassDLKoopmanLRAN.save_model">[docs]</a>    <span class="k">def</span> <span class="nf">save_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Saving ``LRAN`` models with model structures, weights, biases, &quot;&quot;&quot;</span>
+
+        <span class="nb">print</span> <span class="s1">&#39;===== &#39;</span>
+        <span class="nb">print</span> <span class="s1">&#39;show the configuration&#39;</span>
+        <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_params</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="nb">print</span> <span class="s1">&#39;===== &#39;</span>
+
+        <span class="c1">## save model</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">as_default</span><span class="p">():</span>
+            <span class="n">model_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dir</span> <span class="o">+</span> <span class="s1">&#39;/model_saved&#39;</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">model_dir</span><span class="p">):</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">model_dir</span><span class="p">)</span>
+
+            <span class="c1">## for D-LRAN, this is the correct way to save the model</span>
+            <span class="c1"># save model using Tensorflow simple save</span>
+            <span class="n">tf</span><span class="o">.</span><span class="n">saved_model</span><span class="o">.</span><span class="n">simple_save</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="p">,</span> <span class="n">model_dir</span><span class="p">,</span>
+                                       <span class="n">inputs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;X0&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">},</span>
+                                       <span class="n">outputs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Xrec&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">Xrec</span><span class="p">,</span>
+                                                <span class="s2">&quot;Xfuture&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">future_Xrec_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]})</span>
+
+            <span class="c1">## for B-LRAN, unfortunately saving model is not supported in edward,</span>
+            <span class="c1">## so I will save all the DISTRIBUTION of weight/bias/K.</span>
+            <span class="c1">## then create the model from scratch again....</span>
+
+            <span class="c1"># save K, encoder, decoder parameter into numpy</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_parameter_npy</span><span class="p">()</span>
+
+            <span class="c1"># save arch data in model_arch.npz:</span>
+            <span class="c1"># -- encoder layer structure</span>
+            <span class="c1"># -- activation function</span>
+            <span class="c1"># -- POD weights</span>
+            <span class="c1">#   -- encoder_POD_weights</span>
+            <span class="c1">#   -- decoder_POD_weights</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">savez</span><span class="p">(</span><span class="n">model_dir</span> <span class="o">+</span> <span class="s1">&#39;/model_arch.npz&#39;</span><span class="p">,</span>
+                     <span class="n">encoder_layer_structure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model_params</span><span class="p">[</span><span class="s1">&#39;structureEncoder&#39;</span><span class="p">],</span>
+                     <span class="n">act_fun</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model_params</span><span class="p">[</span><span class="s1">&#39;activation&#39;</span><span class="p">],</span>
+                     <span class="n">encoder_POD_weights</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">encoderPODWeights</span><span class="p">[</span><span class="s1">&#39;enc_POD&#39;</span><span class="p">]),</span>
+                     <span class="n">decoder_POD_weights</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">decoderPODWeights</span><span class="p">[</span><span class="s1">&#39;dec_POD&#39;</span><span class="p">]),</span>
+                     <span class="n">SVD_DMD</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model_params</span><span class="p">[</span><span class="s1">&#39;SVD_DMD&#39;</span><span class="p">],</span>
+                     <span class="n">nonlinear_rec</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_params</span><span class="p">[</span><span class="s1">&#39;typeRecon&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;nonlinear&#39;</span><span class="p">,</span>
+                     <span class="n">nsd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_params</span><span class="p">[</span><span class="s1">&#39;nsd&#39;</span><span class="p">])</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Shaowu Pan
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
