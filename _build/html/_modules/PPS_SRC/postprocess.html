@@ -1,0 +1,793 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PPS_SRC.postprocess &mdash; SPARK 1.2rc1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> SPARK
+          
+
+          
+            
+            <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Simple example</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SPARK</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>PPS_SRC.postprocess</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for PPS_SRC.postprocess</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Modules for postprocessing.</span>
+
+<span class="sd">Note that I used my own ``plt.style`` as ``siads`` style.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">dont_write_bytecode</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;../&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># import vtki</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">vtkInterface</span> <span class="k">as</span> <span class="nn">vtki</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">pyvista</span> <span class="k">as</span> <span class="nn">vtki</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;no vtki installed&#39;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="k">import</span> <span class="n">Axes3D</span>
+<span class="kn">from</span> <span class="nn">PREP_DATA_SRC.source_code.lib.utilities</span> <span class="k">import</span> <span class="n">mkdir</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;siads&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ClassKoopmanPPS"><a class="viewcode-back" href="../../PPS_SRC.postprocess.html#PPS_SRC.postprocess.ClassKoopmanPPS">[docs]</a><span class="k">class</span> <span class="nc">ClassKoopmanPPS</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base Class postprocessing for Koopman Deep Learning.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pps_dir (:obj:`str`): path to the postprocessing folder. Plots are saved here.</span>
+
+<span class="sd">        eval_dir (:obj:`str`): path to the eval data folder.</span>
+
+<span class="sd">        model_dir (:obj:`str`): path to the original model folder.</span>
+
+<span class="sd">        params (:obj:`dict`): additional params for plotting.</span>
+
+<span class="sd">        mode (:obj:`str`): strings for determining the mode of postprocessing. It can be ``nonBayes`` or</span>
+<span class="sd">            ``Standard``.</span>
+
+<span class="sd">    Attributes:</span>
+
+<span class="sd">        pps_dir (:obj:`str`): path to the postprocessing folder. Plots are saved here.</span>
+
+<span class="sd">        eval_dir (:obj:`str`): path to the eval data folder.</span>
+
+<span class="sd">        model_dir (:obj:`str`): path to the original model folder.</span>
+
+<span class="sd">        params (:obj:`dict`): additional params for plotting.</span>
+
+<span class="sd">        mode (:obj:`str`): strings for determining the mode of postprocessing. It can be ``nonBayes`` or</span>
+<span class="sd">            ``Standard``.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pps_dir</span><span class="p">,</span> <span class="n">eval_dir</span><span class="p">,</span> <span class="n">model_dir</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;nonBayes&#39;</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pps_dir</span> <span class="o">=</span> <span class="n">pps_dir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eval_dir</span> <span class="o">=</span> <span class="n">eval_dir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_dir</span> <span class="o">=</span> <span class="n">model_dir</span>
+        <span class="n">mkdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pps_dir</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">params</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">mode</span>
+
+<div class="viewcode-block" id="ClassKoopmanPPS.pps_eigenfunction"><a class="viewcode-back" href="../../PPS_SRC.postprocess.html#PPS_SRC.postprocess.ClassKoopmanPPS.pps_eigenfunction">[docs]</a>    <span class="k">def</span> <span class="nf">pps_eigenfunction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;need to implement eigfunction plotting&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ClassKoopmanPPS.pps_eigenvalues"><a class="viewcode-back" href="../../PPS_SRC.postprocess.html#PPS_SRC.postprocess.ClassKoopmanPPS.pps_eigenvalues">[docs]</a>    <span class="k">def</span> <span class="nf">pps_eigenvalues</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Postprocessing for eigenvalues need to be implemented&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ClassKoopmanPPS.pps_eigenmodes_eval"><a class="viewcode-back" href="../../PPS_SRC.postprocess.html#PPS_SRC.postprocess.ClassKoopmanPPS.pps_eigenmodes_eval">[docs]</a>    <span class="k">def</span> <span class="nf">pps_eigenmodes_eval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Postprocessing for eigenmodes evaluation need to be implemented&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ClassKoopmanPPS.pps_paraview_cylinder"><a class="viewcode-back" href="../../PPS_SRC.postprocess.html#PPS_SRC.postprocess.ClassKoopmanPPS.pps_paraview_cylinder">[docs]</a>    <span class="k">def</span> <span class="nf">pps_paraview_cylinder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cylinder_folder</span><span class="o">=</span><span class="s2">&quot;./50d_cylinder_flow_pod_case&quot;</span><span class="p">,</span>
+        <span class="n">pod_path</span><span class="o">=</span><span class="s2">&quot;/media/shaowu/shaowu_main_hard/shaowu/OpenFOAM/shaowu-6/run/vortex_shedding/c6_re100_whole_POD.npz&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;postprocessing for cylinder case with paraview.</span>
+
+<span class="sd">        This is a very problem specific method. It will use the POD weights and it will use eval trajectory</span>
+<span class="sd">        to get the full field projected and saved into vtk files. It is a good example for extending to other cases.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cylinder_folder (:obj:`str`): path to the full POD data.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># 1. read POD data from POD path</span>
+        <span class="n">pod_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">pod_path</span><span class="p">)</span>
+        <span class="n">vh</span> <span class="o">=</span> <span class="n">pod_data</span><span class="p">[</span><span class="s1">&#39;vh&#39;</span><span class="p">]</span>
+        <span class="c1"># s = pod_data[&#39;s&#39;]</span>
+        <span class="c1"># u = pod_data[&#39;u&#39;]</span>
+
+        <span class="c1"># 2. read eval file</span>
+        <span class="n">eval_file_name</span> <span class="o">=</span> <span class="s1">&#39;save_trj_comparison_whole.npz&#39;</span>
+        <span class="n">eval_file_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eval_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;model_name&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">eval_file_name</span><span class="p">)</span>
+        <span class="n">true_trajectory</span> <span class="o">=</span> <span class="n">eval_file_data</span><span class="p">[</span><span class="s1">&#39;ttrj&#39;</span><span class="p">]</span>
+        <span class="n">pred_trajectory</span> <span class="o">=</span> <span class="n">eval_file_data</span><span class="p">[</span><span class="s1">&#39;ptrj&#39;</span><span class="p">]</span>
+
+        <span class="c1"># compute the mean and std</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;pred trajectory shape = &#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">pred_trajectory</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="n">pred_trajectory_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">pred_trajectory</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">pred_trajectory_std</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span> <span class="n">pred_trajectory</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;pred_trajectory_std shape = &#39;</span><span class="p">,</span> <span class="n">pred_trajectory_std</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c1"># 3. generate VTK files</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vtk_folder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pps_dir</span><span class="o">+</span>  <span class="s1">&#39;/VTK&#39;</span>
+
+        <span class="c1"># make directory for vtk</span>
+        <span class="n">mkdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vtk_folder</span><span class="p">)</span>
+
+        <span class="c1"># 3.1 generate true flowfield VTK</span>
+        <span class="n">true_data_UV_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">true_trajectory</span><span class="p">,</span> <span class="n">vh</span><span class="p">[:</span><span class="n">true_trajectory</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],:])</span>
+        <span class="n">true_data_U</span> <span class="o">=</span> <span class="n">true_data_UV_array</span><span class="p">[:,:</span><span class="nb">int</span><span class="p">(</span><span class="n">true_data_UV_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">]</span>
+        <span class="n">true_data_V</span> <span class="o">=</span> <span class="n">true_data_UV_array</span><span class="p">[:,</span> <span class="nb">int</span><span class="p">(</span><span class="n">true_data_UV_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">):]</span>
+        <span class="n">true_data_W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">true_data_U</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c1"># get 3d true velo</span>
+        <span class="n">true_data_vel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">true_data_U</span><span class="p">,</span> <span class="n">true_data_V</span><span class="p">,</span> <span class="n">true_data_W</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># 3.2 generate pred flowfield VTK -- mean</span>
+        <span class="n">pred_data_UV_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">pred_trajectory_mean</span><span class="p">,</span> <span class="n">vh</span><span class="p">[:</span><span class="n">pred_trajectory_mean</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],:])</span>
+        <span class="n">pred_data_U</span> <span class="o">=</span> <span class="n">pred_data_UV_array</span><span class="p">[:,</span> <span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">pred_data_UV_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">]</span>
+        <span class="n">pred_data_V</span> <span class="o">=</span> <span class="n">pred_data_UV_array</span><span class="p">[:,</span>  <span class="nb">int</span><span class="p">(</span><span class="n">pred_data_UV_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">):]</span>
+        <span class="n">pred_data_W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">pred_data_U</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c1"># get 3d pred velo</span>
+        <span class="n">pred_data_vel_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">pred_data_U</span><span class="p">,</span> <span class="n">pred_data_V</span><span class="p">,</span> <span class="n">pred_data_W</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># 3.2 -- std</span>
+        <span class="n">pred_data_UV_array_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">pred_trajectory_std</span><span class="p">,</span> <span class="n">vh</span><span class="p">[:</span><span class="n">pred_trajectory_std</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],:])</span>
+        <span class="n">pred_data_U_std</span> <span class="o">=</span> <span class="n">pred_data_UV_array_std</span><span class="p">[:,:</span><span class="nb">int</span><span class="p">(</span><span class="n">pred_data_UV_array_std</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">]</span>
+        <span class="n">pred_data_V_std</span> <span class="o">=</span> <span class="n">pred_data_UV_array_std</span><span class="p">[:,</span> <span class="nb">int</span><span class="p">(</span><span class="n">pred_data_UV_array_std</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">):]</span>
+        <span class="n">pred_data_W_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">pred_data_U_std</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c1"># get 3d pred velo -- std</span>
+        <span class="n">pred_data_vel_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">pred_data_U_std</span><span class="p">,</span> <span class="n">pred_data_V_std</span><span class="p">,</span> <span class="n">pred_data_W_std</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># 3.5 read blank VTK files for cylinder to write new things on: loop over time</span>
+        <span class="k">for</span> <span class="n">time_step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">true_data_U</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+
+            <span class="n">true_data</span> <span class="o">=</span> <span class="n">vtki</span><span class="o">.</span><span class="n">UnstructuredGrid</span><span class="p">(</span><span class="n">cylinder_folder</span> <span class="o">+</span> <span class="s1">&#39;/base.vtk&#39;</span><span class="p">)</span>
+            <span class="n">pred_data</span> <span class="o">=</span> <span class="n">vtki</span><span class="o">.</span><span class="n">UnstructuredGrid</span><span class="p">(</span><span class="n">cylinder_folder</span> <span class="o">+</span> <span class="s1">&#39;/base.vtk&#39;</span><span class="p">)</span>
+
+            <span class="c1"># 3.2 add fields in</span>
+            <span class="n">true_data</span><span class="o">.</span><span class="n">AddCellScalars</span><span class="p">(</span><span class="n">true_data_vel</span><span class="p">[</span><span class="n">time_step</span><span class="p">,:,:],</span> <span class="s1">&#39;U&#39;</span><span class="p">)</span>
+
+            <span class="n">pred_data</span><span class="o">.</span><span class="n">AddCellScalars</span><span class="p">(</span><span class="n">pred_data_vel_mean</span><span class="p">[</span><span class="n">time_step</span><span class="p">,:,:],</span> <span class="s1">&#39;U_mean&#39;</span><span class="p">)</span>
+            <span class="n">pred_data</span><span class="o">.</span><span class="n">AddCellScalars</span><span class="p">(</span> <span class="n">pred_data_vel_std</span><span class="p">[</span><span class="n">time_step</span><span class="p">,:,:],</span> <span class="s1">&#39;U_std&#39;</span> <span class="p">)</span>
+
+            <span class="c1"># save</span>
+            <span class="n">true_data</span><span class="o">.</span><span class="n">Write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vtk_folder</span> <span class="o">+</span> <span class="s1">&#39;/true_flowfield_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">time_step</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.vtk&#39;</span><span class="p">)</span>
+            <span class="n">pred_data</span><span class="o">.</span><span class="n">Write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vtk_folder</span> <span class="o">+</span> <span class="s1">&#39;/pred_flowfield_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">time_step</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.vtk&#39;</span><span class="p">)</span>
+
+            <span class="k">del</span><span class="p">(</span><span class="n">true_data</span><span class="p">)</span>
+            <span class="k">del</span><span class="p">(</span><span class="n">pred_data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ClassKoopmanPPS.pps_component_trj"><a class="viewcode-back" href="../../PPS_SRC.postprocess.html#PPS_SRC.postprocess.ClassKoopmanPPS.pps_component_trj">[docs]</a>    <span class="k">def</span> <span class="nf">pps_component_trj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">additional_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">70</span><span class="p">,</span><span class="mi">70</span><span class="p">),</span> <span class="n">fig_size</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; postprocessing each component trajectory</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            additional_names (:obj:`str`): string for figures to be saved in a more specific name.</span>
+
+<span class="sd">            alpha (:obj:`float`): level of transparent</span>
+
+<span class="sd">            ylim: (:obj:`numpy.ndarray`): ylim of figure</span>
+
+<span class="sd">            fig_size: (:obj:`tuple`): figure size</span>
+
+<span class="sd">            lw: (:obj:`float`): line width.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># LOAD SaveCompareWithTruth</span>
+        <span class="k">if</span> <span class="n">additional_names</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;save_trj_comparison.npz&#39;</span>
+            <span class="n">output_name</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;save_trj_comparison_&#39;</span> <span class="o">+</span> <span class="n">additional_names</span> <span class="o">+</span>  <span class="s1">&#39;.npz&#39;</span>
+            <span class="n">output_name</span> <span class="o">=</span> <span class="n">additional_names</span>
+        <span class="n">fig_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eval_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;model_name&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">file_name</span><span class="p">)</span>
+        <span class="n">true_trajectory</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;ttrj&#39;</span><span class="p">]</span>
+        <span class="n">pred_trajectory</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;ptrj&#39;</span><span class="p">]</span>
+        <span class="n">true_tsnap</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;tt&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;tt&#39;</span><span class="p">])</span>
+
+        <span class="c1"># # plot for each component</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;nonBayes&#39;</span><span class="p">:</span>
+
+            <span class="n">num_components</span> <span class="o">=</span> <span class="n">true_trajectory</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i_comp</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_components</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">additional_names</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">fig_size</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">fig_size</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">true_tsnap</span><span class="p">,</span> <span class="n">true_trajectory</span><span class="p">[:,</span> <span class="n">i_comp</span><span class="p">],</span> <span class="s1">&#39;k-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;true&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">true_tsnap</span><span class="p">,</span> <span class="n">pred_trajectory</span><span class="p">[:,</span> <span class="n">i_comp</span><span class="p">],</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;pred&#39;</span><span class="p">)</span>
+
+                <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_{&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i_comp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;}$&#39;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">32</span><span class="p">)</span>
+                <span class="n">lgd</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pps_dir</span> <span class="o">+</span> \
+                            <span class="s1">&#39;/component_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i_comp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">output_name</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">,</span>  <span class="n">bbox_extra_artists</span><span class="o">=</span><span class="p">(</span><span class="n">lgd</span><span class="p">,),</span>
+                            <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+            <span class="c1">## plot for total components</span>
+            <span class="k">if</span> <span class="n">additional_names</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">fig_size</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">fig_size</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i_comp</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_components</span><span class="p">):</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">true_tsnap</span><span class="p">,</span> <span class="n">pred_trajectory</span><span class="p">[:,</span> <span class="n">i_comp</span><span class="p">],</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;pred: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i_comp</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">true_tsnap</span><span class="p">,</span> <span class="n">true_trajectory</span><span class="p">[:,</span> <span class="n">i_comp</span><span class="p">],</span> <span class="s1">&#39;k-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;true: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i_comp</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="p">)</span>
+            <span class="c1"># lgd = plt.legend(bbox_to_anchor=(1, 0.5))</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pps_dir</span> <span class="o">+</span> \
+                            <span class="s1">&#39;/total_component_&#39;</span> <span class="o">+</span> <span class="n">output_name</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;Bayes&#39;</span><span class="p">:</span>
+
+            <span class="n">num_components</span> <span class="o">=</span> <span class="n">true_trajectory</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="n">num_samples</span> <span class="o">=</span> <span class="n">pred_trajectory</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="k">for</span> <span class="n">i_comp</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_components</span><span class="p">):</span>
+
+                <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">fig_size</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">i_sample</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_samples</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">i_sample</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">true_tsnap</span><span class="p">,</span> <span class="n">pred_trajectory</span><span class="p">[</span><span class="n">i_sample</span><span class="p">,</span> <span class="p">:,</span> <span class="n">i_comp</span><span class="p">],</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Monte Carlo&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">true_tsnap</span><span class="p">,</span> <span class="n">pred_trajectory</span><span class="p">[</span><span class="n">i_sample</span><span class="p">,</span> <span class="p">:,</span> <span class="n">i_comp</span><span class="p">],</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">true_tsnap</span><span class="p">,</span> <span class="n">true_trajectory</span><span class="p">[:,</span> <span class="n">i_comp</span><span class="p">],</span> <span class="s1">&#39;k-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;true&#39;</span><span class="p">)</span>
+
+                <span class="c1"># plt.plot(true_tsnap, pred_trajectory[:, i_comp], &#39;r--&#39;,label=&#39;pred&#39;)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">32</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_{&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i_comp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;}$&#39;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">32</span><span class="p">)</span>
+                <span class="c1"># lgd = plt.legend(bbox_to_anchor=(1, 0.5))</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pps_dir</span> <span class="o">+</span> <span class="s1">&#39;/component_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i_comp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">output_name</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">,</span> <span class="c1">#  bbox_extra_artists=(lgd,),</span>
+                            <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+            <span class="c1">## plot for total components</span>
+            <span class="k">if</span> <span class="n">additional_names</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">fig_size</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">fig_size</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">32</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">32</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i_comp</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_components</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i_comp</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">i_sample</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_samples</span><span class="p">):</span>
+
+                        <span class="k">if</span> <span class="n">i_sample</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+
+                            <span class="c1"># skip for modes</span>
+                            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">true_tsnap</span><span class="p">,</span> <span class="n">pred_trajectory</span><span class="p">[</span><span class="n">i_sample</span><span class="p">,</span> <span class="p">:,</span> <span class="n">i_comp</span><span class="p">],</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span>  <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Monte Carlo&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i_comp</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span> <span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">true_tsnap</span><span class="p">,</span> <span class="n">pred_trajectory</span><span class="p">[</span><span class="n">i_sample</span><span class="p">,</span> <span class="p">:,</span> <span class="n">i_comp</span><span class="p">],</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+
+                        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">true_tsnap</span><span class="p">,</span> <span class="n">true_trajectory</span><span class="p">[:,</span> <span class="n">i_comp</span><span class="p">],</span> <span class="s1">&#39;k-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;true: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i_comp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+                    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
+
+                <span class="c1"># plt.plot(true_tsnap, pred_trajectory[:, i_comp], &#39;r--&#39;,label=&#39;pred: &#39; + str(i_comp+1) )</span>
+            <span class="c1"># lgd = plt.legend(bbox_to_anchor=(1, 0.5))</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pps_dir</span> <span class="o">+</span> <span class="s1">&#39;/total_component_&#39;</span> <span class="o">+</span> <span class="n">output_name</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ClassKoopmanPPS.pps_2d_data_dist"><a class="viewcode-back" href="../../PPS_SRC.postprocess.html#PPS_SRC.postprocess.ClassKoopmanPPS.pps_2d_data_dist">[docs]</a>    <span class="k">def</span> <span class="nf">pps_2d_data_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;postprocessing for the training data for 2D system.</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            data_path (:obj:`str`): path to the data files.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># only obtain the phase space locations</span>
+        <span class="n">data2D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">data_path</span><span class="p">)[</span><span class="s1">&#39;Xtrain&#39;</span><span class="p">]</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data2D</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">data2D</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.1</span> <span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pps_dir</span> <span class="o">+</span> <span class="s1">&#39;/trainPhaseDist.png&#39;</span><span class="p">,</span>
+            <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span>
+        <span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ClassKoopmanPPS.get_cmap"><a class="viewcode-back" href="../../PPS_SRC.postprocess.html#PPS_SRC.postprocess.ClassKoopmanPPS.get_cmap">[docs]</a>    <span class="k">def</span> <span class="nf">get_cmap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;rainbow&#39;</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Returns a function that maps each index in 0, 1, ..., n-1 to a distinct</span>
+<span class="sd">        RGB color; the keyword argument name must be a standard mpl colormap name.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span></div></div>
+
+
+
+<div class="viewcode-block" id="ClassDLPPS"><a class="viewcode-back" href="../../PPS_SRC.postprocess.html#PPS_SRC.postprocess.ClassDLPPS">[docs]</a><span class="k">class</span> <span class="nc">ClassDLPPS</span><span class="p">(</span><span class="n">ClassKoopmanPPS</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for Postprocessing of Deep Learning Koopman.</span>
+
+<span class="sd">    Previously I have a class that is only focusing on the EDMD/KDMD.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ClassDLPPS.pps_eigenvalues"><a class="viewcode-back" href="../../PPS_SRC.postprocess.html#PPS_SRC.postprocess.ClassDLPPS.pps_eigenvalues">[docs]</a>    <span class="k">def</span> <span class="nf">pps_eigenvalues</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode_force</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;plot eigenvalues</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            mode_force (:obj:`bool`): we can force to use the eigenvalues from eval_dir or model_dir</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">mode_force</span> <span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;nonBayes&#39;</span><span class="p">:</span>
+
+                <span class="c1">## LOAD koopman_eigenvalue_deeplearn</span>
+                <span class="n">fig_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_dir</span> <span class="o">+</span> <span class="s1">&#39;/../koopman_eigenvalue_deeplearn.npz&#39;</span><span class="p">)</span>
+                <span class="n">D_real</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;eig_real&#39;</span><span class="p">]</span>
+                <span class="n">D_imag</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;eig_imag&#39;</span><span class="p">]</span>
+
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;Bayes&#39;</span><span class="p">:</span>
+
+                <span class="n">fig_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eval_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;model_name&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;/koopman_eigenfunctions.npz&#39;</span><span class="p">)</span>
+
+                <span class="n">D_real</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;D_real&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">D_imag</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;D_imag&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1">## LOAD koopman_eigenvalue_deeplearn</span>
+            <span class="n">fig_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_dir</span> <span class="o">+</span> <span class="s1">&#39;/../koopman_eigenvalue_deeplearn.npz&#39;</span><span class="p">)</span>
+            <span class="n">D_real</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;eig_real&#39;</span><span class="p">]</span>
+            <span class="n">D_imag</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;eig_imag&#39;</span><span class="p">]</span>
+
+        <span class="c1">## plot eigenvalues</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+        <span class="c1"># draw eigenvalue</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;nonBayes&#39;</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">D_real</span><span class="p">,</span> <span class="n">D_imag</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;Bayes&#39;</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">D_real</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">D_imag</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="c1"># draw circle</span>
+        <span class="c1">## no need, since it is a continuous Koopman eigenvalue..</span>
+        <span class="c1"># theta = np.linspace(0, 2*np.pi ,200)</span>
+        <span class="c1"># plt.plot(np.cos(theta), np.sin(theta), &#39;k-&#39;)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Real($\lambda$)&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Imag($\lambda$)&#39;</span><span class="p">)</span>
+        <span class="c1"># lgd = plt.legend([&#39;train&#39;, &#39;validation&#39;], bbox_to_anchor=(1, 0.5))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pps_dir</span> <span class="o">+</span> <span class="s1">&#39;/koopmanEigVal.png&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;range of K: real part&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">D_real</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">D_real</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;std of K: real part&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">D_real</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;range of K: imag part&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">D_imag</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">D_imag</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;std of K: imag part&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">D_imag</span><span class="p">))</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ClassDLPPS.pps_eigenfunction"><a class="viewcode-back" href="../../PPS_SRC.postprocess.html#PPS_SRC.postprocess.ClassDLPPS.pps_eigenfunction">[docs]</a>    <span class="k">def</span> <span class="nf">pps_eigenfunction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        plot eigenfunctions over 2D system</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;nonBayes&#39;</span><span class="p">:</span>
+
+            <span class="c1">## load</span>
+            <span class="n">fig_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_dir</span> <span class="o">+</span> <span class="s1">&#39;/../koopman_eigenfunctions.npz&#39;</span><span class="p">)</span>
+
+            <span class="n">numKoopmanModes</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;numKoopmanModes&#39;</span><span class="p">]</span>
+            <span class="n">R</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;R&#39;</span><span class="p">]</span>
+            <span class="n">phi_array</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;phi_array&#39;</span><span class="p">]</span>
+            <span class="n">ndraw</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;ndraw&#39;</span><span class="p">]</span>
+            <span class="n">D_real</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;D_real&#39;</span><span class="p">]</span>
+            <span class="n">D_imag</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;D_imag&#39;</span><span class="p">]</span>
+            <span class="n">x1_</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;x1_&#39;</span><span class="p">]</span>
+            <span class="n">x2_</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;x2_&#39;</span><span class="p">]</span>
+
+            <span class="c1"># draw koopman eigenfunction</span>
+            <span class="c1"># note that \phi as a row vector, mulitples R1, R2 will obtain phi_eigen 1 and phi_eigen 2</span>
+            <span class="k">for</span> <span class="n">ikoopman</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numKoopmanModes</span><span class="p">):</span>
+                <span class="n">R_i</span> <span class="o">=</span> <span class="n">R</span><span class="p">[:,</span> <span class="n">ikoopman</span><span class="p">:</span><span class="n">ikoopman</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="n">phi_eigen</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">phi_array</span><span class="p">,</span> <span class="n">R_i</span><span class="p">)</span>
+                <span class="n">phi_eigen_mesh</span> <span class="o">=</span> <span class="n">phi_eigen</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">ndraw</span><span class="p">,</span> <span class="n">ndraw</span><span class="p">))</span>
+
+                <span class="c1"># draw || mag. of eigenfunction</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
+                    <span class="sa">r</span><span class="s1">&#39;$\lambda$ = &#39;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{0:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">D_real</span><span class="p">[</span><span class="n">ikoopman</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39; + &#39;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{0:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">D_imag</span><span class="p">[</span><span class="n">ikoopman</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;i&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x1_</span><span class="p">,</span> <span class="n">x2_</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">phi_eigen_mesh</span><span class="p">),</span> <span class="mi">100</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;jet&#39;</span><span class="p">))</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pps_dir</span> <span class="o">+</span> <span class="s1">&#39;/koopmanEigFunct_MAG_mode_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ikoopman</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+                <span class="c1"># draw phase angle of eigenfunction</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
+                    <span class="sa">r</span><span class="s1">&#39;$\lambda$ = &#39;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{0:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">D_real</span><span class="p">[</span><span class="n">ikoopman</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39; + &#39;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{0:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">D_imag</span><span class="p">[</span><span class="n">ikoopman</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;i&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x1_</span><span class="p">,</span> <span class="n">x2_</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">phi_eigen_mesh</span><span class="p">),</span> <span class="mi">100</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;jet&#39;</span><span class="p">))</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pps_dir</span> <span class="o">+</span> <span class="s1">&#39;/koopmanEigFunct_ANG_mode_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ikoopman</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;Bayes&#39;</span><span class="p">:</span>
+
+            <span class="c1">## load</span>
+            <span class="n">fig_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eval_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;model_name&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;/koopman_eigenfunctions.npz&#39;</span><span class="p">)</span>
+
+            <span class="n">numKoopmanModes</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;numKoopmanModes&#39;</span><span class="p">]</span>
+            <span class="n">R</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;R&#39;</span><span class="p">]</span>
+
+            <span class="n">num_samples</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="n">phi_array</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;phi_array&#39;</span><span class="p">]</span>
+            <span class="n">ndraw</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;ndraw&#39;</span><span class="p">]</span>
+            <span class="n">D_real</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;D_real&#39;</span><span class="p">]</span>
+            <span class="n">D_imag</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;D_imag&#39;</span><span class="p">]</span>
+            <span class="n">x1_</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;x1_&#39;</span><span class="p">]</span>
+            <span class="n">x2_</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;x2_&#39;</span><span class="p">]</span>
+
+            <span class="c1"># loop over all realization, to get the mean abs and angle..</span>
+
+            <span class="c1"># draw koopman eigenfunction</span>
+            <span class="c1"># note that \phi as a row vector, mulitples R1, R2 will obtain phi_eigen 1 and phi_eigen 2</span>
+            <span class="k">for</span> <span class="n">ikoopman</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numKoopmanModes</span><span class="p">):</span>
+
+                <span class="n">abs_phi_eigen_mean</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">i_sample</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_samples</span><span class="p">):</span>
+                    <span class="n">R_i</span> <span class="o">=</span> <span class="n">R</span><span class="p">[</span><span class="n">i_sample</span><span class="p">,</span> <span class="p">:,</span> <span class="n">ikoopman</span><span class="p">:</span><span class="n">ikoopman</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                    <span class="n">phi_eigen</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">phi_array</span><span class="p">[</span><span class="n">i_sample</span><span class="p">],</span> <span class="n">R_i</span><span class="p">)</span>
+                    <span class="n">abs_phi_eigen_mean</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">phi_eigen</span><span class="p">)</span>
+
+                <span class="n">abs_phi_eigen_mean</span> <span class="o">/=</span> <span class="n">num_samples</span>
+
+                <span class="n">abs_phi_eigen_std</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">i_sample</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_samples</span><span class="p">):</span>
+                    <span class="n">R_i</span> <span class="o">=</span> <span class="n">R</span><span class="p">[</span><span class="n">i_sample</span><span class="p">,</span> <span class="p">:,</span> <span class="n">ikoopman</span><span class="p">:</span><span class="n">ikoopman</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                    <span class="n">phi_eigen</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">phi_array</span><span class="p">[</span><span class="n">i_sample</span><span class="p">],</span> <span class="n">R_i</span><span class="p">)</span>
+                    <span class="n">abs_phi_eigen_std</span> <span class="o">+=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">phi_eigen</span><span class="p">)</span> <span class="o">-</span> <span class="n">abs_phi_eigen_mean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+
+                <span class="n">abs_phi_eigen_std</span> <span class="o">/=</span> <span class="n">num_samples</span>
+                <span class="n">abs_phi_eigen_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">abs_phi_eigen_std</span><span class="p">)</span>
+
+                <span class="c1"># convert it into the grid</span>
+                <span class="n">abs_phi_eigen_mean_mesh</span> <span class="o">=</span> <span class="n">abs_phi_eigen_mean</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">ndraw</span><span class="p">,</span> <span class="n">ndraw</span><span class="p">))</span>
+                <span class="n">abs_phi_eigen_std_mesh</span> <span class="o">=</span> <span class="n">abs_phi_eigen_std</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">ndraw</span><span class="p">,</span> <span class="n">ndraw</span><span class="p">))</span>
+
+                <span class="c1">### start drawing contour of mean phi and normalized uncertainty level of of phi</span>
+
+                <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x1_</span><span class="p">,</span> <span class="n">x2_</span><span class="p">,</span> <span class="n">abs_phi_eigen_mean_mesh</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">linestyles</span><span class="o">=</span><span class="s2">&quot;solid&quot;</span> <span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">32</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">32</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pps_dir</span> <span class="o">+</span> <span class="s1">&#39;/koopmanEigFunct_MAG_mean_mode_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ikoopman</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">,</span>
+                            <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+                <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+                <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x1_</span><span class="p">,</span> <span class="n">x2_</span><span class="p">,</span> <span class="n">abs_phi_eigen_std_mesh</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">abs_phi_eigen_std_mesh</span><span class="p">),</span> <span class="n">v</span><span class="p">,</span> <span class="n">linestyles</span><span class="o">=</span><span class="s2">&quot;solid&quot;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="n">v</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">32</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">32</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pps_dir</span> <span class="o">+</span> <span class="s1">&#39;/koopmanEigFunct_MAG_normalized_uncertainty_mode_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ikoopman</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">,</span>
+                            <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+                <span class="c1">### start drawing abs of phi</span>
+
+                <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+                <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;3d&quot;</span><span class="p">)</span>
+
+                <span class="c1"># surface plot with mean and -+2 sigma</span>
+                <span class="n">Z_mean</span> <span class="o">=</span> <span class="n">abs_phi_eigen_mean_mesh</span>
+                <span class="n">Z_plus_3s</span> <span class="o">=</span> <span class="n">abs_phi_eigen_mean_mesh</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">abs_phi_eigen_std_mesh</span>
+                <span class="n">Z_mins_3s</span> <span class="o">=</span> <span class="n">abs_phi_eigen_mean_mesh</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">abs_phi_eigen_std_mesh</span>
+
+                <span class="c1"># ax.plot_surface(x1_, x2_, np.log(abs_phi_eigen_std_mesh/np.min(abs_phi_eigen_std_mesh)), cmap=&quot;gray&quot;, alpha=1)</span>
+                <span class="n">surface</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">x1_</span><span class="p">,</span> <span class="n">x2_</span><span class="p">,</span> <span class="n">Z_mean</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;magma&quot;</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">x1_</span><span class="p">,</span> <span class="n">x2_</span><span class="p">,</span> <span class="n">Z_plus_3s</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">x1_</span><span class="p">,</span> <span class="n">x2_</span><span class="p">,</span> <span class="n">Z_mins_3s</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+                <span class="n">offset_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">Z_plus_3s</span><span class="p">)</span>
+                <span class="n">offset_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">Z_mins_3s</span><span class="p">)</span>
+
+                <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">x1_</span><span class="p">,</span> <span class="n">x2_</span><span class="p">,</span> <span class="n">Z_mean</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">linestyles</span><span class="o">=</span><span class="s2">&quot;solid&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset_max</span><span class="o">*</span><span class="mf">1.05</span><span class="p">)</span>
+
+                <span class="c1"># debug</span>
+                <span class="c1"># ax.set_zlim(0, 10)</span>
+                <span class="c1"># ax.set_zlim(offset_min, offset_max*1.05)</span>
+
+                <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">fill</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">fill</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">zaxis</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">fill</span> <span class="o">=</span> <span class="kc">False</span>
+
+                <span class="c1"># Now set color to white (or whatever is &quot;invisible&quot;)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">set_edgecolor</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">set_edgecolor</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">zaxis</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">set_edgecolor</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+                <span class="c1"># ax.contourf(x_m, y_m, x_m)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">zaxis</span><span class="o">.</span><span class="n">set_rotate_label</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$|\phi|$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+                <span class="c1"># plt.title(r&#39;$\lambda$ = &#39; + &quot;{0:.3f}&quot;.format(float(D_real[ikoopman])) + &#39; + &#39; + &quot;{0:.3f}&quot;.format(float(D_imag[ikoopman])) + &#39;i&#39;)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+
+                <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pps_dir</span> <span class="o">+</span> <span class="s1">&#39;/koopmanEigFunct_MAG_TOTAL_uncertainty_mode_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ikoopman</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">,</span>
+                            <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+
+                <span class="c1"># plt.show()</span>
+
+                <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+
+                <span class="c1">### start drawing angle of phi</span>
+
+                <span class="n">phi_eigen_mean</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">i_sample</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_samples</span><span class="p">):</span>
+                    <span class="n">R_i</span> <span class="o">=</span> <span class="n">R</span><span class="p">[</span><span class="n">i_sample</span><span class="p">,</span> <span class="p">:,</span> <span class="n">ikoopman</span><span class="p">:</span><span class="n">ikoopman</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                    <span class="n">phi_eigen</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">phi_array</span><span class="p">[</span><span class="n">i_sample</span><span class="p">],</span> <span class="n">R_i</span><span class="p">)</span>
+                    <span class="n">phi_eigen_mean</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">phi_eigen</span><span class="p">)</span>
+
+                <span class="n">phi_eigen_mean</span> <span class="o">/=</span> <span class="n">num_samples</span>
+
+                <span class="n">phi_eigen_std</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">i_sample</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_samples</span><span class="p">):</span>
+                    <span class="n">R_i</span> <span class="o">=</span> <span class="n">R</span><span class="p">[</span><span class="n">i_sample</span><span class="p">,</span> <span class="p">:,</span> <span class="n">ikoopman</span><span class="p">:</span><span class="n">ikoopman</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                    <span class="n">phi_eigen</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">phi_array</span><span class="p">[</span><span class="n">i_sample</span><span class="p">],</span> <span class="n">R_i</span><span class="p">)</span>
+                    <span class="n">phi_eigen_std</span> <span class="o">+=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">phi_eigen</span><span class="p">)</span> <span class="o">-</span> <span class="n">phi_eigen_mean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+
+                <span class="n">phi_eigen_std</span> <span class="o">/=</span> <span class="n">num_samples</span>
+                <span class="n">phi_eigen_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">phi_eigen_std</span><span class="p">)</span>
+
+                <span class="c1"># convert it into the grid</span>
+                <span class="n">phi_eigen_mean_mesh</span> <span class="o">=</span> <span class="n">phi_eigen_mean</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">ndraw</span><span class="p">,</span> <span class="n">ndraw</span><span class="p">))</span>
+                <span class="n">phi_eigen_std_mesh</span> <span class="o">=</span> <span class="n">phi_eigen_std</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">ndraw</span><span class="p">,</span> <span class="n">ndraw</span><span class="p">))</span>
+
+
+                <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x1_</span><span class="p">,</span> <span class="n">x2_</span><span class="p">,</span> <span class="n">phi_eigen_mean_mesh</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">linestyles</span><span class="o">=</span><span class="s2">&quot;solid&quot;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">32</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">32</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pps_dir</span> <span class="o">+</span> <span class="s1">&#39;/koopmanEigFunct_mean_ANG_mode_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ikoopman</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+                <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x1_</span><span class="p">,</span> <span class="n">x2_</span><span class="p">,</span> <span class="n">phi_eigen_std_mesh</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">linestyles</span><span class="o">=</span><span class="s2">&quot;solid&quot;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">32</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">32</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pps_dir</span> <span class="o">+</span> <span class="s1">&#39;/koopmanEigFunct_std_ANG_mode_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ikoopman</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">,</span>
+                            <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="ClassDLPPS.pps_learning_curve"><a class="viewcode-back" href="../../PPS_SRC.postprocess.html#PPS_SRC.postprocess.ClassDLPPS.pps_learning_curve">[docs]</a>    <span class="k">def</span> <span class="nf">pps_learning_curve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;plot learning curve of the training process</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># loop through all learning curves</span>
+        <span class="k">for</span> <span class="n">prefix</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;total-MSE&#39;</span><span class="p">,</span><span class="s1">&#39;linear-MSE&#39;</span><span class="p">,</span><span class="s1">&#39;recon-MSE&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;Bayes&#39;</span> <span class="ow">and</span> <span class="n">prefix</span> <span class="o">!=</span> <span class="s1">&#39;total-MSE&#39;</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="c1">## LOAD data</span>
+            <span class="n">fig_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_dir</span> <span class="o">+</span> <span class="s1">&#39;/../&#39;</span> <span class="o">+</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_learn_curve.npz&#39;</span><span class="p">)</span>
+            <span class="n">train_metrics_list</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;train_metrics_list&#39;</span><span class="p">]</span>
+            <span class="n">valid_metrics_list</span> <span class="o">=</span> <span class="n">fig_data</span><span class="p">[</span><span class="s1">&#39;valid_metrics_list&#39;</span><span class="p">]</span>
+
+            <span class="c1"># plot learning curve</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_metrics_list</span><span class="p">)),</span> <span class="n">train_metrics_list</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_metrics_list</span><span class="p">)),</span> <span class="n">valid_metrics_list</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;epoch&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
+            <span class="n">lgd</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;train&#39;</span><span class="p">,</span><span class="s1">&#39;validation&#39;</span><span class="p">],</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pps_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">,</span>
+                        <span class="n">bbox_extra_artists</span><span class="o">=</span><span class="p">(</span><span class="n">lgd</span><span class="p">,),</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Shaowu Pan
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

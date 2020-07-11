@@ -1,0 +1,837 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MODEL_SRC.ClassDLKoopmanCont module &mdash; SPARK 1.2rc1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="MODEL_SRC.ClassDLKoopmanLRAN module" href="MODEL_SRC.ClassDLKoopmanLRAN.html" />
+    <link rel="prev" title="MODEL_SRC.lib.utilities module" href="MODEL_SRC.lib.utilities.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> SPARK
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="PREP_DATA_SRC.html">Data Preparation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="MODEL_SRC.html">Main Model</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="MODEL_SRC.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="MODEL_SRC.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">MODEL_SRC.ClassDLKoopmanCont module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MODEL_SRC.ClassDLKoopmanLRAN.html">MODEL_SRC.ClassDLKoopmanLRAN module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MODEL_SRC.ClassGenerateDataFromPhysics.html">MODEL_SRC.ClassGenerateDataFromPhysics module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MODEL_SRC.classBayesDLKoopman.html">MODEL_SRC.classBayesDLKoopman module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="MODEL_SRC.html#module-MODEL_SRC">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="EVAL_SRC.html">A posteriori Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PPS_SRC.html">Post-Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Simple example</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SPARK</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">Modules</a> &raquo;</li>
+        
+          <li><a href="MODEL_SRC.html">Main Model</a> &raquo;</li>
+        
+      <li>MODEL_SRC.ClassDLKoopmanCont module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/MODEL_SRC.ClassDLKoopmanCont.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-MODEL_SRC.ClassDLKoopmanCont">
+<span id="model-src-classdlkoopmancont-module"></span><span id="classdlkoopmancont"></span><h1>MODEL_SRC.ClassDLKoopmanCont module<a class="headerlink" href="#module-MODEL_SRC.ClassDLKoopmanCont" title="Permalink to this headline">¶</a></h1>
+<p>Class of Continuous time Deep Learning Models for Koopman Operator</p>
+<dl class="class">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont">
+<em class="property">class </em><code class="descclassname">MODEL_SRC.ClassDLKoopmanCont.</code><code class="descname">ClassDLKoopmanCont</code><span class="sig-paren">(</span><em>configDict</em>, <em>edward_configDict=None</em>, <em>gpu_percentage=0.05</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Class of a <cite>deterministic</cite> Deep learning model to find Koopman operators in a continuous time sense</p>
+<p>For more details, please refer to <a class="reference external" href="https://arxiv.org/abs/1906.03663">preprint</a> .</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">configDict (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>): a dictionary contains model options of deterministic DL for continuous Koopman operator.</p>
+<blockquote>
+<div><p>Examples:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">configDict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;caseName&#39;</span><span class="p">:</span> <span class="s1">&#39;50d_cylinder_flow_pod_case_noise_level_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">noise_level</span><span class="p">),</span>
+    <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="mf">1e-4</span><span class="p">,</span>
+    <span class="s2">&quot;structureEncoder&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>
+    <span class="s1">&#39;numberEpoch&#39;</span><span class="p">:</span> <span class="mi">30000</span><span class="p">,</span>
+    <span class="s1">&#39;miniBatch&#39;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
+    <span class="s1">&#39;decay&#39;</span><span class="p">:</span> <span class="mf">1e-8</span><span class="p">,</span>
+    <span class="s1">&#39;c_los_lin&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="s1">&#39;c_los_reg&#39;</span><span class="p">:</span> <span class="mf">1e-10</span><span class="p">,</span>
+    <span class="s1">&#39;typeRecon&#39;</span><span class="p">:</span> <span class="s1">&#39;nonlinear&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;phase_space_range&#39;</span><span class="p">:</span> <span class="n">range_of_X</span><span class="p">,</span>
+    <span class="s1">&#39;activation&#39;</span><span class="p">:</span> <span class="s1">&#39;swish&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;nsd&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1"># stable-K form.  #2: X-X^T -diag type  1:  efficient banded matrix - diag type  otherwise: not using anything</span>
+    <span class="s1">&#39;normalization_type&#39;</span><span class="p">:</span><span class="s1">&#39;only_max&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;T&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s1">&#39;dt&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="o">*</span><span class="mi">2</span> <span class="c1"># 2 is the coarse-graining factor</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<dl class="docutils">
+<dt>edward_configDict (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>): a dictionary contains model options</dt>
+<dd><p class="first">of bayesian DL.</p>
+<p>Examples:</p>
+<blockquote class="last">
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">edward_configDict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;ALPHA_HPP&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s1">&#39;BETA_HPP&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">&#39;sm2g&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;pi&#39;</span><span class="p">:</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="mf">4.0</span><span class="p">,</span>
+             <span class="s1">&#39;s1&#39;</span><span class="p">:</span> <span class="mi">10</span> <span class="o">**</span> <span class="mi">0</span><span class="p">,</span>
+             <span class="s1">&#39;s2&#39;</span><span class="p">:</span> <span class="mi">10</span> <span class="o">**</span> <span class="o">-</span><span class="mi">6</span><span class="p">},</span>
+    <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="s1">&#39;ADVIARD&#39;</span><span class="p">,</span>  <span class="c1"># &#39;ADVIARD&#39;, &#39;MAPNoARD&#39;, &#39;MAPSimple&#39;, &#39;ADVInoARD&#39;,</span>
+    <span class="s1">&#39;init&#39;</span><span class="p">:</span> <span class="s1">&#39;Standard&#39;</span><span class="p">,</span><span class="c1"># &#39;nonBayes&#39;, # &#39;Standard&#39;</span>
+    <span class="s1">&#39;init_std_softplus&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">8</span><span class="p">,</span>
+    <span class="s1">&#39;MAP_dir&#39;</span><span class="p">:</span> <span class="s1">&#39;../result/50d_cylinder_flow_pod_case_noise_level_0/dldmd_2019-04-02-17-07-31&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;verbose&#39;</span><span class="p">:</span> <span class="kc">False</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</dd>
+</dl>
+<p class="last">gpu_percentage (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>): ratio for how much GPU memory to use.</p>
+</dd>
+<dt>Attributes:</dt>
+<dd><dl class="first docutils">
+<dt>model_params (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>): the dictionary that contains all deterministic DL setup.</dt>
+<dd>Besides, it adds two more as <code class="docutils literal notranslate"><span class="pre">enable_edward</span></code>, and <code class="docutils literal notranslate"><span class="pre">edward_cfg</span></code> to indicate
+using edward or not.</dd>
+<dt>model_folder_name (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): name of the folder to put the saved model parameters. It is created</dt>
+<dd>by current machine time, starting with <code class="docutils literal notranslate"><span class="pre">dldmd_</span></code>. If edward is enabled, it will add
+<code class="docutils literal notranslate"><span class="pre">_Bayes</span></code> as suffix.</dd>
+</dl>
+<p>dir (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): the relative path to put the model into.</p>
+<p>initializer (<code class="xref py py-obj docutils literal notranslate"><span class="pre">function</span></code>): an initializer (it is still a function).</p>
+<p>scale_initializer (<code class="xref py py-obj docutils literal notranslate"><span class="pre">function</span></code>): an initializer for scale in variational posteriori.</p>
+<p>sess (<code class="xref py py-obj docutils literal notranslate"><span class="pre">class</span></code>): A context manager using this session as the default session</p>
+<dl class="docutils">
+<dt>graph (<code class="xref py py-obj docutils literal notranslate"><span class="pre">class</span></code>): A <cite>Graph</cite> instance supports an arbitrary number of “collections”</dt>
+<dd>that are identified by name.</dd>
+</dl>
+<p>vp_dict (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>): a dict collection of variational posteriori distributions.</p>
+<p>hpp_dict (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>): a dict collection of hyperprior distribution.</p>
+<p>prior_dict (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>): a dict collection of priori distribution.</p>
+<p>K_X (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): Prob. distribution to construct stab. form.</p>
+<p>K_XX (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): anti-symmetric pro. distribution to construct stab. form.</p>
+<dl class="docutils">
+<dt>square_diagonal_line (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): the non-negative diagonal elements to construct stab. form.</dt>
+<dd>It needs to be act with   <code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.diag</span></code> to become really a matrix.</dd>
+</dl>
+<p>koopmanOp_learn_intermediate (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): the construct tensor of Koopman operator K.</p>
+<p>koopmanOp_learn (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): the final tensor with name <code class="docutils literal notranslate"><span class="pre">K</span></code> of Koopman operator K.</p>
+<dl class="docutils">
+<dt>pi (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>): Scale Mixture 2 Gaussian prior hyperparameter: <span class="math notranslate nohighlight">\(\pi\)</span> in Google 2015 BNN paper: <a href="#id1"><span class="problematic" id="id2">`</span></a>at</dt>
+<dd>&lt;<a class="reference external" href="http://arxiv.org/abs/1505.05424">http://arxiv.org/abs/1505.05424</a>&gt;`_.</dd>
+<dt>s1 (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>): Scale Mixture 2 Gaussian prior hyperparameter: <span class="math notranslate nohighlight">\(s_1\)</span> in Google 2015 BNN paper: <a href="#id3"><span class="problematic" id="id4">`</span></a>at</dt>
+<dd>&lt;<a class="reference external" href="http://arxiv.org/abs/1505.05424">http://arxiv.org/abs/1505.05424</a>&gt;`_.</dd>
+<dt>s2 (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>): Scale Mixture 2 Gaussian prior hyperparameter: <span class="math notranslate nohighlight">\(s_2\)</span> in Google 2015 BNN paper: <a href="#id5"><span class="problematic" id="id6">`</span></a>at</dt>
+<dd>&lt;<a class="reference external" href="http://arxiv.org/abs/1505.05424">http://arxiv.org/abs/1505.05424</a>&gt;`_.</dd>
+</dl>
+<p>dimX (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>): dimension of the input, i.e., system state <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<p>numKoopmanModes (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>): dimension of the Koopman invariant observable space.</p>
+<p>activation (<code class="xref py py-obj docutils literal notranslate"><span class="pre">function</span></code>): nonlinear activations in neural network.</p>
+<p>shape_list (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>): [<code class="xref py py-attr docutils literal notranslate"><span class="pre">numKoopmanModes</span></code>,:attr:<cite>numKoopmanModes</cite>]. This is the shape of Koopman
+operator K.</p>
+<p>encoderLayerWeights (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>): a dict collection of weights and biases for encoder.</p>
+<p>decoderLayerWegihts (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>): a dict collection of weights and biases for decoder.</p>
+<p>X (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): placeholder for the input states with shape as (None, <code class="xref py py-attr docutils literal notranslate"><span class="pre">dimX</span></code>).</p>
+<dl class="docutils">
+<dt>eta (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): normalized input <span class="math notranslate nohighlight">\(\eta = (X - \overline{X}) \Lambda^{-1}\)</span>,</dt>
+<dd>where <span class="math notranslate nohighlight">\(\overline{X}\)</span> = <code class="xref py py-attr docutils literal notranslate"><span class="pre">mu_X</span></code>, <span class="math notranslate nohighlight">\(\Lambda^{-1}\)</span> = <code class="xref py py-attr docutils literal notranslate"><span class="pre">Lambda_X_inv</span></code>.</dd>
+</dl>
+<p>Xdot (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): placeholder for the input of time derivative as <span class="math notranslate nohighlight">\(\dot{X}\)</span>.</p>
+<p>etaDot (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): normalized time derivative as <span class="math notranslate nohighlight">\(\dot{\eta} = \dot{X} \Lambda^{-1}\)</span>.</p>
+<p>z_rec_loss (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): placeholder for reconstruction loss for Edward to build likelihood function.</p>
+<p>z_lin_loss (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): placeholder for linear dynamics loss for Edward to build likelihood function.</p>
+<p>koopmanPhi (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): Koopman observables.</p>
+<p>etaRec (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): reconstructed normalized states.</p>
+<p>Xrec (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): reconstructed states as <span class="math notranslate nohighlight">\(\overline{X} + \eta \Lambda\)</span>.</p>
+<p>rec_loss (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): mean square error between <code class="xref py py-attr docutils literal notranslate"><span class="pre">X</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">Xrec</span></code>.</p>
+<p>norm_rec_loss (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): MSE between <code class="xref py py-attr docutils literal notranslate"><span class="pre">eta</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">etaRec</span></code>.</p>
+<p>fdphidx (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): <span class="math notranslate nohighlight">\(\dot{\eta} \cdot \partial \phi /\partial X\)</span>.</p>
+<p>kphi (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): <span class="math notranslate nohighlight">\(\phi K\)</span>.</p>
+<p>lin_loss (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): MSE between <code class="xref py py-attr docutils literal notranslate"><span class="pre">kphi</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">fdphidx</span></code>.</p>
+<p>reg_parameter_loss (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): regularization parameter loss with biases and weights.</p>
+<p>loss_op (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): total loss objective function.</p>
+<p>optimizer (<code class="xref py py-obj docutils literal notranslate"><span class="pre">class</span></code>): optimizer class instance.</p>
+<dl class="docutils">
+<dt>train_op (<code class="xref py py-obj docutils literal notranslate"><span class="pre">function</span></code>) a function that updates variables in <code class="docutils literal notranslate"><span class="pre">var_list</span></code>,. i.e., the backpropagation</dt>
+<dd>algorithm.</dd>
+</dl>
+<p>Xtrain (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): training states <span class="math notranslate nohighlight">\(X\)</span>.</p>
+<p>XdotTrain (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): training time derivative <span class="math notranslate nohighlight">\(\dot{X}\)</span>.</p>
+<p>Xvalid (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): valid states <span class="math notranslate nohighlight">\(X\)</span>.</p>
+<p>XdotValid (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): valid time derivative <span class="math notranslate nohighlight">\(\dot{X}\)</span>.</p>
+<p>mu_X (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): sampled mean of training states.</p>
+<p>Lambda_X (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): sampled mean of training time derivative.</p>
+<p>loss_dict (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>): a collection of training loss to be saved.</p>
+<p class="last">K_sample (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): array of Monte Carlof sampling of <code class="docutils literal notranslate"><span class="pre">K</span></code> matrix.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.SaveComputeKoopman">
+<code class="descname">SaveComputeKoopman</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.SaveComputeKoopman"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.SaveComputeKoopman" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save koopman related things: eigenvalues + eigenfunction (only when system is 2D)</p>
+<p>Note:</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="first docutils">
+<dt>consider <span class="math notranslate nohighlight">\(KR=RL\)</span> as <span class="math notranslate nohighlight">\(L\)</span> eigenvalues and <span class="math notranslate nohighlight">\(R\)</span> right eigenvectors,</dt>
+<dd>then <span class="math notranslate nohighlight">\(d\phi/dt = \phi K \iff d(\phi R)/dt = (\phi R) L\)</span>.</dd>
+</dl>
+</li>
+<li>The name of the file for eigvals will be <code class="docutils literal notranslate"><span class="pre">koopman_eigenvalue_deeplearn.npz</span></code></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.SaveLearningCurve">
+<code class="descname">SaveLearningCurve</code><span class="sig-paren">(</span><em>prefix</em>, <em>train_metrics_list</em>, <em>valid_metrics_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.SaveLearningCurve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.SaveLearningCurve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save training and validation error metrics vs training epoch</p>
+<dl class="docutils">
+<dt>Note:</dt>
+<dd>File will be saved as <code class="docutils literal notranslate"><span class="pre">*_learn_curve.npz</span></code>.</dd>
+<dt>Args:</dt>
+<dd><p class="first">prefix (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): prefix to the saving learning curve case.</p>
+<p>train_metrics_list (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>): training loss list.</p>
+<p class="last">valid_metrics_list (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>): validation loss list.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.Save_pps_data_to_disk">
+<code class="descname">Save_pps_data_to_disk</code><span class="sig-paren">(</span><em>total_MSE_list_from_edward=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.Save_pps_data_to_disk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.Save_pps_data_to_disk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save data for plotting the learning curves.</p>
+<p>Note:</p>
+<blockquote>
+<div><ul class="simple">
+<li>plot learning curve for train and validation</li>
+<li>plot a priori scattering for train and validation</li>
+</ul>
+</div></blockquote>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>total_MSE_list_from_edward (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>): if bayesian is enabled, it will feed the loss</dt>
+<dd>function from edward to here.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.Save_train_data">
+<code class="descname">Save_train_data</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.Save_train_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.Save_train_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save training data points distribution in phase space</p>
+<dl class="docutils">
+<dt>Note:</dt>
+<dd>it will be saved as <code class="docutils literal notranslate"><span class="pre">train_data.npz</span></code>.</dd>
+<dt>Args:</dt>
+<dd>data (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): data snapshots.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._compute_ddt_scalar">
+<code class="descname">_compute_ddt_scalar</code><span class="sig-paren">(</span><em>scalar_function</em>, <em>f</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont._compute_ddt_scalar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._compute_ddt_scalar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the dS/dt.</p>
+<p>Following the equation: <span class="math notranslate nohighlight">\(\dot{\eta} \cdot \partial S/ \partial \eta\)</span></p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">scalar_function (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): the function to be taken ddt.</p>
+<p class="last">f (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): it is f = <code class="xref py py-attr docutils literal notranslate"><span class="pre">etaDot</span></code>.</p>
+</dd>
+</dl>
+<p>Returns:</p>
+<blockquote>
+<div><code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code> : dS/dt.</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._compute_f_nabla_koopman_phi">
+<code class="descname">_compute_f_nabla_koopman_phi</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont._compute_f_nabla_koopman_phi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._compute_f_nabla_koopman_phi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute <span class="math notranslate nohighlight">\(f \cdot \partial \phi / \partial x\)</span></p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>f (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): it is f = <code class="xref py py-attr docutils literal notranslate"><span class="pre">etaDot</span></code>.</dd>
+<dt>Returns:</dt>
+<dd><code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code> : <span class="math notranslate nohighlight">\(f \cdot \partial \phi / \partial x\)</span></dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._create_encoder_decoder_and_pod_weights">
+<code class="descname">_create_encoder_decoder_and_pod_weights</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont._create_encoder_decoder_and_pod_weights"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._create_encoder_decoder_and_pod_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the weights and biases for encoder and  decoders</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._create_gamma_chi2_given_alpha">
+<code class="descname">_create_gamma_chi2_given_alpha</code><span class="sig-paren">(</span><em>shape_list</em>, <em>scale_tensor</em>, <em>object_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont._create_gamma_chi2_given_alpha"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._create_gamma_chi2_given_alpha" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create ChiSquare(0, <code class="docutils literal notranslate"><span class="pre">scale_tensor</span></code>) distribution</p>
+<p>We create ChiSquare distribution from Gamma distribution using certain
+alpha, which is just the scale.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">shape_list (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>): the shape of MV distributions.</p>
+<p>scale_tensor (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): this is the scale for the ChiSquare distributions</p>
+<p class="last">object_name (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): the name for the transformed distribution.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code> : <cite>shape_list</cite> * ChiSquare(0, <cite>scale_tensor</cite> ) distribution.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._create_half_cauchy_prior">
+<code class="descname">_create_half_cauchy_prior</code><span class="sig-paren">(</span><em>loc_tensor</em>, <em>scale_tensor</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont._create_half_cauchy_prior"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._create_half_cauchy_prior" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create half cauchy distribution with <code class="docutils literal notranslate"><span class="pre">edward.models.TransformedDistribution</span></code>
+together with <code class="docutils literal notranslate"><span class="pre">edward.models.Cauchy</span></code>.</p>
+<p>This is recommended by Andrew Gelman at <a class="reference external" href="http://www.stat.columbia.edu/~gelman/research/published/taumain.pdf">here</a>.
+More information about <a class="reference external" href="https://en.wikipedia.org/wiki/Cauchy_distribution">half cauchy</a>.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>loc_tensor (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): location of the cauchy distribution.
+scale_tensor (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): scale of the cauchy distribution.</dd>
+<dt>Returns:</dt>
+<dd><code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code> : Half-Cauchy distribution.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._create_scale_log_normal">
+<code class="descname">_create_scale_log_normal</code><span class="sig-paren">(</span><em>shape_list</em>, <em>loc_name</em>, <em>scale_name</em>, <em>object_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont._create_scale_log_normal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._create_scale_log_normal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create LogNormal(<code class="docutils literal notranslate"><span class="pre">variable_loc</span></code>, <code class="docutils literal notranslate"><span class="pre">variable_scale</span></code>) distribution for variational posterior.</p>
+<p>Since it is for VP, so the location and scale are all created using <code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.get_variable</span></code>.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">shape_list (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>): the shape of MV distributions.</p>
+<p>loc_name (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): variable name for the locations</p>
+<p>scale_name (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): variable name for the scale</p>
+<dl class="last docutils">
+<dt>object_name (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): the name for the transformed distribution. Note that</dt>
+<dd>the true name contains an affix <cite>q</cite>.</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code> : <cite>shape_list</cite> * LogNormal(0, <cite>scale_tensor</cite> ) distribution.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._create_scale_log_normal_0_1_prior">
+<code class="descname">_create_scale_log_normal_0_1_prior</code><span class="sig-paren">(</span><em>shape_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont._create_scale_log_normal_0_1_prior"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._create_scale_log_normal_0_1_prior" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create LogNormal(0,1) as prior given <code class="docutils literal notranslate"><span class="pre">shape_list</span></code>.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>shape_list (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>): the shape of the MV distributions.</dd>
+<dt>Returns:</dt>
+<dd><code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code> : <cite>shape_list</cite> * LogNormal(0,1) distribution</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._create_scale_log_normal_0_given_scale">
+<code class="descname">_create_scale_log_normal_0_given_scale</code><span class="sig-paren">(</span><em>shape_list</em>, <em>scale_tensor</em>, <em>object_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont._create_scale_log_normal_0_given_scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._create_scale_log_normal_0_given_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create LogNormal(0, <code class="docutils literal notranslate"><span class="pre">scale_tensor</span></code>) distribution.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">shape_list (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>): the shape of MV distributions.</p>
+<p>scale_tensor (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): this is the scale for the LogNormal distributions</p>
+<p class="last">object_name (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): the name for the transformed distribution.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code> : <cite>shape_list</cite> * LogNormal(0, <cite>scale_tensor</cite> ) distribution.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._create_sm2g_prior">
+<code class="descname">_create_sm2g_prior</code><span class="sig-paren">(</span><em>shape_list</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont._create_sm2g_prior"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._create_sm2g_prior" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create scale mixture prior of two Gaussian distributions.</p>
+<p>For more information, refer to sec 3.3 in Blundell, C., Cornebise, J., Kavukcuoglu, K., &amp; Wierstra, D. (2015).
+Weight Uncertainty in Neural Networks. 37. Retrieved <a class="reference external" href="http://arxiv.org/abs/1505.05424">at</a>.</p>
+<dl class="docutils">
+<dt>Note:</dt>
+<dd><code class="xref py py-attr docutils literal notranslate"><span class="pre">model_params</span></code> contains <cite>edward_cfg.sm2g</cite> of <cite>pi</cite>, <cite>s1</cite>, <cite>s2</cite> which determine the prior distribution.</dd>
+<dt>Args:</dt>
+<dd><p class="first">shape_list (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>): the shape of MV distributions.</p>
+<p class="last">name (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): the name for the transformed distribution.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code> : scaled mixture prior distribution.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._create_standard_normal">
+<code class="descname">_create_standard_normal</code><span class="sig-paren">(</span><em>shape_list</em>, <em>loc_name</em>, <em>scale_name</em>, <em>object_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont._create_standard_normal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._create_standard_normal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create standard normal(<code class="docutils literal notranslate"><span class="pre">variable_loc</span></code>, <code class="docutils literal notranslate"><span class="pre">variable_scale</span></code>) distribution for variational posterior.</p>
+<p>Since it is for VP, so the location and scale are all created using <code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.get_variable</span></code>.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">shape_list (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>): the shape of MV distributions.</p>
+<p>loc_name (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): variable name for the locations</p>
+<p>scale_name (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): variable name for the scale</p>
+<dl class="last docutils">
+<dt>object_name (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): the name for the transformed distribution. Note that</dt>
+<dd>the true name contains an affix <cite>q</cite>.</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code> : <cite>shape_list</cite> * Normal(0, <cite>scale_tensor</cite> ) distribution.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._set_dimension_and_activations">
+<code class="descname">_set_dimension_and_activations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont._set_dimension_and_activations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont._set_dimension_and_activations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the dimension for the Koopman observables and activations</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.buildMLPWeightsBias">
+<code class="descname">buildMLPWeightsBias</code><span class="sig-paren">(</span><em>structure_list</em>, <em>prefix</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.buildMLPWeightsBias"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.buildMLPWeightsBias" title="Permalink to this definition">¶</a></dt>
+<dd><p>build FNN weights and biases given <cite>structure_list</cite>.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">structure_list (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>): the list describing the structure of FNN encoder.</p>
+<p class="last">prefix (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): <cite>enc</cite> or <cite>dec</cite>.</p>
+</dd>
+</dl>
+<p>Returns:</p>
+<blockquote>
+<div><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a>: (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) as collection of weights and biases.</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.buildPODWeights">
+<code class="descname">buildPODWeights</code><span class="sig-paren">(</span><em>structure_list</em>, <em>prefix</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.buildPODWeights"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.buildPODWeights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build POD short cuts weights for the encoder and decoder.</p>
+<p>Essentially it is just doing SVD on the input data.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">structure_list (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>): structure of the FNN encoder.</p>
+<p class="last">prefix (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): striong of the prefix.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> : dictionary of POD weights.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.buildSpecialMLPWeightBias">
+<code class="descname">buildSpecialMLPWeightBias</code><span class="sig-paren">(</span><em>structure_list</em>, <em>prefix</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.buildSpecialMLPWeightBias"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.buildSpecialMLPWeightBias" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.compile_optimization">
+<code class="descname">compile_optimization</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.compile_optimization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.compile_optimization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Choose optimizer and get summary done.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.construct_model">
+<code class="descname">construct_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.construct_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.construct_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the main model graph for DL Koopman</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> : (residual_vector_rec_loss, residual_vector_lin_loss)</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.createMLPOutLinear">
+<code class="descname">createMLPOutLinear</code><span class="sig-paren">(</span><em>start_layer</em>, <em>weights</em>, <em>bias</em>, <em>prefix</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.createMLPOutLinear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.createMLPOutLinear" title="Permalink to this definition">¶</a></dt>
+<dd><p>FNN layer with <code class="docutils literal notranslate"><span class="pre">start_layer</span></code> as input.</p>
+<p>It takes the <code class="docutils literal notranslate"><span class="pre">phi_dmd</span></code> into consideration about whether or not add SVD_DMD into it.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">start_layer (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tesnor</span></code>): input tensor.</p>
+<p>weights (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>): collection of weights.</p>
+<p>bias (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>): collection of biases.</p>
+<p class="last">prefix (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): prefix to the layer.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="first last docutils">
+<dt><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> <span class="classifier-delimiter">:</span> <span class="classifier">last output of the feedforward, and last output of the feedforward without activations in</span></dt>
+<dd>between.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.createMLPOutLinearOLD">
+<code class="descname">createMLPOutLinearOLD</code><span class="sig-paren">(</span><em>start_layer</em>, <em>weights</em>, <em>bias</em>, <em>prefix</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.createMLPOutLinearOLD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.createMLPOutLinearOLD" title="Permalink to this definition">¶</a></dt>
+<dd><p>FNN layer with <code class="docutils literal notranslate"><span class="pre">start_layer</span></code> as input.</p>
+<p>It takes the <code class="docutils literal notranslate"><span class="pre">phi_dmd</span></code> into consideration about whether or not add SVD_DMD into it.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">start_layer (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tesnor</span></code>): input tensor.</p>
+<p>weights (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>): collection of weights.</p>
+<p>bias (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>): collection of biases.</p>
+<p class="last">prefix (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): prefix to the layer.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="first last docutils">
+<dt><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> <span class="classifier-delimiter">:</span> <span class="classifier">last output of the feedforward, and last output of the feedforward without activations in</span></dt>
+<dd>between.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.decoding_neural_net_with_pod">
+<code class="descname">decoding_neural_net_with_pod</code><span class="sig-paren">(</span><em>phi</em>, <em>SVD_DMD_FLAG</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.decoding_neural_net_with_pod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.decoding_neural_net_with_pod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output the state given Kopman observables</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>phi (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): Koopman observables.</dd>
+<dt>Returns:</dt>
+<dd><code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code> : reconstructed system state.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.encoding_neural_net_with_pod">
+<code class="descname">encoding_neural_net_with_pod</code><span class="sig-paren">(</span><em>input</em>, <em>SVD_DMD_FLAG</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.encoding_neural_net_with_pod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.encoding_neural_net_with_pod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Koopman observables with POD short cut or not.</p>
+<p>Depending on <code class="xref py py-attr docutils literal notranslate"><span class="pre">model_params</span></code>, we will encoder that with POD or not.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>input (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code>): input of the neural network, i.e., system state <span class="math notranslate nohighlight">\(x\)</span>.</dd>
+<dt>Returns:</dt>
+<dd><code class="xref py py-obj docutils literal notranslate"><span class="pre">tf.Tensor</span></code> : Koopman observables.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.getX_Xdot">
+<code class="descname">getX_Xdot</code><span class="sig-paren">(</span><em>X</em>, <em>Xdot</em>, <em>valid_size=0.01</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.getX_Xdot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.getX_Xdot" title="Permalink to this definition">¶</a></dt>
+<dd><p>get training data &amp; validation data with a certain valid_size split</p>
+<dl class="docutils">
+<dt>Note:</dt>
+<dd><code class="xref py py-attr docutils literal notranslate"><span class="pre">model_params</span></code> contains <code class="docutils literal notranslate"><span class="pre">normalization_type</span></code>, which will indicates
+how we treat the normalization process. <code class="docutils literal notranslate"><span class="pre">only_max</span></code> means we will keep the ratio of variance.
+Otherwise, we just do treat everyone into standard deviation 1.</dd>
+<dt>Args:</dt>
+<dd><dl class="first docutils">
+<dt>X (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): training data states <span class="math notranslate nohighlight">\(X\)</span>, with <code class="docutils literal notranslate"><span class="pre">axis=0</span></code> corresponding to number of data</dt>
+<dd>snapshots.</dd>
+</dl>
+<p>Xdot (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>) training data time derivative <span class="math notranslate nohighlight">\(\dot{x}\)</span>.</p>
+<p class="last">valid_size (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>): validation split ratio.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.get_graph">
+<code class="descname">get_graph</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.get_graph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.get_graph" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.initilize">
+<code class="descname">initilize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.initilize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.initilize" title="Permalink to this definition">¶</a></dt>
+<dd><p>initialize session and variables</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.sample_K">
+<code class="descname">sample_K</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.sample_K"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.sample_K" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sampling K matrix for Bayesian case</p>
+<p>Default is using 100 samples for Monte Carlo sampling.</p>
+<p>Note that stabilization is implied.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.save_model">
+<code class="descname">save_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.save_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.save_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the whole model using <code class="docutils literal notranslate"><span class="pre">tf.saved_model.simple_save</span></code>.</p>
+<dl class="docutils">
+<dt>Note:</dt>
+<dd><ul class="first last simple">
+<li>create new folder as <code class="docutils literal notranslate"><span class="pre">model_saved</span></code></li>
+<li>meta info is contained in <code class="docutils literal notranslate"><span class="pre">model_arch.npz</span></code>.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.save_parameter_npy">
+<code class="descname">save_parameter_npy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.save_parameter_npy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.save_parameter_npy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save neural network encoder decoder parameters.</p>
+<p>Note:</p>
+<blockquote>
+<div><p>It will be named as <code class="docutils literal notranslate"><span class="pre">saved_para.npy</span></code>.</p>
+<ul class="simple">
+<li>save encoder weights, bias</li>
+<li>save decoder weights, bias</li>
+<li>save K</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.setup_K">
+<code class="descname">setup_K</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.setup_K"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.setup_K" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup for the Koopman operator K matrix.</p>
+<p>We will first check if the case is Bayesian or not. Then we will use the stabilization form, almost as always.
+The stabilization form can be found in our <a class="reference external" href="https://arxiv.org/abs/1906.03663">preprint</a>.</p>
+<p>Note:</p>
+<blockquote>
+<div><p>It contains three aspects:</p>
+<ol class="arabic simple">
+<li>variational posteriori</li>
+<li>hyperprior</li>
+<li>prior</li>
+</ol>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.shuffle_data">
+<code class="descname">shuffle_data</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.shuffle_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.shuffle_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>shuffle data given X and Y</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>X (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): X data
+Y (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.darray</span></code>): Y data</dd>
+<dt>Returns:</dt>
+<dd><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> : (random shuffled X, random shuffled Y).</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.shuffle_data_index">
+<code class="descname">shuffle_data_index</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.shuffle_data_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.shuffle_data_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shuffling the data <code class="docutils literal notranslate"><span class="pre">X</span></code> with randomness.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>X (<code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>): input data.</dd>
+<dt>Returns:</dt>
+<dd><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> : the index of random shuffle.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.summary">
+<code class="descname">summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print number of all trainable weights and data points</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.train">
+<code class="descname">train</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MODEL_SRC/ClassDLKoopmanCont.html#ClassDLKoopmanCont.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MODEL_SRC.ClassDLKoopmanCont.ClassDLKoopmanCont.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>training the neural network with mini-batch training</p>
+<dl class="docutils">
+<dt>Note:</dt>
+<dd><code class="xref py py-attr docutils literal notranslate"><span class="pre">model_params</span></code> contains <code class="docutils literal notranslate"><span class="pre">numberEpoch</span></code> and <code class="docutils literal notranslate"><span class="pre">miniBatch</span></code> will lead to
+the use of number of epochs and batch size.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="MODEL_SRC.ClassDLKoopmanLRAN.html" class="btn btn-neutral float-right" title="MODEL_SRC.ClassDLKoopmanLRAN module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="MODEL_SRC.lib.utilities.html" class="btn btn-neutral float-left" title="MODEL_SRC.lib.utilities module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Shaowu Pan
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
