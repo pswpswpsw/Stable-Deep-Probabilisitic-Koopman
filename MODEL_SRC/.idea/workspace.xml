@@ -1,0 +1,1206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b02861aa-7136-4159-b13c-f94234eb8f6f" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../YG7/Glycolysis_data_gen.py" beforeDir="false" afterPath="$PROJECT_DIR$/../YG7/Glycolysis_data_gen.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_20d_cylinder_LRAN_nonBayes.py" beforeDir="false" afterPath="$PROJECT_DIR$/../example_20d_cylinder_LRAN_nonBayes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_7d_yg_nonBayes.py" beforeDir="false" afterPath="$PROJECT_DIR$/../example_7d_yg_nonBayes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../result/2d_simple_lusch2017_noise_level_0/dldmd_2019-03-17-04-17-24/koopman_eigenfunctions.npz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../result/2d_simple_lusch2017_noise_level_0/dldmd_2019-03-17-04-17-24/koopman_eigenvalue_deeplearn.npz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../result/2d_simple_lusch2017_noise_level_0/dldmd_2019-03-17-04-17-24/linear-MSE_learn_curve.npz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../result/2d_simple_lusch2017_noise_level_0/dldmd_2019-03-17-04-17-24/model_saved/model_arch.npz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../result/2d_simple_lusch2017_noise_level_0/dldmd_2019-03-17-04-17-24/model_saved/saved_model.pb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../result/2d_simple_lusch2017_noise_level_0/dldmd_2019-03-17-04-17-24/model_saved/variables/variables.data-00000-of-00001" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../result/2d_simple_lusch2017_noise_level_0/dldmd_2019-03-17-04-17-24/model_saved/variables/variables.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../result/2d_simple_lusch2017_noise_level_0/dldmd_2019-03-17-04-17-24/recon-MSE_learn_curve.npz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../result/2d_simple_lusch2017_noise_level_0/dldmd_2019-03-17-04-17-24/reg-MSE_learn_curve.npz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../result/2d_simple_lusch2017_noise_level_0/dldmd_2019-03-17-04-17-24/saved_para.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../result/2d_simple_lusch2017_noise_level_0/dldmd_2019-03-17-04-17-24/tbTrain/events.out.tfevents.1552796278.gpu-cn010" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../result/2d_simple_lusch2017_noise_level_0/dldmd_2019-03-17-04-17-24/tbValid/events.out.tfevents.1552796726.gpu-cn010" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../result/2d_simple_lusch2017_noise_level_0/dldmd_2019-03-17-04-17-24/total-MSE_learn_curve.npz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../result/2d_simple_lusch2017_noise_level_0/dldmd_2019-03-17-04-17-24/train_data.npz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source_code/classBayesDLKoopman.py" beforeDir="false" afterPath="$PROJECT_DIR$/../source_code/classBayesDLKoopman.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source_code/classGenerateDataFromPhysics.py" beforeDir="false" afterPath="$PROJECT_DIR$/../source_code/classGenerateDataFromPhysics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_10_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_10_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_11_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_11_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_12_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_12_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_13_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_13_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_14_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_14_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_15_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_15_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_16_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_16_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_17_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_17_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_18_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_18_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_19_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_19_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_1_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_1_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_20_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_20_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_2_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_2_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_3_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_3_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_4_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_4_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_5_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_5_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_6_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_6_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_7_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_7_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_8_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_8_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_9_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/component_9_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/koopmanEigVal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/linear-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/recon-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/total-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/total_component_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-23_weak_reg_1e-8_5e-6/total_component_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_10_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_10_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_11_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_11_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_12_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_12_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_13_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_13_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_14_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_14_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_15_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_15_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_16_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_16_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_17_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_17_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_18_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_18_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_19_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_19_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_1_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_1_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_20_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_20_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_2_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_2_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_3_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_3_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_4_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_4_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_5_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_5_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_6_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_6_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_7_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_7_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_8_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_8_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_9_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/component_9_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/koopmanEigVal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/linear-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/recon-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/total-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/total_component_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-33-45_strongReg_1e-6_1e-5_real_part_zero/total_component_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_10_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_10_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_11_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_11_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_12_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_12_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_13_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_13_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_14_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_14_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_15_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_15_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_16_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_16_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_17_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_17_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_18_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_18_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_19_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_19_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_1_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_1_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_20_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_20_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_2_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_2_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_3_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_3_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_4_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_4_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_5_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_5_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_6_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_6_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_7_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_7_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_8_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_8_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_9_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/component_9_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/koopmanEigVal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/linear-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/recon-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/total-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/total_component_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-12_mid_reg_1e-7_4e-5/total_component_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_10_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_10_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_11_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_11_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_12_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_12_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_13_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_13_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_14_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_14_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_15_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_15_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_16_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_16_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_17_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_17_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_18_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_18_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_19_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_19_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_1_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_1_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_20_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_20_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_2_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_2_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_3_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_3_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_4_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_4_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_5_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_5_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_6_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_6_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_7_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_7_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_8_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_8_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_9_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/component_9_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/koopmanEigVal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/linear-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/recon-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/total-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/total_component_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-17_strongReg_1e-5_2e-4/total_component_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_10_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_10_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_11_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_11_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_12_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_12_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_13_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_13_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_14_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_14_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_15_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_15_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_16_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_16_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_17_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_17_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_18_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_18_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_19_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_19_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_1_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_1_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_20_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_20_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_2_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_2_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_3_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_3_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_4_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_4_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_5_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_5_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_6_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_6_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_7_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_7_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_8_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_8_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_9_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/component_9_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/koopmanEigVal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/linear-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/recon-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/total-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/total_component_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-29_reg_1e-10_2e-6/total_component_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_10_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_10_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_11_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_11_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_12_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_12_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_13_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_13_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_14_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_14_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_15_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_15_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_16_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_16_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_17_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_17_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_18_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_18_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_19_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_19_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_1_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_1_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_20_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_20_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_2_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_2_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_3_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_3_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_4_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_4_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_5_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_5_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_6_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_6_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_7_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_7_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_8_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_8_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_9_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/component_9_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/koopmanEigVal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/linear-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/recon-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/total-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/total_component_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-34-50_no_reg_3e-6/total_component_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_10_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_10_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_11_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_11_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_12_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_12_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_13_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_13_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_14_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_14_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_15_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_15_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_16_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_16_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_17_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_17_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_18_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_18_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_19_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_19_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_1_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_1_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_20_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_20_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_2_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_2_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_3_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_3_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_4_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_4_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_5_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_5_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_6_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_6_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_7_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_7_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_8_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_8_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_9_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/component_9_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/koopmanEigVal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/linear-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/recon-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/total-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/total_component_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-02-23-15-35-28_1e-5/total_component_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_10_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_10_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_11_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_11_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_12_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_12_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_13_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_13_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_14_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_14_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_15_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_15_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_16_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_16_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_17_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_17_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_18_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_18_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_19_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_19_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_1_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_1_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_20_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_20_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_2_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_2_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_3_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_3_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_4_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_4_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_5_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_5_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_6_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_6_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_7_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_7_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_8_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_8_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_9_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/component_9_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/koopmanEigVal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/linear-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/recon-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/total-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/total_component_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-02-13-56-57-correct_data/total_component_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_10_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_10_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_11_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_11_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_12_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_12_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_13_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_13_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_14_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_14_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_15_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_15_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_16_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_16_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_17_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_17_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_18_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_18_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_19_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_19_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_1_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_1_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_20_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_20_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_2_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_2_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_3_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_3_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_4_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_4_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_5_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_5_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_6_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_6_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_7_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_7_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_8_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_8_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_9_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/component_9_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/koopmanEigVal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/linear-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/recon-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/total-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/total_component_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-01-55-14-modes-20/total_component_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_10_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_10_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_11_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_11_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_12_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_12_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_13_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_13_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_14_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_14_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_15_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_15_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_16_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_16_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_17_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_17_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_18_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_18_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_19_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_19_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_1_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_1_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_20_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_20_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_2_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_2_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_3_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_3_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_4_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_4_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_5_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_5_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_6_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_6_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_7_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_7_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_8_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_8_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_9_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/component_9_whole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/koopmanEigVal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/linear-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/recon-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/total-MSE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/total_component_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../pps_src/20d_cylinder_flow_pod_case/dldmd_2019-03-03-17-21-41-modes-10-scale-uniform/total_component_whole.png" beforeDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/_$classEKDMD.coverage" NAME="classEKDMD Coverage Results" MODIFIED="1526420292084" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/.." />
+    <SUITE FILE_PATH="coverage/_$Glycolysis_data_gen.coverage" NAME="Glycolysis_data_gen Coverage Results" MODIFIED="1552877521570" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../YG7" />
+    <SUITE FILE_PATH="coverage/model_src$main.coverage" NAME="main Coverage Results" MODIFIED="1525467466436" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/.." />
+    <SUITE FILE_PATH="coverage/_$classEKDMD__1_.coverage" NAME="classEKDMD (1) Coverage Results" MODIFIED="1539098999617" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/_$add_gaussian_noise.coverage" NAME="add_gaussian_noise Coverage Results" MODIFIED="1539099009160" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/.." />
+    <SUITE FILE_PATH="coverage/model_src$classEKDMD.coverage" NAME="classEKDMD Coverage Results" MODIFIED="1526872477451" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/.." />
+    <SUITE FILE_PATH="coverage/_$main.coverage" NAME="main Coverage Results" MODIFIED="1525366555247" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/.." />
+    <SUITE FILE_PATH="coverage/model_src$classEKDMD__1_.coverage" NAME="classEKDMD (1) Coverage Results" MODIFIED="1526939441708" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_TABLE_DETAILS" value="true" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <expand />
+    <select />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="799546439">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.4" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.opened" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="Python Console" value="45" />
+          <entry key="py" value="1984" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="2029" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
+    <session id="174506444">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.21" value="1" />
+          <entry key="project.open.time.25" value="1" />
+          <entry key="project.opened" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="7" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="7" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="py" value="310" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="310" />
+        </counts>
+      </usages-collector>
+    </session>
+    <session id="1056240560">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="4" />
+          <entry key="project.open.time.8" value="1" />
+          <entry key="project.open.time.9" value="3" />
+          <entry key="project.opened" value="4" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="17" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="17" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="Python Console" value="275" />
+          <entry key="py" value="1235" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="1510" />
+        </counts>
+      </usages-collector>
+    </session>
+    <session id="-1624788856">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
+    <session id="13724960">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.8" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="8" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="8" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="py" value="206" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="206" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../source_code/classBayesDLKoopman.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="125" column="55" selection-start-line="125" selection-start-column="47" selection-end-line="125" selection-end-column="55" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../example_2d_simple_lusch_Bayes.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="380">
+              <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>sess.run</find>
+      <find>contourf</find>
+      <find>Adam</find>
+      <find>Xrec</find>
+      <find>shutil</find>
+      <find>buildDMDWeights</find>
+      <find>D_real</find>
+      <find>eig</find>
+      <find>scipy</find>
+      <find>svd</find>
+      <find>\lambda</find>
+      <find>gaussian</find>
+      <find>legend</find>
+      <find>name</find>
+      <find>tf.nn.tanh</find>
+      <find>model_dir</find>
+      <find>loss_op</find>
+      <find>ptanh</find>
+      <find>penalized_tanh</find>
+      <find>npz</find>
+      <find>k.npz</find>
+      <find>random.normal</find>
+      <find>mkdir</find>
+      <find>self.eta</find>
+      <find>self.Lambda_X_inv</find>
+      <find>normalization_type</find>
+      <find>on</find>
+      <find>state_X</find>
+      <find>train_op</find>
+      <find>nonBayes</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>configDict</replace>
+      <replace>self.lin_loss</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$/../..</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/../classKDMD.py" />
+        <option value="$PROJECT_DIR$/../../classEKDMD.py" />
+        <option value="$PROJECT_DIR$/../../main.py" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/classEKDMD.py" />
+        <option value="$PROJECT_DIR$/../classEKDMD.py" />
+        <option value="$PROJECT_DIR$/../main.py" />
+        <option value="$PROJECT_DIR$/../classBayesDLKoopman.py" />
+        <option value="$PROJECT_DIR$/../classDLKoopman.py" />
+        <option value="$PROJECT_DIR$/../add_gaussian_noise.py" />
+        <option value="$PROJECT_DIR$/../example_2d_duffing.py" />
+        <option value="$PROJECT_DIR$/../example_2d_simple_lusch.py" />
+        <option value="$PROJECT_DIR$/../example_cylinder_nonBayes.py" />
+        <option value="$PROJECT_DIR$/source_code/classGenerateTimeDerivativePODDataFromVTK.py" />
+        <option value="$PROJECT_DIR$/../example_2d_duffing_less_data_nonBayes.py" />
+        <option value="$PROJECT_DIR$/../example_2d_duffing_more_data_nonBayes.py" />
+        <option value="$PROJECT_DIR$/../example_2d_duffing_nonBayes.py" />
+        <option value="$PROJECT_DIR$/../example_2d_simple_lusch_nonBayes.py" />
+        <option value="$PROJECT_DIR$/../example_20d_cylinder_flow_nonBayes.py" />
+        <option value="$PROJECT_DIR$/../source_code/lib/conflux_version_sklearn.py" />
+        <option value="$PROJECT_DIR$/../source_code/classDLKoopman.py" />
+        <option value="$PROJECT_DIR$/../source_code/classBayesDLKoopman.py" />
+        <option value="$PROJECT_DIR$/../example_2d_simple_lusch_Bayes.py" />
+        <option value="$PROJECT_DIR$/../source_code/classGenerateDataFromPhysics.py" />
+        <option value="$PROJECT_DIR$/../YG7/generate_YG_x_xdot_7dim.py" />
+        <option value="$PROJECT_DIR$/../YG7/Glycolysis_data_gen.py" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="65" />
+    <option name="y" value="24" />
+    <option name="width" value="1855" />
+    <option name="height" value="1176" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State />
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Angular</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <autoscrollFromSource ProjectPane="true" />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="." type="b2602c69:ProjectViewProjectNode" />
+              <item name="model_src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="." type="b2602c69:ProjectViewProjectNode" />
+              <item name="model_src" type="462c0819:PsiDirectoryNode" />
+              <item name="source_code" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="." type="b2602c69:ProjectViewProjectNode" />
+              <item name="model_src" type="462c0819:PsiDirectoryNode" />
+              <item name="YG7" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="." type="b2602c69:ProjectViewProjectNode" />
+              <item name="model_src" type="462c0819:PsiDirectoryNode" />
+              <item name="YG7" type="462c0819:PsiDirectoryNode" />
+              <item name="Yeast_Glycolysis.py" type="8704e2dd:PyFileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings module-name="model_src" is-module-sdk="true">
+        <option name="myUseModuleSdk" value="true" />
+        <option name="myModuleName" value="model_src" />
+      </console-settings>
+    </option>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python.Glycolysis_data_gen">
+    <configuration name="Glycolysis_data_gen" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="model_src" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../YG7" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../YG7/Glycolysis_data_gen.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="add_gaussian_noise" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="model_src" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.." />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../add_gaussian_noise.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="classEKDMD (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="model_src" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/classEKDMD.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="classEKDMD" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="model_src" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.." />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../classEKDMD.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="model_src" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.." />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python.classEKDMD" />
+      <item itemvalue="Python.classEKDMD (1)" />
+      <item itemvalue="Python.add_gaussian_noise" />
+      <item itemvalue="Python.Glycolysis_data_gen" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.Glycolysis_data_gen" />
+        <item itemvalue="Python.add_gaussian_noise" />
+        <item itemvalue="Python.classEKDMD (1)" />
+        <item itemvalue="Python.classEKDMD" />
+        <item itemvalue="Python.main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="StructureViewFactory">
+    <option name="AUTOSCROLL_MODE" value="false" />
+    <option name="ACTIVE_ACTIONS" value=",SHOW_INHERITED,SHOW_FIELDS" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b02861aa-7136-4159-b13c-f94234eb8f6f" name="Default" comment="" />
+      <created>1525140147699</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1525140147699</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="65" y="24" width="1855" height="1176" extended-state="0" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18131565" />
+      <window_info id="Structure" order="1" weight="0.21227197" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.66171" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4936429" weight="0.41316795" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49806523" weight="0.51404494" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49306297" weight="0.32704404" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4903949" weight="0.23664123" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.506937" side_tool="true" weight="0.32857144" />
+      <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.49786553" weight="0.32899627" />
+      <window_info anchor="bottom" id="Python Console" order="11" sideWeight="0.49806523" weight="0.28816795" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="13" weight="0.32992566" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="SciView" order="3" />
+      <window_info anchor="right" x="0" y="0" width="350" height="673" id="Documentation" order="4" weight="0.32947233" />
+      <window_info anchor="right" id="Database" order="5" weight="0.32946378" />
+    </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.08987257" />
+      <window_info id="Structure" order="1" weight="0.2172471" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.66171" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4936429" weight="0.41356876" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49806523" weight="0.51404494" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49306297" weight="0.32801595" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4903949" weight="0.23689727" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.506937" side_tool="true" weight="0.32857144" />
+      <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.49786553" weight="0.32899627" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="11" sideWeight="0.49806523" visible="true" weight="0.100271" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="13" weight="0.32992566" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="SciView" order="3" />
+      <window_info anchor="right" x="0" y="0" width="350" height="673" id="Documentation" order="4" weight="0.32947233" />
+      <window_info anchor="right" id="Database" order="5" weight="0.32946378" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/.." />
+    </ignored-roots>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/../main_no_tab.py" />
+    <entry file="file://$PROJECT_DIR$/../../main.py" />
+    <entry file="file://$PROJECT_DIR$/../../classEKDMD.py" />
+    <entry file="file://$PROJECT_DIR$/../../eval_src/main_eval.py" />
+    <entry file="file://$PROJECT_DIR$/../main.py" />
+    <entry file="file://$PROJECT_DIR$/../classEKDMD.py" />
+    <entry file="file://$PROJECT_DIR$/../lib_model/model.py" />
+    <entry file="file://$PROJECT_DIR$/../add_gaussian_noise.py" />
+    <entry file="file://$PROJECT_DIR$/../classDLKoopman.py" />
+    <entry file="file://$PROJECT_DIR$/../classBayesDLKoopman.py" />
+    <entry file="file://$PROJECT_DIR$/../example_2d_simple_lusch.py" />
+    <entry file="file://$PROJECT_DIR$/../example_2d_duffing.py" />
+    <entry file="file://$PROJECT_DIR$/../source_code/lib/model.py" />
+    <entry file="file://$PROJECT_DIR$/../example_20d_cylinder_flow_nonBayes.py" />
+    <entry file="file://$PROJECT_DIR$/../example_cylinder_nonBayes.py" />
+    <entry file="file://$PROJECT_DIR$/../source_code/classGenerateTimeDerivativePODDataFromVTK.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2257">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../example_2d_duffing_nonBayes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="24" column="33" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../example_2d_simple_lusch_nonBayes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="24" column="33" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../example_2d_duffing_less_data_nonBayes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="26" column="30" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../example_2d_duffing_more_data_nonBayes.py" />
+    <entry file="file://$PROJECT_DIR$/../source_code/lib/utilities.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../source_code/lib/conflux_version_sklearn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="15" selection-start-line="25" selection-start-column="15" selection-end-line="25" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../source_code/classDLKoopman.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="179" column="8" selection-start-line="179" selection-start-column="8" selection-end-line="179" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../source_code/classGenerateDataFromPhysics.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="54" column="51" selection-start-line="54" selection-start-column="51" selection-end-line="54" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../generate_data_2d_lusch_duffing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="536">
+          <caret line="37" column="46" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#54#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../YG7/Glycolysis_data_gen.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="931">
+          <caret line="49" column="15" selection-start-line="49" selection-start-column="15" selection-end-line="49" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../YG7/Glycolysis_gradient_tf.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../YG7/generate_YG_x_xdot_7dim.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../YG7/Yeast_Glycolysis.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../example_2d_simple_lusch_Bayes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../source_code/classBayesDLKoopman.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="125" column="55" selection-start-line="125" selection-start-column="47" selection-end-line="125" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
