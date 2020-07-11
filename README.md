@@ -1,12 +1,9 @@
-# Source code file for 2018_bayes_dl_koopman_ode
+# Stable Bayesian Deep Learning of Koopman Operator
 
-We implement a Bayesian Neural Network on Koopman operator
+We implement a Bayesian Neural Network on Koopman operator with
 
 - ADVI
 - Tensorflow
 
-# Results
+# For more information, visit the website
 
-- 2d simple lusch case
-- 2d duffing case
-- cylinder flow case with Re = 100, vortex shedding case.
