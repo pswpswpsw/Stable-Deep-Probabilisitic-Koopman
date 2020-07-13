@@ -1747,32 +1747,32 @@ class ClassDLKoopmanCont(object):
         self.XdotValid = Xdot_valid
 
         # normalizing X
-        scaler_X = StandardScaler()
-        scaler_X.fit(X_train)
+        scaler_mean = np.mean(X_train, axis=0)
+        scaler_std = np.std(X_train, axis=0)
 
         if self.model_params['normalization_type'] == 'only_max':
-            variance = np.ones(scaler_X.var_.shape) * np.max(scaler_X.var_)
-            self.mu_X = tf.convert_to_tensor(scaler_X.mean_, dtype=TF_FLOAT, name='mu_X')
-            self.Lambda_X = tf.convert_to_tensor(np.diag(np.sqrt(variance)), dtype=TF_FLOAT, name='Lambda_X')
+            std = np.ones(scaler_std.shape) * np.max(scaler_std)
+            self.mu_X = tf.convert_to_tensor(scaler_mean, dtype=TF_FLOAT, name='mu_X')
+            self.Lambda_X = tf.convert_to_tensor(np.diag(std), dtype=TF_FLOAT, name='Lambda_X')
             self.Lambda_X_inv = tf.linalg.inv(self.Lambda_X)
 
             # create self.POD_V based on eta_xtrain
-            X_train_normalized = scaler_X.transform(self.Xtrain)
+            X_train_normalized = np.matmul(self.Xtrain - scaler_mean, np.linalg.inv(np.diag(std)))
             u, s, vh = np.linalg.svd(X_train_normalized, full_matrices=False)
 
         elif self.model_params['normalization_type'] == 'not_only_max':
-            self.mu_X = tf.convert_to_tensor(scaler_X.mean_, dtype=TF_FLOAT, name='mu_X')
-            variance = scaler_X.var_
-            self.Lambda_X = tf.convert_to_tensor(np.diag(np.sqrt(variance)), dtype=TF_FLOAT, name='Lambda_X')
+            self.mu_X = tf.convert_to_tensor(scaler_mean, dtype=TF_FLOAT, name='mu_X')
+            std = scaler_std
+            self.Lambda_X = tf.convert_to_tensor(np.diag(std), dtype=TF_FLOAT, name='Lambda_X')
             self.Lambda_X_inv = tf.linalg.inv(self.Lambda_X)
 
             # create self.POD_V based on eta_xtrain
-            X_train_normalized = scaler_X.transform(self.Xtrain)
+            X_train_normalized = np.matmul(self.Xtrain - scaler_mean, np.linalg.inv(np.diag(std)))
             u, s, vh = np.linalg.svd(X_train_normalized, full_matrices=False)
         else:
-            variance = scaler_X.var_
-            self.mu_X = tf.convert_to_tensor(scaler_X.mean_*0, dtype=TF_FLOAT, name='mu_X')
-            self.Lambda_X = self.Lambda_X = tf.convert_to_tensor(np.diag(np.ones(variance.size)), dtype=TF_FLOAT, name='Lambda_X')
+            std = scaler_std
+            self.mu_X = tf.convert_to_tensor(scaler_mean*0, dtype=TF_FLOAT, name='mu_X')
+            self.Lambda_X = self.Lambda_X = tf.convert_to_tensor(np.diag(np.ones(std.size)), dtype=TF_FLOAT, name='Lambda_X')
             self.Lambda_X_inv = tf.linalg.inv(self.Lambda_X)
 
             # create self.POD_V based on eta_xtrain

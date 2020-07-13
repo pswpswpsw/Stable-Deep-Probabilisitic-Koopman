@@ -110,13 +110,13 @@ class ClassDLKoopmanLRAN(ClassDLKoopmanCont):
         else:
             # stacking all trajectory data
             print('multiple trajectory training')
-            Xraw = np.vstack(X)  # shape = (N_TRJ, N_SAMPLE, N_DIM)
+            Xraw = X  # shape = (N_TRJ, N_SAMPLE, N_DIM)
 
         # get data normalized, find mean and std, std can be found by different ways..
         # -- keep component variance the same
         # -- or not keep the variance among components differently
 
-        scaler_X = StandardScaler()
+        # scaler_X = StandardScaler()
 
         # modification to match Seth & Kutz 2019 paper.
         # -- we choose to normalize by subtract the mean partially from training data. 
@@ -127,16 +127,19 @@ class ClassDLKoopmanLRAN(ClassDLKoopmanCont):
         else:
             data_for_scaling = np.vstack(Xraw[:, :-self.T, :])
 
-        scaler_X.fit(data_for_scaling)
+        # compute data mean and std
+        scaler_mean = np.mean(data_for_scaling, axis=0)
+        scaler_std = np.std(data_for_scaling, axis=0)
+        # scaler_X.fit(data_for_scaling)
 
-        self.mu_X = tf.convert_to_tensor(scaler_X.mean_, dtype=TF_FLOAT, name='mu_X')
+        self.mu_X = tf.convert_to_tensor(scaler_mean, dtype=TF_FLOAT, name='mu_X')
 
         if self.model_params['normalization_type'] == 'only_max':
-            variance = np.ones(scaler_X.var_.shape) * np.max(scaler_X.var_)
+            std = np.ones(scaler_std.shape) * np.max(scaler_std)
         else:
-            variance = scaler_X.var_
+            std = scaler_std
 
-        self.Lambda_X = tf.convert_to_tensor(np.diag(np.sqrt(variance)), dtype=TF_FLOAT, name='Lambda_X')
+        self.Lambda_X = tf.convert_to_tensor(np.diag(std), dtype=TF_FLOAT, name='Lambda_X')
         self.Lambda_X_inv = tf.linalg.inv(self.Lambda_X)  # tf.convert_to_tensor(np.linalg.inv(self.Lambda_X), dtype=tf.float32)
 
         # arrange trajectory data into training and validation segements
@@ -187,7 +190,7 @@ class ClassDLKoopmanLRAN(ClassDLKoopmanCont):
         self.XfutureValid = XfutureValid
 
         # compute POD transformation, only for one state, no embedding
-        X_train_normalized = scaler_X.transform(self.Xtrain)
+        X_train_normalized = np.matmul(self.Xtrain - scaler_mean, np.linalg.inv(np.diag(std)))
         u, s, vh = np.linalg.svd(X_train_normalized, full_matrices=False)
         self.POD_V = tf.convert_to_tensor(vh.transpose(), dtype=TF_FLOAT)
 
