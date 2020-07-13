@@ -2,8 +2,6 @@
 
 We implement a Bayesian Neural Network on Koopman operator with
 
-- ADVI
-- Tensorflow
-
-# For more information, visit the website
+- Tensorflow 1.8
+- Edward 1.3.5
 
