@@ -11,7 +11,7 @@ in Python 2 environment.
 
 At the time when I was writing the code, there is a shift from Python 2 to 3 and 
 shifting of Edward to Tensorflow.Probability. Thus, this code for now is only for 
-instructive purpose. I will come back for an upgrade in the future into Python 3 
+informative purpose. I will come back for an upgrade in the future into Python 3 
 environment and make everything in PyTorch.
 
 It will be helpful if you want to know
